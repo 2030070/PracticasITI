@@ -1,0 +1,51 @@
++Crear un nuevo proyecto en laravel:
+
+	$ curl -s https://laravel.build/Practica1 | bash
+	
++Agregar estilos de tailwind al proyecto laravel:
+
+	$ npm install -D tailwindcss postcss autoprefixer
+	$ npx tailwindcss init -p
+	
+	#####editar archivo tailwind.config.js
+	
+	/** @type {import('tailwindcss').Config} */
+	module.exports = {
+	  content: [
+	    "./resources/**/*.blade.php",
+	    "./resources/**/*.js",
+	    "./resources/**/*.vue",
+	  ],
+	  theme: {
+	    extend: {},
+	  },
+	  plugins: [],
+	}
+	
+	####Editar archivo resources/css/app.css
+	
+	@tailwind base;
+	@tailwind components;
+	@tailwind utilities;
+	
+	#### Ejecutar los estilos de tailwind 
+		
+	$ npm run dev
+	
++Crear controlador en laravel:
+
+	$ php artisan make:controller NombreControlador
+
++Crear una migracion en laravel:
+
+	$ php artisan make:migration nombre_migracion
+	
+	hacer los respectivos codigos de modificación
+	
+	$ php artisan migrate 
+	
++Cambiar el lenguaje a español en laravel vamos al documento config(app.php en donde dice 'local'
+
+cambiamos a 'es'
+en timezonce ponemos 'UTC'
+
