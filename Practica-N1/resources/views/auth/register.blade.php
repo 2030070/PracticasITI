@@ -1,26 +1,28 @@
 @extends('layouts.app')
 
-@section('titulo')
-    Registrate a Devstagram
-@endsection
-
 @section('contenido')
     <div class="md:flex md:justify-center md:gap-10 md:items-center">
         <div class="md:w-5/12 p-5 ">
             <!-- insertar imagen utilizando "assert" (acceder a carpeta public)-->
             <img src="{{ asset('img/registrar.jpg') }}" alt="Imagen registro de usuarios" style="border-radius: 15px; border: 3px solid #617a7a;">
         </div>
-        <div class="md:w-5/12 bg-white p-6 rounded-1g shadow-xl">
+        <div class="md:w-5/12 bg-white p-6 rounded-xl shadow-xl">
+            {{-- Nombre de la pagina --}}
+            <div class="container mx-auto text-center">
+                <h1 class="text-4xl font-bold text-gray-700">Registro</h1>
+            </div>
             {{-- no validate para validar cosas del lado del serivdor --}}
-            <form action="{{route('register')}}" method="POST" novalidate>
-                {{-- csrf sirve para evitar ataques de bots y evitar llenar la tabla de datos basura --}}
-                {{-- Tambien crea un token seguro --}}
-                @csrf
+            {{-- Contenido del formulario --}}
+            <div class="bg-white p-10 rounded-2xl" >
+                {{-- Formulario de registro --}}
+                <form action="{{ route('register.user') }}" method="POST" novalidate>
+                    {{-- Directiva de seguridad --}}
+                    @csrf
 
-                {{-- Name --}}
-                <div class="mb-5">
-                    <label for="name" class="mb-2 block uppercase text-cyan-700 font-bold">Nombre</label>
-                    <input id="name" name="name" type="text" placeholder="Tu nombre"
+                    {{-- Nombre --}}
+                    <div class="mb-5">
+                        <label for="name" class="mb-2 block uppercase text-cyan-700 font-bold">Nombre</label>
+                        <input type="text" name="name" id="name" placeholder="Nombre"
                         class="border p-3 w-full rounded-lg @error('name') border-red-500 @enderror" value="{{old('name')}}" 
                         {{-- old funciona para no eliminar la casilla roja hasta que se quite el error --}}
                         />
@@ -28,37 +30,52 @@
                     @error('name')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{$message}}</p>
                     @enderror
-                </div>
 
-                {{-- Username --}}
-                <div class="mb-5">
-                    <label for="username" class="mb-2 block uppercase text-cyan-700 font-bold">Username</label>
-                    <input id="username" name="username" type="text" placeholder="Tu username"
-                        class="border p-3 w-full rounded-lg @error('username') border-red-500 @enderror"  value="{{old('username')}}" />
-                </div>
-                {{-- Email --}}
-                <div class="mb-5">
-                    <label for="email" class="mb-2 block uppercase text-cyan-700 font-bold">Email</label>
-                    <input id="email" name="email" type="text" placeholder="Tu email de registro"
-                        class="border p-3 w-full rounded-lg @error('email') border-red-500 @enderror" value="{{old('email')}}" />
-                </div>
-                {{-- Password --}}
-                <div class="mb-5">
-                    <label for="password" class="mb-2 block uppercase text-cyan-700 font-bold">Password</label>
-                    <input id="password" name="password" type="password" placeholder="Password de registro "
-                        class="border p-3 w-full rounded-lg @error('password') border-red-500 @enderror" value="{{old('password')}}"/>
+                    </div>
 
-                </div>
-                {{-- Password_confirmation --}}
-                <div class="mb-5">
-                    <label for="password_confirmation" class="mb-2 block uppercase text-cyan-700 font-bold">Repetir
-                        Password</label>
-                    <input id="password_confirmation" name="password_confirmation" type="password"
-                        placeholder="Repetir Password de registro " class="border p-3 w-full rounded-lg @error('password_confirmation') border-red-500 @enderror" value="{{old('password_confirmation')}}"/>
-                </div>
-                <input type="submit" value="Crear cuenta"
-                    class="bg-gray-800 hover:bg-gray-800 transition-colors cursor-pointer uppercase font-bold w-full p-3 text-white rounded-lg" />
-            </form>
+                    {{-- Email --}}
+                    <div class="mb-5">
+                        <label for="email" class="mb-2 block uppercase text-cyan-700 font-bold">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Email"
+                            class="border p-3 w-full rounded-lg @error('email') border-red-500 @enderror" value="{{old('email')}}">
+                        {{-- Directiva para mostrar mensaje de error --}}
+                        @error('email')
+                            <span class="text-xs text-red-500 border-red-600 rounded">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    {{-- Password --}}
+                    <div class="mb-5">
+                        <label for="password" class="mb-2 block uppercase text-cyan-700 font-bold">Password</label>
+                        <input type="password" name="password" id="password" placeholder="Password"
+                            class="border p-3 w-full rounded-lg @error('password') border-red-500 @enderror" value="{{old('password')}}">
+                        {{-- Directiva para mostrar mensaje de error --}}
+                        @error('password')
+                            <span class="text-xs text-red-500 border-red-600 rounded">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    {{-- Confirm Password --}}
+                    <div class="mb-5">
+                        <label for="password_confirmation" class="mb-2 block uppercase text-cyan-700 font-bold">Confirmar Password</label>
+                        <input type="password" name="password_confirmation" id="password_confirmation"
+                            placeholder="Confirmar Password"
+                            class="border p-3 w-full rounded-lg @error('password_confirmation') border-red-500 @enderror" value="{{old('password_confirmation')}}">
+                        {{-- Directiva para mostrar mensaje de error --}}
+                        @error('password_confirmation')
+                            <span class="text-xs text-red-500 border-red-600 rounded">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    {{-- Submit --}}
+                    <div class="mb-5 flex justify-center">
+                        <button type="submit" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-6 rounded-lg">
+                             Registrar
+                        </button>
+                    </div>
+
+                </form>
+            </div>
         </div>
     </div>
 @endsection

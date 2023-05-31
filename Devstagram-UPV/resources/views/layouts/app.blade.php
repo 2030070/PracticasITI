@@ -31,7 +31,7 @@
                       <div class="ml-10 flex items-baseline space-x-4">
                         @auth
                             <nav class="flex gap-2 items-center text-gray-200" >
-                              Hola:<span class="font-normal">
+                              Autenticado como:<span class="font-normal">
                                 {{auth()->user()->username}}  
                               </span>   
                               {{-- Agregar seguridad al logout --}}

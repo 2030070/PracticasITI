@@ -2,66 +2,130 @@
 
 namespace App\Http\Controllers;
 
-use auth;
 use App\Models\User;
-use Illuminate\Support\Str;
+use App\Models\products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-
-    // Ruta para vista registro de usuarios
-    public function index()
+    //manda a la vista de registro de usuarios
+    public function register_view()
     {
         return view('auth.register');
     }
-
-    public function store(Request $request)
+    //funcion para validar el logueo de usuarios
+    public function login_user(Request $request)
     {
-        // Modicamos el Request para que no se repitan los username
-        $request->request-> add(['username'=>STR::slug($request->username)]);
-        //"dd" Dump and Die imprime lo que se tiene del proyecto y lo depura
-        // dd('Post...');
-
-        // obtener todos los datos
-        // dd($request);
-
-        // obtener un dato en especifico
-        // dd($request->get('username'));
-
-        // Validaciones del formulario de registro para esto se utilizan los "name" de los campos del formulario
-        $this->validate($request, [
-            'name' => 'required|min:5',
-            'username' => 'required|unique:users|min:3|max:20',
-            'email' => 'required|unique:users|email|max:60',
-            'password' => 'required|confirmed|min:6', //confirmed hace que se tenga que confirmar la contraseña de nuevo
-            'password_confirmation' => '',
+        //validacion de datos
+        $request->validate([
+            'email' => 'required|email|max:60',
+            'password' => 'required|min:8|max:16',
         ]);
 
-        // Invocar el modelo User para crear el registro
+        //autenticacion de usuario
+        auth()->attempt($request->only('email', 'password'));
+
+        //redireccionamiento al dashboard ya logueado
+        return redirect()->route('dashboard');
+    }
+    //funcion para registrar usuarios
+    public function register_user(Request $request){
+
+        // validacion de datos
+        $request->validate([
+            'name' => 'required|min:5|max:25',
+            'email' => 'required|email|unique:users|max:60',
+            'password' => 'required|min:8|max:16|confirmed',
+            'password_confirmation' => 'required|same:password'
+        ]);
+
+        //creacion de usuario
         User::create([
             'name' => $request->name,
-            // // Insertar username en minuscula y sin espacios
-            // 'username' => Str::slug($request->username),
-            'username' => $request->username,
             'email' => $request->email,
-            'password' => Hash::make($request->password), //Para mantener segura la contraseña se encrypta
-        
-
+            //encriptacion de contraseña
+            'password' => Hash::make($request->password),
         ]);
 
-        //Autenticar un usuario con el método "attemp"
-        //Op 1 
-        // auth()->attempt([
-        //     'email' => $request->email,
-        //     'password' => $request->password,
-            
-        // ]);
-        //Op 2 
-        auth()->attempt($request->only('email','password'));
+        //autenticacion de usuario
+        auth()->attempt($request->only('email', 'password'));
 
-        //Redireccionar
-        return redirect()->route('post-index');
+        //redireccionamiento al dashboard ya logueado
+        return redirect()->route('dashboard');
+    }
+
+    //manda a la vista de logueo de usuarios
+    public function login_view()
+    {
+        return view('auth.login');
+    }
+
+    //funcion para desloguear usuarios
+    public function logout()
+    {
+        auth()->logout();
+
+        return redirect()->route('login');
+    }
+
+    //Manda a la vista del formulario de registro de productos
+    public function register_product_view()
+    {
+        return view('store.register_product');
+    }
+
+    //Manda a la vista de elimitar productos y mostrar la tabla de productos
+    public function delete_product_view()
+    {
+        $products = products::all();
+        return view('store.delete_product', compact('products'));
+    }
+
+
+    //funcion para agregar productos
+    public function add_product(Request $request)
+    {
+        //validar que se reciban los datos
+        // dd($request->all());
+
+        // validacion de datos
+        $request->validate([
+            'name' => 'required|min:5|max:25',
+            'short_description' => 'required|min:5|max:25',
+            'long_description' => 'required|min:5|max:120',
+            'sale_price' => 'required|min:1|max:25',
+            'purchase_price' => 'required|min:1|max:25',
+            'stock' => 'required|min:1|max:25',
+            'product_id' => 'required|min:1|max:25',
+            'fecha' => 'required|min:1|max:25',
+            'peso' => 'required|min:1|max:25',
+        ]);
+
+        //creacion de producto
+        products::create([
+            'name' => $request->name,
+            'short_description' => $request->short_description,
+            'long_description' => $request->long_description,
+            'sale_price' => $request->sale_price,
+            'purchase_price' => $request->purchase_price,
+            'stock' => $request->stock,
+            'product_id' => $request->product_id,
+            'fecha' => $request->fecha,
+            'peso' => $request->peso,
+        ]);
+
+        //redireccionamiento al dashboard ya logueado
+        return redirect()->route('products');
+    }
+
+    //funcion para eliminar productos
+    public function delete_product_table($id)
+    {
+        // Eliminación del producto
+        products::where('id', $id)->delete();
+
+        // Redireccionamiento al dashboard ya logueado
+        return redirect()->route('products');
     }
 }

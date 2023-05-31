@@ -34,6 +34,9 @@
 5. Use the user's configured `sans` font-feature-settings by default.
 6. Use the user's configured `sans` font-variation-settings by default.
 */
+.opacity-image {
+  opacity: 0.5; /* Ajusta el valor de opacidad según tus necesidades, donde 0.0 es totalmente transparente y 1.0 es totalmente opaco */
+}
 
 html {
   line-height: 1.5;

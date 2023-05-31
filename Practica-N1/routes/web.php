@@ -1,11 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostCOntroller;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,38 +16,28 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-// Ruta para vista página principal
-Route::get('/',[DashboardController::class,'inicio']);
-
-// Ruta para vista de alumnos
-Route::view('/alumnos','alumnos');
-
-// Ruta para vista del curriculum
-Route::view('/curriculum','curriculum');
-
-// // Ruta para vista registro de usuarios
-// Route::get('/crear-cuenta', [RegisterController::class,'index']);
-
-// se pueden crear alias
-// Ruta para vista registro de usuarios
-Route::get('/crear', [RegisterController::class,'index'])->name('register');
-
-// // Ruta para enviar datos al servidor
-// Route::post('/crear-cuenta', [RegisterController::class,'store']);
-
-// Ruta para enviar datos al servidor
-Route::post('/crear', [RegisterController::class,'store']);
-
-//Ruta para mostrar el dashboard del usuario identificado
-
-Route::get('/muro',[PostCOntroller::class,'index'])->name('post_index');
-
-//Ruta para Login
-Route::get('/login',[LoginController::class,'index'])->name('login');
-
-//Ruta de validacion del login
-Route::post('/login',[LoginController::class,'store']);
-
-//Ruta de validacion del logout
-Route::post('/logout',[LogoutController::class,'store'])->name('logout');
-// Route::get('/logout',[LogoutController::class,'store'])->name('logout');
+//Ruta para la pagina donde se muestra el registro y logueo de usuarios
+Route::get('/', [HomeController::class, 'index'])->name('home');
+//Ruta para el dashboard
+Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+//Ruta para la vista de registro de usuarios
+Route::get('/register', [RegisterController::class, 'register_view'])->name('register');
+//Ruta para registrar usuarios
+Route::post('/register', [RegisterController::class, 'register_user'])->name('register.user');
+//Ruta para la vista de logueo de usuarios
+Route::get('/login', [RegisterController::class, 'login_view'])->name('login');
+Route::post('/login', [RegisterController::class, 'login_user'])->name('login.user');
+//Ruta para desloguear usuarios
+Route::post('/logout', [RegisterController::class, 'logout'])->name('logout');
+//Ruta para ridereccionar al dasboard de productos
+Route::get('/products', [StoreController::class, 'products_table'])->name('products');
+//Ruta para ridereccionar al dasboard de usuarios
+Route::get('/users', [StoreController::class, 'users_table'])->name('users');
+//Ruta para la vista de registro de productos
+Route::get('/register_product', [RegisterController::class, 'register_product_view'])->name('register_product');
+//Ruta para registar productos
+Route::post('/register_product', [RegisterController::class, 'add_product'])->name('add_product');
+//Ruta para la vista de eliminar productos
+Route::get('/delete_product', [RegisterController::class, 'delete_product_view'])->name('delete_product');
+//Ruta para eliminar productos
+Route::delete('/delete_product/{id}', [RegisterController::class, 'delete_product_table'])->name('delete_product_table');
