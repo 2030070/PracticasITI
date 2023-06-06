@@ -52,3 +52,6 @@ Route::post('/login',[LoginController::class,'store']);
 //Ruta de validacion del logout
 Route::post('/logout',[LogoutController::class,'store'])->name('logout');
 // Route::get('/logout',[LogoutController::class,'store'])->name('logout');
+
+// Ruta para el formulario de publicaciónes
+Route::get('post/crear',[PostCOntroller::class,'create'])->name('post.create');

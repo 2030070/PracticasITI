@@ -94,10 +94,10 @@ class RegisterController extends Controller
             'name' => 'required|min:5|max:25',
             'short_description' => 'required|min:5|max:25',
             'long_description' => 'required|min:5|max:120',
-            'sale_price' => 'required|min:1|max:25',
-            'purchase_price' => 'required|min:1|max:25',
+            'sale_price' => 'required|min:1',
+            'purchase_price' => 'required|min:1',
             'stock' => 'required|min:1|max:25',
-            'product_id' => 'required|min:1|max:25',
+            'product_id' => 'required|min:1',
             'fecha' => 'required|min:1|max:25',
             'peso' => 'required|min:1|max:25',
         ]);

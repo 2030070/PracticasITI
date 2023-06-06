@@ -25,4 +25,9 @@ class PostCOntroller extends Controller
         return view('dashboard');
 
     }
+    // creando metodo para formulario de publicaciones
+    // Crear un formulario para crear publicaciónes, boton de publicar, con un boton
+    public function create(){
+        return view('auth.create');
+    }
 }

@@ -40,7 +40,7 @@
                 />
             </svg>
         </button>
-
+        
         {{-- Agregamos seguridad para que si no está logueado no pueda ver las tablas ni el formulario --}}
         @auth
         {{-- Si está autenticado --}}
@@ -56,7 +56,7 @@
         {{-- Mensaje para pedir que se logue o registre --}}
         <div class="flex-1">
             <div class="p-6">
-                <h1 class="text-2xl font-bold">Por favor, inicia sesión o regístrate</h1>
+                <h1 class="text-2xl text-red-700 font-bold">Por favor, inicia sesión o regístrate</h1>
             </div>
         </div>
         @endauth

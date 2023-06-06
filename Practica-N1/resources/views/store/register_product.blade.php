@@ -15,11 +15,20 @@
             <form action="{{ route('add_product') }}" method="POST" novalidate>
                 {{-- Directiva de seguridad --}}
                 @csrf
-
+                {{-- ID --}}
+                <div class="mb-5">
+                    <label for="product_id" class="mb-2 block uppercase text-cyan-700 font-bold">ID</label>
+                    <input type="number" name="product_id" id="product_id" placeholder="ID"  value="{{old('product_id')}}" 
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-opacity-75">
+                    {{-- Directiva para mostrar mensaje de error --}}
+                    @error('product_id')
+                        <span class="text-xs text-red-500 border-red-600 rounded">{{ $message }}</span>
+                    @enderror
+                </div>
                 {{-- Nombre --}}
                 <div class="mb-5">
                     <label for="name" class="mb-2 block uppercase text-cyan-700 font-bold">Nombre </label>
-                    <input type="text" name="name" id="name" placeholder="Nombre"
+                    <input type="text" name="name" id="name" placeholder="Nombre"  value="{{old('name')}}" 
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-opacity-75">
                     {{-- Directiva para mostrar mensaje de error --}}
                     @error('name')
@@ -31,7 +40,7 @@
                 <div class="mb-5">
                     <label for="short_description" class="mb-2 block uppercase text-cyan-700 font-bold">Descripción corta</label>
                     <textarea name="short_description" id="short_description" cols="30" rows="10" placeholder="Descripción corta"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-opacity-75"></textarea>
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-opacity-75"> </textarea>
                     {{-- Directiva para mostrar mensaje de error --}}
                     @error('short_description')
                         <span class="text-xs text-red-500 border-red-600 rounded">{{ $message }}</span>
@@ -55,7 +64,7 @@
                 {{-- Precio de venta --}}
                 <div class="mb-5">
                     <label for="sale_price" class="mb-2 block uppercase text-cyan-700 font-bold">Precio de venta</label>
-                    <input type="number" name="sale_price" id="sale_price" placeholder="Precio de venta"
+                    <input type="number" name="sale_price" id="sale_price" placeholder="Precio de venta"  value="{{old('sale_price')}}" 
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-opacity-75">
                     {{-- Directiva para mostrar mensaje de error --}}
                     @error('sale_price')
@@ -66,7 +75,7 @@
                 {{-- Precio de compra --}}
                 <div class="mb-5">
                     <label for="purchase_price" class="mb-2 block uppercase text-cyan-700 font-bold">Precio de compra </label>
-                    <input type="number" name="purchase_price" id="purchase_price" placeholder="Precio de compra"
+                    <input type="number" name="purchase_price" id="purchase_price" placeholder="Precio de compra"  value="{{old('purchase_price')}}" 
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-opacity-75">
                     {{-- Directiva para mostrar mensaje de error --}}
                     @error('purchase_price')
@@ -78,7 +87,7 @@
                 {{-- Stock --}}
                 <div class="mb-5">
                     <label for="stock" class="mb-2 block uppercase text-cyan-700 font-bold">Stock </label>
-                    <input type="number" name="stock" id="stock" placeholder="Stock"
+                    <input type="number" name="stock" id="stock" placeholder="Stock"  value="{{old('stock')}}" 
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-opacity-75">
                     {{-- Directiva para mostrar mensaje de error --}}
                     @error('stock')
@@ -86,21 +95,10 @@
                     @enderror
                 </div>
 
-                {{-- ID --}}
-                <div class="mb-5">
-                    <label for="product_id" class="mb-2 block uppercase text-cyan-700 font-bold">ID</label>
-                    <input type="number" name="product_id" id="product_id" placeholder="ID"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-opacity-75">
-                    {{-- Directiva para mostrar mensaje de error --}}
-                    @error('product_id')
-                        <span class="text-xs text-red-500 border-red-600 rounded">{{ $message }}</span>
-                    @enderror
-                </div>
-
                 {{-- Fecha --}}
                 <div class="mb-5">
                     <label for="fecha" class="mb-2 block uppercase text-cyan-700 font-bold">Fecha</label>
-                    <input type="date" name="fecha" id="fecha"
+                    <input type="date" name="fecha" id="fecha" value="{{old('fecha')}}"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-opacity-75">
                     {{-- Directiva para mostrar mensaje de error --}}
                     @error('fecha')
@@ -113,7 +111,7 @@
                     <label for="peso" class="mb-2 block uppercase text-cyan-700 font-bold">
                         Peso
                     </label>
-                    <input type="text" name="peso" id="peso" placeholder="Peso"
+                    <input type="text" name="peso" id="peso" placeholder="Peso" value="{{old('peso')}}"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-opacity-75">
                     {{-- Directiva para mostrar mensaje de error --}}
                     @error('peso')

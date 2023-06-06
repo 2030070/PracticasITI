@@ -37,6 +37,9 @@
                         <label for="email" class="mb-2 block uppercase text-cyan-700 font-bold">Email</label>
                         <input type="email" name="email" id="email" placeholder="Email"
                         class="border p-3 w-full rounded-lg @error('email') border-red-500 @enderror" value="{{old('email')}}" />
+                        @error('email')
+                        <span class="text-xs text-red-500 border-red-600 rounded">{{ $message }}</span>
+                    @enderror
                     </div>
 
                     {{-- Password --}}
@@ -44,6 +47,9 @@
                         <label for="password" class="mb-2 block uppercase text-cyan-700 font-bold">Password</label>
                         <input type="password" name="password" id="password" placeholder="Password"
                         class="border p-3 w-full rounded-lg @error('password') border-red-500 @enderror" value="{{old('password')}}"/>
+                        @error('password')
+                        <span class="text-xs text-red-500 border-red-600 rounded">{{ $message }}</span>
+                    @enderror
                     </div>
 
                     {{-- Submit --}}

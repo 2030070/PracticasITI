@@ -30,6 +30,11 @@
                     <div class="hidden md:block">
                       <div class="ml-10 flex items-baseline space-x-4">
                         @auth
+                            {{-- vinculo para boton de publicar un post --}}
+                            <a href="{{route('post.create')}}"  class="felx item-center gap-2 bg:gray border p-2 text-gray-200 rounded text-sm uppercase font-font-bold cursor-pointer">
+                              <i class="fas fa-camera"></i> Crear
+                            </a>
+
                             <nav class="flex gap-2 items-center text-gray-200" >
                               Autenticado como:<span class="font-normal">
                                 {{auth()->user()->username}}  

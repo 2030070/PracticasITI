@@ -5,10 +5,10 @@
 
     <div class="md:flex md:justify-center md:gap-10 md:items-center" >
 
-        <div class=" md:w-12/12 p-15 rounded-xl shadow-xl flex bg-gray-300">
+        <div class="md:w-12/12 p-15 rounded-xl shadow-xl flex bg-gray-300">
             <div class="flex-1">
                 <div class="p-6">
-                    <h1 class="text-4xl font-bold text-center text-cyan-700">Productos</h1>
+                    <h1 class="text-4xl font-bold text-center text-cyan-700">Eliminar productos</h1>
 
                     <table class="mt-6 w-full bg-white border-2 border-cyan-800">
                         <thead>
@@ -22,6 +22,7 @@
                                 <th class="px-4 py-2 border-b-2 border-cyan-700">Stock</th>
                                 <th class="px-4 py-2 border-b-2 border-cyan-700">Fecha</th>
                                 <th class="px-4 py-2 border-b-2 border-cyan-700">Peso</th>
+                                <th class="px-4 py-2 border-b-2 border-cyan-700"> </th> <!-- Columna para botón de eliminar -->
                             </tr>
                         </thead>
                         <tbody>
@@ -37,6 +38,13 @@
                                     <td class="px-4 py-2">{{ $product->stock }}</td>
                                     <td class="px-4 py-2">{{ $product->fecha }}</td>
                                     <td class="px-4 py-2">{{ $product->peso }}</td>
+                                    <td class="px-4 py-2">
+                                        <form action="{{ route('delete_product_table', ['id' => $product->id]) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="bg-red-800 hover:bg-cyan-700 text-white font-bold py-2 px-6 rounded-lg">Eliminar</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -44,4 +52,4 @@
                 </div>
             </div>
         </div>
-@endsection
+    @endsection
