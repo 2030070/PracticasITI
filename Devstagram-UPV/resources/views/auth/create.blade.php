@@ -8,9 +8,14 @@
     <div class="md:flex md:justify-center md:gap-10 md:items-center">
         <div class="md:w-5/12 order-last md:order-first p-5">
             <!-- Insertar imagen utilizando "asset" (acceder a carpeta public) -->
-            <img id="preview-image" src="{{ asset('img/registrar.jpg') }}" alt="Imagen registro de usuarios"
-                style="border-radius: 15px; border: 3px solid #617a7a;">
+            <div style="position: relative; display: inline-block;">
+                <img id="preview-image" src="{{ asset('img/**') }}" alt="Imagen registro de usuarios"
+                    style="border-radius: 15px; border: 3px solid #617a7a;">
+                    <p id="image-size" class="text-gray-700 text-lg mt-2" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 30px; font-weight: bold;"></p>
+                </div>
         </div>
+        
+        
         <div class="md:w-5/12 bg-white p-6 rounded-lg shadow-xl order-first md:order-last">
             {{-- novalidate para validar cosas del lado del servidor --}}
             <form action="{{ route('register') }}" method="POST" novalidate enctype="multipart/form-data">
@@ -33,7 +38,7 @@
                     <input id="image" name="image" type="file" accept="image/*"
                         class="hidden @error('image') border-red-500 @enderror" onchange="previewImage(event)" />
                     <div id="image-preview" class="border border-gray-300 p-2 rounded-lg">
-                        <div id="image-dropzone" class="h-40 flex flex-col items-center justify-center cursor-pointer">
+                        <div id="image-dropzone" class="h-60 flex flex-col items-center justify-center cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                 class="w-12 h-12 text-gray-400">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -89,10 +94,22 @@
                                 const img = document.createElement('img');
                                 img.src = e.target.result;
                                 img.classList.add('w-full', 'h-auto');
+                                // img.style.opacity = '01'; // Add opacity to the image
                                 const previewImage = document.getElementById('preview-image');
                                 previewImage.src = img.src;
+                                const imageSize = document.getElementById('image-size');
+                                imageSize.textContent = `Image Size: \n${formatBytes(file.size)}`;
                             };
                             reader.readAsDataURL(file);
+                        }
+
+                        function formatBytes(bytes, decimals = 2) {
+                            if (bytes === 0) return '0 Bytes';
+                            const k = 1024;
+                            const dm = decimals < 0 ? 0 : decimals;
+                            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                            const i = Math.floor(Math.log(bytes) / Math.log(k));
+                            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
                         }
                     </script>
 
