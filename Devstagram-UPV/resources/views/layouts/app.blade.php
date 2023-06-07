@@ -13,6 +13,9 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <!-- Styles -->
+        <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+        
 
     </head>
     {{-- Cuerpo principal --}}
@@ -25,7 +28,7 @@
                   <div class="container mx auto flex justify-between items-center">
                     <div class="flex-shrink-0">
                         {{-- <img class="h-8 w-8" src="./imagenes/c.png" alt="Your Company"> --}}
-                        <h1 class="text-3xl font-bold text-white"><a href="/">Devstagram</a></h1>
+                        <h1 class="text-3xl font-bold text-white"><a href="{{route('post_index')}}">Devstagram</a></h1>
                     </div>
                     <div class="hidden md:block">
                       <div class="ml-10 flex items-baseline space-x-4">

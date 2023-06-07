@@ -6,7 +6,7 @@
 
 @section('contenido')
     <div class="flex justify-center">
-        <div class="w-full md:w-8/12 lg:w-6/12 md:flex">
+        <div class="w-full md:w-8/12 lg:w-6/12 md:flex" style="margin-top: 1cm;">
             
             <div class="md:w8/12 lg:w-6/12 px-10">
                 <img src="{{asset('img/usuario.svg')}}" alt="Imagen de Usuario"/>

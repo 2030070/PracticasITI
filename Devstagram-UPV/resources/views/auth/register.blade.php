@@ -5,7 +5,7 @@
 @endsection
 
 @section('contenido')
-    <div class="md:flex md:justify-center md:gap-10 md:items-center">
+    <div class="md:flex md:justify-center md:gap-10 md:items-center" style="margin-top: 1cm;">
         <div class="md:w-5/12 p-5 ">
             <!-- insertar imagen utilizando "assert" (acceder a carpeta public)-->
             <img src="{{ asset('img/registrar.jpg') }}" alt="Imagen registro de usuarios" style="border-radius: 15px; border: 3px solid #617a7a;">
