@@ -40,8 +40,19 @@
                 </div>
                 
             </form>
-
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+            <div class="flex justify-center mt-4">
+                <a href="{{ route('post_index') }}" class="text-gray-500 underline">
+                    <button class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-gray-200 py-2 px-4 rounded-full focus:outline-none hover:shadow-lg">
+                        Cancelar
+                    </button>
+                </a>
+                <a href="{{ route('post_index') }}" class="text-gray-500 underline">
+                    <button class="bg-gradient-to-r from-blue-400 via-cyan-500 to-cyan-600 text-white py-2 px-4 rounded-full focus:outline-none hover:shadow-lg mx-2">
+                        Publicar
+                    </button>
+                </a>
+            </div>
+            
             <script>
                 Dropzone.options.myGreatDropzone = {
                     paramName: "file",

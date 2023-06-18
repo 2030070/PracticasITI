@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostCOntroller;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\ImagenesController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 
@@ -21,12 +22,6 @@ use App\Http\Controllers\DashboardController;
 // Ruta para vista página principal
 Route::get('/',[DashboardController::class,'inicio']);
 
-// Ruta para vista de alumnos
-Route::view('/alumnos','alumnos');
-
-// Ruta para vista del curriculum
-Route::view('/curriculum','curriculum');
-
 // // Ruta para vista registro de usuarios
 // Route::get('/crear-cuenta', [RegisterController::class,'index']);
 
@@ -41,7 +36,7 @@ Route::get('/crear', [RegisterController::class,'index'])->name('register');
 Route::post('/crear', [RegisterController::class,'store']);
 
 //Ruta para mostrar el dashboard del usuario identificado
-Route::get('/muro',[PostCOntroller::class,'index'])->name('post_index');
+// Route::get('/muro',[PostCOntroller::class,'index'])->name('post_index');
 
 //Ruta para Login
 Route::get('/login',[LoginController::class,'index'])->name('login');
@@ -55,3 +50,12 @@ Route::post('/logout',[LogoutController::class,'store'])->name('logout');
 
 // Ruta para el formulario de publicaciónes
 Route::get('post/crear',[PostCOntroller::class,'create'])->name('post.create');
+
+Route::post('post/crear',[PostCOntroller::class,'store'])->name('post.store');
+
+
+Route::post('/imagenes',[ImagenesController::class,'store'])->name('imagenes.store');
+
+//Ruta para mostrar el dashboard del usuario identificado
+Route::get('/{user:username}',[PostCOntroller::class,'index'])->name('post_index');
+

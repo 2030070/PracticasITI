@@ -4,9 +4,6 @@
 <!-- Crear el contenido que se le envia al contenedor -->
 
 {{-- Seccion para asignar el titulo --}}
-@section('titulo')
-    Dashboard
-@endsection
 
 {{-- Seccion para asignar el header --}}
 @section('header')
@@ -38,7 +35,9 @@
         </div>
     </header>
 @endsection
-
+@section('titulo')
+    Dashboard
+@endsection
 {{-- Seccion para asignar el contenido de la mayor parte de la --}}
 @section('contenido')
     <main>

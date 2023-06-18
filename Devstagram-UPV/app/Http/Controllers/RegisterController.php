@@ -17,8 +17,7 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         // Modicamos el Request para que no se repitan los username
         $request->request-> add(['username'=>STR::slug($request->username)]);
         //"dd" Dump and Die imprime lo que se tiene del proyecto y lo depura
