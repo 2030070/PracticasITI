@@ -8,6 +8,9 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use auth;
 
+/* Controlador que utiliza los metodos 'index' donde retorna solo la vista y 'store' donde se validan los campos
+    se crea el registro, autentica y redirecciona a la pagina
+*/
 class RegisterController extends Controller
 {
     //crear nuestro primer metodo del controlador

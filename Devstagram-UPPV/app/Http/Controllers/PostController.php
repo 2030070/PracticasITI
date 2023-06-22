@@ -6,6 +6,13 @@ use App\Models\posts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/* Controlador que maneja todo el contenido de los post en ellos se usan los modelos de post y user
+    Asi mimo se utiliza un constructor para pasar parametros autenticados, el metodo 'index'
+    el cual retorna a la vista dashboard y pasa los parametros de usuario y los post e implementa la painación
+    el metodo create para redireccionar al formulario que crea el post, también contiene el metodo 'Store'
+    donde se valida, guarda y manda los campos a la vista
+    y 'Show'retorna a la vista del show donde muestra el contenido del post y se pasa el parametro del mismo
+*/
 class PostController extends Controller
 {
 

@@ -7,6 +7,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/* Modelo de comentario el cual contiene los elementos de id del usuario, id de post y el contenido del 
+   comentario los id son necesarios para generar la relación con el modelo de Post y de Usuarios*/
 class Comentario extends Model
 {
     use HasFactory;

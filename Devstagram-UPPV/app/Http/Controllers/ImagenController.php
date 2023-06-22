@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Intervention\Image\Facades\Image;
 
-class ImagenController extends Controller
-{
+/* COntrolador de las imagenes que contiene la funcion 'Store'*/
+class ImagenController extends Controller{
     public function store(Request $request){
         // identificar el archivo que se sube en dropzone
         $imagen = $request->file('file');
@@ -31,7 +31,6 @@ class ImagenController extends Controller
 
         //Pasamos la imagen de memoria al server
         $imagenServidor->save($imagenPath);
-
 
         //verificar que el nombre del archivo se ponga como unico
         return response()->json(['imagen'=>$nombreImagen]);

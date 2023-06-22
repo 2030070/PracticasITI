@@ -8,8 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
-{
+/* Modelo de User en el se generan los campos de nombre, email, contraseña y el usernem del usuario
+elementos que seran mostrados en diverso contenido de los views */
+class User extends Authenticatable{
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -33,10 +34,11 @@ class User extends Authenticatable
 
     //creamos una relacion de posts (uno) a user 
     public function user(){
-        //relacion donde un usuario puede tener multiples post de publicaciones
+        //relacion donde un usuario puede tener multiples post de publicaciones donde obtenemos el username del usuario
         return $this->belongsTo(User::class)->selected(['name','username']);
     }
-
+    
+    //Relación de con la tabla post
     public function comentario(){
         return $this->hasMany(posts::class);
     }

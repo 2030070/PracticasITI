@@ -7,8 +7,9 @@ use App\Models\Comentario;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class posts extends Model
-{
+/* Modelo de los post el cual tiene el titulo, la descripcion del modelo, la imagen extraida con dropzone 
+   y el id del usuario para sus relaciones con el modelo de usuario*/
+class posts extends Model{
     use HasFactory;
     //forszar el nombre de la tabla posts
     protected $table = 'posts';
