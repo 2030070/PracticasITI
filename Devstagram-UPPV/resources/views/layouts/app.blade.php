@@ -25,7 +25,7 @@
                 <div class="flex h-16 items-center justify-between">
                   <div class="container mx auto flex justify-between items-center">
                     <div class="flex-shrink-0">
-                        <h1 class="text-3xl font-bold text-white"><a href="#">Devstagram</a></h1>
+                        <h1 class="text-3xl font-bold text-white"><a href="{{route('post_index',[auth()->user()->username])}}">Devstagram</a></h1>
                     </div>
                     <div class="hidden md:block">
                       <div class="ml-10 flex items-baseline space-x-4">

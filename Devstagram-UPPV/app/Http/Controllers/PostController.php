@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\posts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 /* Controlador que maneja todo el contenido de los post en ellos se usan los modelos de post y user
     Asi mimo se utiliza un constructor para pasar parametros autenticados, el metodo 'index'
@@ -78,8 +79,21 @@ class PostController extends Controller
             'post'=>$post,
         ]);
     }
-    public function comentarios(){
-        return $this->hasMany(Comentario::class);
+
+    /*Funcion para eliminar un post en donde se elimina el contenido existente, y redirecciona a la pagina
+    principal del usuario 'muro' del usuario logueado en ese momento
+    */
+    public function destroy(posts $post){
+        $post->delete();
+
+        //Eliminar la imagen 
+        $imagen_path = public_path('uploads/' . $post->imagen );
+        if(File::exists($imagen_path)){
+            unlink($imagen_path);
+
+        }
+
+        return redirect()->route('post_index',auth()->user()->username);
     }
 }
 

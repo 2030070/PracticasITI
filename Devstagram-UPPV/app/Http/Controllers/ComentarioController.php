@@ -35,6 +35,6 @@ class ComentarioController extends Controller{
         return redirect()->route('posts.show',[
             auth()->user()->username,
             'post'=>$post,
-        ]);
+        ])->with('mensaje', 'El comentario ha sido publicado exitosamente.');
     }
 }
