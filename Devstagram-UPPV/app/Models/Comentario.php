@@ -19,6 +19,7 @@ class Comentario extends Model
         'comentario',
     ];
 
+    // Relaciones pata el uso del conentido de post, usuario y comentario 
     public function user(){
         return $this->belongsTo(User::class);
     }

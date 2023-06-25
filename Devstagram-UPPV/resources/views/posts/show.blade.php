@@ -11,6 +11,9 @@
 
 @section('contenido')
     <div class="container mx-auto md:flex bg-white rounded-lg p-4 mb-4" >
+        {{-- Aqui va la imaen con su contenido asi como los diferentes elementos que pueden ser editables o ajustables a ella, faltan funcionalidades como las de
+            dar like pero aun asi solo se trata de dar un formato presentable y de diseño adecuado para que este sea más comodo 
+            al momento de ver la publicación --}}
         <div class="md:w-1/2">
             <div class=" rounded-lg p-4 mb-4">
                 <!-- Contenido de la columna 1 -->
@@ -65,6 +68,7 @@
                 @endif
             @endauth
         </div>
+        {{-- COntenido dende irean todoso los comentarios, asi como el boton para crar nuevos comentarios --}}
         <div class="md:w-1/2">
             @auth
             <!-- Contenido de la columna 2 -->
@@ -92,16 +96,28 @@
                 </div>
             @endauth        
 
-            <div class="shadow rounded-md my-5 max-h-96 overflow-y-scroll">
+            {{-- Seccion para mostrar comentarios y poder eliminar el post y el comentario, el post solo puede eliminarlo 
+                el que lo ha publicado y el comentario también solo lo puede eliminar aquel que lo ha publicado --}}
+             <div class="shadow rounded-md my-5 max-h-96 overflow-y-scroll">
                 @if($post->comentarios->count() > 0)
                     @foreach($post->comentarios as $comentario)
                         <div class="p-5 border-gray-300 border-b">
                             <a href="{{ route('post_index',$comentario->user) }}" class="font-bold">{{ $comentario->user->username }}</a>
                             <p>{{ $comentario->comentario }}</p>
                             <p class="text-sm text-gray-500">{{ $comentario->created_at->DiffForHumans() }}</p>
+                            
+                            @if($comentario->user_id === auth()->user()->id)
+                                <!-- Mostrar enlace o botón para eliminar el comentario -->
+                                <form action="{{ route('comentario.destroy', $comentario) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500">Eliminar</button>
+                                </form>
+                            @endif
                         </div>
                     @endforeach
                 @else
+                        {{-- En caso de que no existan comentarios se muestra que no existen  --}}
                     <p class="p-10 text-center text-gray-700">No hay comentarios aún.</p>
                 @endif
             </div>

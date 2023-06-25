@@ -37,4 +37,14 @@ class ComentarioController extends Controller{
             'post'=>$post,
         ])->with('mensaje', 'El comentario ha sido publicado exitosamente.');
     }
+    public function destroy(Comentario $comentario)
+    {
+        // Verificar si el usuario autenticado es el propietario del comentario
+        if ($comentario->user_id === auth()->user()->id) {
+            $comentario->delete();
+            return redirect()->back()->with('mensaje', 'Comentario eliminado exitosamente.');
+        } else {
+            return redirect()->back()->with('mensaje', 'No tienes permiso para eliminar este comentario.');
+        }
+    }
 }

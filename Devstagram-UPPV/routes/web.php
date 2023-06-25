@@ -8,6 +8,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Models\Comentario;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,9 @@ Route::get('/{user:username}/post/{post}',[PostController::class,'show'])->name(
 Route::delete('post/{post}',[PostController::class,'destroy'])->name('posts.destroy');
 
 Route::post('/{user:username}/post/{post}',[ComentarioController::class,'store'])->name('comentarios.store');
+
+Route::delete('/comentarios/{comentario}', [ComentarioController::class,'destroy'])->name('comentario.destroy');
+
 
 Route::post('/imagenes',[ImagenController::class,'store'])->name('imagenes.store');
 
