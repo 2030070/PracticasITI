@@ -17,7 +17,7 @@
         
     </head>
     {{-- Cuerpo principal --}}
-    <body class="h-full">
+    <body class="h-full bg-gray-100" >
         <div class="min-h-full">
             {{-- seccion del menu de opciones --}}
             <nav class="bg-blue-500">
@@ -31,12 +31,7 @@
                     <div class="hidden md:block">
                       <div class="ml-10 flex items-baseline space-x-4">
                         @auth
-                          {{-- vinculo para boton de publicar un post --}}
-                          {{-- <a href="" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Empresas Emisoras</a>
-                          <a href="" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Empresas Receptoras</a>
-                          <a href="" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Facturas</a>
-                          <a href="" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Búsqueda</a> --}}
-
+                          
                           <nav class="flex gap-2 items-center text-gray-200" >
                           
                             {{-- Agregar seguridad al logout --}}
@@ -83,7 +78,7 @@
 
             @yield('header')
             <main class="container mx-auto mt-10">
-              <h2 class="font-black text-center text-3xl mb-10">
+              <h2 class="font-black text-blue-500 text-center text-3xl mb-10">
                   @yield('titulo')
               </h2>
               <!-- COntenedor para traer el contenido de las diferentes frames .blade.php -->
