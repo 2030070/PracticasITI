@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class EmpresaReceptora extends Model
 {
     use HasFactory;
+    //Se usa para detectar el nombre correcto en la base de datos para la tabla empresas_receptoras
     protected $table = 'empresas_receptoras';
 
+    //Campos que contiene la tabla de empresa receptora
     protected $fillable = [
         'nombre', 
         'direccion', 

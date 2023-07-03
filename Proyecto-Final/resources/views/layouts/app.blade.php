@@ -25,7 +25,7 @@
                     <div class="flex h-16 items-center justify-between">
                         <div class="container mx-auto flex justify-between items-center">
                             <div class="flex-shrink-0">
-                                <h1 class="text-3xl font-bold text-white">@yield('titulo')</h1>
+                                <h1 class="text-3xl font-bold ">@yield('titulo')</h1>
                             </div>
                             <div class="hidden md:block">
                                 <div class="ml-10 flex items-baseline space-x-4">
@@ -34,7 +34,7 @@
                                         <form method="POST" action="{{route('logout')}}">
                                             @csrf
                                             <button type="submit"
-                                                class="block px-3 py-2 text-lg font-semibold text-white hover:bg-blue-300 rounded-md transition-all ease-nav-brand">
+                                                class="block px-3 py-2 text-lg font-semibold  hover:bg-blue-300 rounded-md transition-all ease-nav-brand">
                                                 <i class="fas fa-sign-out-alt lg:mr-1"></i>
                                                 <span class="hidden lg:inline">log Out</span>
                                             </button>
@@ -47,7 +47,7 @@
                                         <div class="ml-10 flex items-baseline space-x-4">
                                             <li class="flex items-center">
                                                 <a href="{{route('login')}}"
-                                                    class="block px-3 py-2 text-lg font-semibold text-white hover:bg-blue-300 rounded-md transition-all ease-nav-brand">
+                                                    class="block px-3 py-2 text-lg font-semibold  hover:bg-blue-300 rounded-md transition-all ease-nav-brand">
                                                     <i class="fa fa-user lg:mr-1"></i>
                                                     <span class="hidden lg:inline">Sign In</span>
                                                 </a>

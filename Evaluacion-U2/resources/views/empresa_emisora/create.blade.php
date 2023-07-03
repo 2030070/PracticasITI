@@ -55,6 +55,9 @@
                         <label for="rfc_emisor" class="mb-2 block uppercase font-bold">RFC Emisor:</label>
                         <input type="text" name="rfc_emisor" id="rfc_emisor" placeholder="Escribe el RFC" required
                         class="w-full p-2 pl-8 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('rfc_emisor') border-red-500 @enderror" value="{{old('rfc_emisor')}}">
+                        @error('rfc_emisor')
+                            <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{$message}}</p>
+                        @enderror
                     </div>
                     <input type="submit" value="Registrar"
                     class="bg-blue-500 hover:bg-blue-800 transition-colors cursor-pointer uppercase font-bold w-full p-3 text-white rounded-lg" />
