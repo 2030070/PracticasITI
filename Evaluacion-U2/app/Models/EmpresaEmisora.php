@@ -17,4 +17,8 @@ class EmpresaEmisora extends Model{
         'correo_contacto', 
         'rfc_emisor'];
 
+    public function facturas(){
+        return $this->hasMany(Factura::class, 'empresa_emisora_id');
+    }
+
 }

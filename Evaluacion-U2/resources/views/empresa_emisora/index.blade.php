@@ -26,8 +26,17 @@
 
 
 @section('contenido')
+    <div class="my-4 flex justify-end space-x-2">
+        <button onclick="exportToPDF('empresas_emisoras')" class="inline-block px-2 py-1 rounded-lg font-bold text-sm text-white bg-red-600 hover:bg-red-700 transition-colors">
+            Exportar a PDF
+        </button>
+
+        <button onclick="exportToExcel('empresas_emisoras')" class="inline-block px-2 py-1 rounded-lg font-bold text-sm text-white bg-green-600 hover:bg-green-700 transition-colors">
+            Exportar a Excel
+        </button>
+    </div>
     <div class="md:flex md:justify-center md:gap-10 md:items-center">
-        <table class="mt-4 w-full border-2 border-blue-400 rounded-lg border-collapse">
+        <table class=" table-auto mt-4 w-full border-2 border-blue-400 rounded-lg border-collapse" id="maintable">
             <thead class="bg-blue-400">
                 <tr>
                     <th class="py-2 text-lg font-bold text-white border-2 border-blue-400">ID</th>

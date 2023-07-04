@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\ArchivoController;
+use App\Http\Controllers\ArchivosController;
+use App\Http\Controllers\FacturasController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmpresaEmisoraController;
 use App\Http\Controllers\EmpresaReceptoraController;
@@ -42,6 +45,19 @@ Route::get('/empresas_receptoras/create', [EmpresaReceptoraController::class, 'c
 Route::get('/empresas_receptoras', [EmpresaReceptoraController::class, 'index'])->name('empresas_receptoras.index');
 //Ruta para que el contenido se registre de manera correcta para empresas receptoras
 Route::post('/empresas_receptoras', [EmpresaReceptoraController::class, 'store'])->name('empresas_receptoras.store');
+
+//Rutas para empresas receptoras
+Route::get('/facturas/create', [FacturasController::class, 'create'])->name('facturas.create');
+//ruta para consultar el listado de empresas receptoras
+Route::get('/facturas', [FacturasController::class, 'index'])->name('facturas.index');
+//Ruta para que el contenido se registre de manera correcta para empresas receptoras
+Route::post('/facturas', [FacturasController::class, 'store'])->name('facturas.store');
+
+
+// Ruta para guardar un archio XML o PDF en uploads
+Route::post('/facturaPDF', [ArchivosController::class, 'storePDF'])->name('archivos.store');
+Route::post('/facturaXML', [ArchivosController::class, 'storeXML'])->name('archivos2.store');
+
 
 
 

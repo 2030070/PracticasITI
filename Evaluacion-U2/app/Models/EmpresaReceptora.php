@@ -19,4 +19,8 @@ class EmpresaReceptora extends Model
         'contacto',
         'email',
     ];
+
+    public function facturas(){
+        return $this->hasMany(Factura::class, 'empresa_receptora_id');
+    }
 }

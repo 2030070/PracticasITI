@@ -1,52 +1,73 @@
-// import './bootstrap';
-// configuración de Dropzone
-import Dropzone from "dropzone";
+import Dropzone from 'dropzone';
 
 Dropzone.autoDiscover = false;
-const dropzone = new Dropzone('#dropzone', {
-    dictDefaultMessage: "Sube tu imagen aqui",
-    acceptedFiles: ".png,.jpg,.jpeg,.gif",
+// Configuración del dropzone
+const dropzonePDF = new Dropzone('#dropzonePDF', {
+    dictDefaultMessage: 'Sube tu factura en PDF aquí',
+    acceptedFiles: '.pdf',
     addRemoveLinks: true,
-    dictRemoveFile: "Borrar archivo",
+    dictRemoveFile: 'Borrar Archivo',
     maxFiles: 1,
-    uploadMUltiple: false,
-    //trabajando con imagen en el contenedor de dropzone
+    uploadMultiple: false,
+
     init: function () {
-        if (document.querySelector('[name="imagen"]').value.trim()) {
-            const imagenPublicada = {};
-            imagenPublicada.size = 1234
-            imagenPublicada.name =
-                document.querySelector('[name="imagen"]').value;
-            this.options.addedfile.call(this, imagenPublicada);
-            this.options.thumbnail.call(this, imagenPublicada, '/uploads/{$imagenPublicada.name}')
-            imagenPublicada.previewElement.classList.add(
-                "dz-success",
-                "dz-complete",
-            );
-        };
+        // En caso que tenga value, lo tomará para llenar los atributos de dropzone
+        if (document.querySelector('[name="pdf_file"]').value.trim()) {
+            const pdfPublicada = {};
+
+            pdfPublicada.size = 1234;
+            pdfPublicada.name = document.querySelector('[name="pdf_file"]').value;
+
+            this.options.addedfile.call(this, pdfPublicada);
+            this.options.thumbnail.call(this, pdfPublicada, `/uploads/${pdfPublicada.name}`);
+
+            pdfPublicada.previewElement.classList.add('dz-success', 'dz-complete');
+        }
+    }
+});
+//Funcion para procesar la subida del archivo XML
+const dropzoneXML = new Dropzone('#dropzoneXML', {
+    dictDefaultMessage: 'Sube tu factura en XML aqui',
+    acceptedFiles: '.xml',
+    addRemoveLinks: true,
+    dictRemoveFile: 'Borrar Archivo',
+    maxFiles: 1,
+    uploadMultiple: false,
+
+    init: function () {
+        // En caso que tenga value, lo tomará para llenar los atributos de dropzone
+        if (document.querySelector('[name="xml_file"]').value.trim()) {
+            const xmlPublicada = {};
+
+            xmlPublicada.size = 1234;
+            xmlPublicada.name = document.querySelector('[name="xml_file"]').value;
+
+            this.options.addedfile.call(this, xmlPublicada);
+            this.options.thumbnail.call(this, xmlPublicada, `/uploads/${xmlPublicada.name}`);
+
+            xmlPublicada.previewElement.classList.add('dz-success', 'dz-complete');
+        }
     }
 });
 
-
-// Dropzone.on('sending', function(file, xhr,formdata){
-//     console.log(file)
-// });
-
-//evento de envio de correo correcto 
-dropzone.on('success', function (file, response) {
-    // console.log(response)
-    document.querySelector('[name="imagen"]').value = response.imagen;
+dropzonePDF.on('success', function (file, response) {
+    // Asigna el value de la imagen (nombre) en el input oculto de create.blade.php
+    console.log(response);
+    document.querySelector('[name="pdf_file"]').value = response.pdf;
 });
 
-//Envio cuando hay error
-dropzone.on('error', function (file, message) {
-    console.log(message)
+dropzonePDF.on('removedfile', function () {
+    // Para resetear el valor cuando se elimine la imagen
+    document.querySelector('[name="pdf_file"]').value = '';
 });
 
-//remover un archivo
-dropzone.on('removedfile', function () {
-    // console.log('El archivo se elimino')
-    document.querySelector('[name="imagen"]').value="";
+dropzoneXML.on('success', function (file, response) {
+    // Asigna el value de la imagen (nombre) en el input oculto de create.blade.php
+    console.log(response);
+    document.querySelector('[name="xml_file"]').value = response.xml;
 });
 
-
+dropzoneXML.on('removedfile', function () {
+    // Para resetear el valor cuando se elimine la imagen
+    document.querySelector('[name="xml_file"]').value = '';
+});

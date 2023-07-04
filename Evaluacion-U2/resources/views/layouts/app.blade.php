@@ -92,5 +92,58 @@
                   <span id="date"></span>. all rights reserved {{now()->year}}</p>
           </div>
         </footer>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.js" integrity="sha512-sk0cNQsixYVuaLJRG0a/KRJo9KBkwTDqr+/V94YrifZ6qi8+OO3iJEoHi0LvcTVv1HaBbbIvpx+MCjOuLVnwKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+        <script>
+            function exportToPDF(tipo) {
+                var maintable = document.getElementById('maintable');
+                var pdfout = document.getElementById('pdfout');
+                var doc = new jsPDF('p', 'pt', 'letter');
+                var margin = 20;
+                var scale = (doc.internal.pageSize.width - margin * 2) / document.body.clientWidth;
+                var scale_mobile = (doc.internal.pageSize.width - margin * 2) / document.body.getBoundingClientRect();
+
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    doc.html(maintable, {
+                        x: margin,
+                        y: margin,
+                        html2canvas: {
+                            scale: scale,
+                            ignoreElements: function (element) {
+                                return element.classList.contains('exclude-column');
+                            }
+                        },
+                        callback: function (doc) {
+                            doc.save(tipo + '.pdf');
+                        }
+                    });
+                } else {
+                    doc.html(maintable, {
+                        x: margin,
+                        y: margin,
+                        html2canvas: {
+                            scale: scale,
+                            ignoreElements: function (element) {
+                                return element.classList.contains('exclude-column');
+                            }
+                        },
+                        callback: function (doc) {
+                            doc.save(tipo + '.pdf');
+                        }
+                    });
+                }
+            }
+
+            
+            function exportToExcel(tipo) {
+                const table = document.querySelector('.table-auto');
+                const ws = XLSX.utils.table_to_sheet(table);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Facturas');
+                XLSX.writeFile(wb, tipo + '.xlsx');
+            }
+        </script>
     </body>
 </html>
