@@ -24,7 +24,6 @@
         @vite('resources/js/plugins/perfect-scrollbar.min.js')
         @vite('resources/js/argon-dashboard-tailwind.js')
         @vite('resources/js/argon-dashboard-tailwind.min.js')
-        @vite('resources/js/navbar-sticky.min.js')
         @vite('resources/js/navbar-sticky.js')
     </head>
     {{-- Cuerpo principal --}}
@@ -78,7 +77,7 @@
 
             <!-- Crear un contenedor dinamico para el nav, header y el cuerpo del contenido -->
             @yield('nav')
-
+            @yield('sliderbar')
             @yield('header')
             <main class="container mx-auto mt-10">
                 @yield('contenido')
