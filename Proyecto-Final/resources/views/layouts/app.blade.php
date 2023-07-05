@@ -39,9 +39,9 @@
                         <a class="py-1.75 text-sm mr-4 ml-4 whitespace-nowrap font-bold text-slate-700 lg:ml-0" href="{{route('post_index')}}" target="_blank"> Proyecto Final </a>
                         <button navbar-trigger class="px-3 py-1 ml-2 leading-none transition-all ease-in-out bg-transparent border border-transparent border-solid rounded-lg shadow-none cursor-pointer text-lg lg:hidden" type="button" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
                           <span class="inline-block mt-2 align-middle bg-center bg-no-repeat bg-cover w-6 h-6 bg-none">
-                            <span bar1 class="w-5.5 rounded-xs relative my-0 mx-auto block h-px bg-gray-600 transition-all duration-300"></span>
-                            <span bar2 class="w-5.5 rounded-xs mt-1.75 relative my-0 mx-auto block h-px bg-gray-600 transition-all duration-300"></span>
-                            <span bar3 class="w-5.5 rounded-xs mt-1.75 relative my-0 mx-auto block h-px bg-gray-600 transition-all duration-300"></span>
+                            <span bar1 class="w-5.5 rounded-xs relative my-0 mx-auto block h-px bg-blue-500 transition-all duration-300"></span>
+                            <span bar2 class="w-5.5 rounded-xs mt-1.75 relative my-0 mx-auto block h-px bg-blue-500 transition-all duration-300"></span>
+                            <span bar3 class="w-5.5 rounded-xs mt-1.75 relative my-0 mx-auto block h-px bg-blue-500 transition-all duration-300"></span>
                           </span>
                         </button>
                         <div navbar-menu class="items-center flex-grow transition-all duration-500 lg-max:overflow-hidden ease lg-max:max-h-0 basis-full lg:flex lg:basis-auto">
@@ -52,9 +52,9 @@
                                   <form method="POST" action="{{route('logout')}}">
                                       @csrf
                                       <button type="submit"
-                                          class="block px-3 py-2 text-lg font-semibold  hover:bg-blue-300 rounded-md transition-all ease-nav-brand">
+                                          class="block px-4 py-2 mr-2 font-normal transition-all ease-in-out lg-max:opacity-0 duration-250 text-sm text-slate-700 lg:px-2  hover:bg-blue-300 rounded-md ease-nav-brand">
                                           <i class="fas fa-sign-out-alt lg:mr-1"></i>
-                                          <span class="hidden lg:inline">log Out</span>
+                                          Cerrar sesión
                                       </button>
                                   </form>
                               </nav>
@@ -62,7 +62,7 @@
                             </li>
                             @guest
                             <li>
-                              <a class="block px-4 py-2 mr-2 font-normal transition-all ease-in-out lg-max:opacity-0 duration-250 text-sm text-slate-700 lg:px-2" href="{{route('login')}}">
+                              <a class="block px-4 py-2 mr-2 font-normal transition-all ease-in-out lg-max:opacity-0 duration-250 text-sm text-slate-700 lg:px-2 hover:bg-blue-300 rounded-md ease-nav-brand" href="{{route('login')}}">
                                 <i class="mr-1 fas fa-key opacity-60"></i>
                                 Iniciar Sesion
                               </a>
