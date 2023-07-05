@@ -40,7 +40,7 @@
         {{-- Diseño del footer es decir el pie de pagina --}}
         <footer>
             <div class="container mx-auto px-4 text-lg text-center py-4">
-                <p class="text-blue-500">Copyright &copy; Cesar Aldahir Flores Gámez <br>Jorge Guevara García <br> Martinez Zuñiga Juan Eduardo <br>
+                <p class="text-blue-500">Copyright &copy;
                     <span id="date"></span>. all rights reserved {{now()->year}}</p>
             </div>
         </footer>

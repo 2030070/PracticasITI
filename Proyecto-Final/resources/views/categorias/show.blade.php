@@ -4,10 +4,11 @@
    Consultar Categorías
 @endsection
 
+
 @section('sliderbar')
   <!-- sidenav -->
   <aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto antialiased transition-transform duration-200 -translate-x-full bg-white border-0 shadow-xl dark:shadow-none dark:bg-slate-850 max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0 " aria-expanded="false">
-    <div class="h-19">
+    <div class="h-19 py-14">
       <i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-white text-slate-400 xl:hidden" sidenav-close></i>
     </div>
 
@@ -18,7 +19,7 @@
         <li class="mt-0.5 w-full">
           <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('productos.create') }}">
             <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-              <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-plus"></i>
+              <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-box-open"></i>
             </div>
             <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Crear Producto</span>
           </a>
@@ -27,22 +28,26 @@
         <li class="mt-0.5 w-full">
           <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('categorias.create') }}">
             <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-              <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-plus"></i>
+              <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-folder-plus"></i>
             </div>
             <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Crear Categoría</span>
           </a>
         </li>
         <li class="mt-0.5 w-full">
-          <nav class=" py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors">
+          {{-- <nav class=" py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors"> --}}
             <form method="POST" action="{{route('logout')}}">
                 @csrf
-                <button type="submit"
-                    class="block px-4 py-2 mr-2 font-normal transition-all ease-in-out lg-max:opacity-0 duration-250 text-sm text-slate-700 lg:px-2  hover:bg-blue-300 rounded-md ease-nav-brand">
-                    <i class="fas fa-sign-out-alt lg:mr-1"></i>
-                    Cerrar sesión
+                <button type="submit">
+                  <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors">
+                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                      <i class="relative top-0 text-sm leading-normal text-blue-500  fas fa-sign-out-alt "></i>
+                    </div>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Cerrar Sesion</span>
+                  </a>
+                   
                 </button>
             </form>
-        </nav>
+        {{-- </nav> --}}
         </li>
       </ul>
     </div>
@@ -52,6 +57,7 @@
   </aside>
   <!-- end sidenav -->
 @endsection
+
 
 
 

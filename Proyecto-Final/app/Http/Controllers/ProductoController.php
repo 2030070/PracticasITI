@@ -22,6 +22,7 @@ class ProductoController extends Controller
         $request->validate([
             'categoria_id' => 'required',
             'subcategoria_id' => '',
+            'nombre' =>'required|min:3',
             'precio_compra' => 'required|numeric|min:0',
             'precio_venta' => 'required|numeric|min:0',
             'unidades_disponibles' => 'required|integer|min:0',
@@ -31,6 +32,7 @@ class ProductoController extends Controller
         Producto::create([
             'categoria_id' => $request->categoria_id,
             'subcategoria_id' => $request->subcategoria_id,
+            'nombre' => $request->nombre,
             'precio_compra' => $request->precio_compra,
             'precio_venta' => $request->precio_venta,
             'unidades_disponibles' => $request->unidades_disponibles,
