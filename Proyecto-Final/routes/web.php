@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DashboardController;
 
 /*
@@ -26,3 +27,9 @@ Route::post('/login',[LoginController::class,'store']);
 Route::post('/logout',[LogoutController::class,'store'])->name('logout');
 // Route::get('/logout',[LogoutController::class,'store'])->name('logout');
 Route::get('/dashboard',[DashboardController::class,'index'])->name('post_index');
+
+
+Route::get('/categorias/create', [CategoriaController::class, 'create'])->name('categorias.create');
+Route::post('/categorias', [CategoriaController::class, 'store'])->name('categorias.store');
+Route::get('/categorias/list', [CategoriaController::class, 'show'])->name('categorias.show');
+Route::delete('/categorias/{id}', [CategoriaController::class, 'destroy'])->name('categorias.destroy');

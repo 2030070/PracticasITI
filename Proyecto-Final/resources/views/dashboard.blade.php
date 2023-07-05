@@ -4,6 +4,10 @@
    Dashboard
 @endsection
 
+@section('nav')
+
+@endsection
+
 @section('contenido')
 
 @endsection
