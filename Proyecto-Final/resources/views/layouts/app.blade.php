@@ -84,9 +84,9 @@
             </main>
         </div>
         {{-- Diseño del footer es decir el pie de pagina --}}
-        <footer class="text-gray-300 ">
+        <footer>
             <div class="container mx-auto px-4 text-lg text-center py-4">
-                <p class="text-gray-800">Copyright &copy; Cesar, Jorge y Juan
+                <p class="text-blue-500">Copyright &copy; Cesar, Jorge y Juan
                     <span id="date"></span>. all rights reserved {{now()->year}}</p>
             </div>
         </footer>
