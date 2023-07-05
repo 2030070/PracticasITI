@@ -5,53 +5,56 @@
 @endsection
 
 @section('contenido')
-<style>
-    body {
-        background-image: url('img/fondo2.jpg');
-        background-size: cover;
-    }
-</style>
-<body>
-    <div class="flex justify-center items-center" >
-        <div class="w-full sm:w-2/3 md:w-2/3  xl:w-1/3 rounded-lg bg-white p-6 shadow-xl relative">
-            <div class="absolute  top-0 left-1/4 bg-blue-800 justify-center text-white px-4 py-4 rounded">
+<body class="m-0 font-sans antialiased font-normal bg-white text-start text-base leading-default text-slate-500">
+    <main class="mt-0 transition-all duration-200 ease-in-out">
+        <section>
+            <div class="relative flex items-center min-h-screen p-0 overflow-hidden bg-center bg-cover">
+                <div class="container z-1">
+                    <div class="flex flex-wrap mx-3">
+                        <div class="absolute top-10 right-0 justify-center  flex-col w-full h-full max-w-full px-3 py-20 mx-auto lg:mx-0 shrink-0 md:flex-0 md:w-7/12 lg:w-5/12 xl:w-4/12">
+                            <div class="relative flex flex-col min-w-0 break-words bg-transparent border-0 shadow-none lg:py4 rounded-2xl bg-clip-border">
+                                <div class="p-6 pb-0 mb-0">
+                                    <h4 class="font-bold text-center text-blue-500">Iniciar Sesión</h4>
+                                </div>
+                                <div class="flex-auto p-6">
+                                    <form method="POST" action="{{route('login')}}" novalidate>
+                                        @csrf
+                                        @if(session('mensaje'))
+                                            <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
+                                                {{session('mensaje')}}
+                                            </p>
+                                        @endif
+                                        <div class="mb-4">
+                                            <input type="email"  id="email" name="email" required placeholder="Email" class="focus:shadow-primary-outline dark:text-white/80 
+                                            text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 
+                                            outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('email')  @enderror" value="{{old('email')}}"  />
+                                        </div>
+                                        <div class="mb-4">
+                                            <input type="password" id="password" name="password" required placeholder="Password" class="focus:shadow-primary-outline dark:text-white/80
+                                            text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 
+                                            outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('password') @enderror" value="{{old('password')}}" />
+                                        </div>
 
-                <h1 class="text-center text-3xl font-bold">Iniciar sesión</h1>
+                                        <div>
+                                            <input type="submit" value="Iniciar Sesión"
+                                                class="inline-block px-16 py-3.5 mt-6 mb-0 align-middle transition-all bg-blue-500 border-0 hover:-translate-y-px active:opacity-85 hover:shadow-xs text-sm ease-in tracking-tight-rem shadow-md bg-150 bg-x-25 cursor-pointer uppercase font-bold w-full p-3 text-white rounded-lg" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute top-0 left-0 flex-col justify-center hidden w-6/12 h-full max-w-full px-3 pl-0 my-auto text-center flex-0 lg:flex">
+                            <div class="relative flex flex-col justify-center h-full bg-cover px-24 m-4 overflow-hidden bg-[url('https://i.blogs.es/953f95/liondp3wallpaper/450_1000.webp')] rounded-xl ">
+                                <span class="absolute top-0 left-0 w-full h-full bg-center bg-cover bg-gradient-to-tl from-blue-500 to-violet-500 opacity-60"></span>
+                                <h4 class="z-20 mt-12 font-bold text-white">"Bienvenido a nuestro punto de venta administrador"</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-    
-            <form method="POST" action="{{route('login')}}" class="space-y-14">
-                @csrf
-                @if(session('mensaje'))
-                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
-                        {{session('mensaje')}}
-                    </p>
-                @endif
-                <div class="mb-5">
-                    <div class="flex items-center bg-blue-800 rounded-lg text-gray-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#ffffff" viewBox="0 0 256 256">
-                            <path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path>
-                        </svg>
-                        <input id="email" name="email" type="text" placeholder="Tu email de registro" required
-                            class="w-full p-4 pl-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 @error('email') border-red-500 @enderror" value="{{old('email')}}" />
-                    </div>
-                </div>
-                <div class="mb-5">
-                    <div class="flex items-center bg-blue-800 rounded-lg text-gray-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#ffffff" viewBox="0 0 256 256">
-                            <path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Zm-68-56a12,12,0,1,1-12-12A12,12,0,0,1,140,152Z"></path>
-                        </svg>
-                        <input id="password" name="password" type="password" placeholder="Password de registro" required
-                            class="w-full p-4 pl-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400  @error('password') border-red-500 @enderror" value="{{old('password')}}" />
-                    </div>
-                </div>
-    
-                <div>
-                    <input type="submit" value="Iniciar Sesión"
-                        class="bg-blue-800 hover:bg-blue-900 transition-colors cursor-pointer uppercase font-bold w-full p-3 text-white rounded-lg" />
-                </div>
-            </form>
-        </div>
-    </div>
-    
+        </section>
+    </main>
+
 </body>
+
 @endsection
