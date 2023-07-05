@@ -3,63 +3,50 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $categorias = Categoria::all();
+        // $subcategorias = Subcategoria::all();
+        return view('productos.create', compact('categorias'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'categoria_id' => 'required',
+            'subcategoria_id' => '',
+            'precio_compra' => 'required|numeric|min:0',
+            'precio_venta' => 'required|numeric|min:0',
+            'unidades_disponibles' => 'required|integer|min:0',
+            'creado_por' => 'required',
+        ]);
+
+        Producto::create([
+            'categoria_id' => $request->categoria_id,
+            'subcategoria_id' => $request->subcategoria_id,
+            'precio_compra' => $request->precio_compra,
+            'precio_venta' => $request->precio_venta,
+            'unidades_disponibles' => $request->unidades_disponibles,
+            'creado_por' => $request->creado_por,
+        ]);
+
+        return redirect()->route('productos.show');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Producto $producto)
+    public function show()
     {
-        //
+        $productos = Producto::paginate(10);
+        return view('productos.show', compact('productos'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Producto $producto)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Producto $producto)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Producto $producto)
-    {
-        //
+        Producto::findOrFail($id)->delete();
+        return redirect()->route('post_index');
     }
 }
