@@ -7,7 +7,7 @@
 @section('sliderbar')
   <!-- sidenav -->
   <aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto antialiased transition-transform duration-200 -translate-x-full bg-white border-0 shadow-xl dark:shadow-none dark:bg-slate-850 max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0 " aria-expanded="false">
-    <div class="h-19 py-14">
+    <div class="h-19">
       <i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-white text-slate-400 xl:hidden" sidenav-close></i>
     </div>
 
@@ -32,6 +32,18 @@
             <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Crear Categoría</span>
           </a>
         </li>
+        <li class="mt-0.5 w-full">
+          <nav class=" py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors">
+            <form method="POST" action="{{route('logout')}}">
+                @csrf
+                <button type="submit"
+                    class="block px-4 py-2 mr-2 font-normal transition-all ease-in-out lg-max:opacity-0 duration-250 text-sm text-slate-700 lg:px-2  hover:bg-blue-300 rounded-md ease-nav-brand">
+                    <i class="fas fa-sign-out-alt lg:mr-1"></i>
+                    Cerrar sesión
+                </button>
+            </form>
+        </nav>
+        </li>
       </ul>
     </div>
 
@@ -43,31 +55,43 @@
 
 
 @section('contenido')
-<div class="container mx-auto">
+<div class="container mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div class="col-span-1 md:col-span-1"></div> <!-- Espacio en blanco para el menú lateral -->
         <div class="col-span-1 md:col-span-2">
-            <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg py-10">
+            <div class="">
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                     <form action="{{ route('categorias.store') }}" method="POST">
                         @csrf
 
-                        <div class="mb-4">
-                            <label for="codigo" class="block mb-2">Código:</label>
-                            <input type="text" name="codigo" id="codigo" placeholder="Ingrese el código" required
-                                class="border rounded-lg py-2 px-4 ">
+                        <div class="mb-4 flex">
+                            <div class="w-1/3 mr-2">
+                                <label for="codigo" class="block mb-2 font-semibold">Código:</label>
+                                <input type="text" name="codigo" id="codigo" placeholder="Ingrese el código" required
+                                    class="focus:shadow-primary-outline dark:text-white/80 
+                                            text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white 
+                                            bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 
+                                            focus:border-fuchsia-300 focus:outline-none">
+                            </div>
+
+                            <div class="w-2/3 ml-2">
+                              <label for="creado_por" class="block mb-2 font-semibold">Creado por:</label>
+                              <input type="text" name="creado_por" id="creado_por" placeholder="Ingrese el nombre del creador" required
+                                  class="focus:shadow-primary-outline dark:text-white/80 
+                                            text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white 
+                                            bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 
+                                            focus:border-fuchsia-300 focus:outline-none">
+                            </div>
                         </div>
 
                         <div class="mb-4">
-                            <label for="descripcion" class="block mb-2">Descripción:</label>
-                            <input type="text" name="descripcion" id="descripcion" placeholder="Ingrese la descripción" required
-                                class="border rounded-lg py-2 px-4 ">
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="creado_por" class="block mb-2">Creado por:</label>
-                            <input type="text" name="creado_por" id="creado_por" placeholder="Ingrese el nombre del creador" required
-                                class="border rounded-lg py-2 px-4 ">
+                            
+                          <label for="descripcion" class="block mb-2 font-semibold">Descripción:</label>
+                          <input type="text" name="descripcion" id="descripcion" placeholder="Ingrese la descripción" required
+                              class="focus:shadow-primary-outline dark:text-white/80 
+                              text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white 
+                              bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 
+                              focus:border-fuchsia-300 focus:outline-none">
                         </div>
 
                         <div>
