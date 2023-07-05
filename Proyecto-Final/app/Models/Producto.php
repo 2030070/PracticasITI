@@ -22,8 +22,8 @@ class Producto extends Model
         return $this->belongsTo(Categoria::class);
     }
 
-    public function subcategoria()
-    {
-        return $this->belongsTo(Subcategoria::class);
-    }
+    // public function subcategoria()
+    // {
+    //     return $this->belongsTo(Subcategoria::class);
+    // }
 }

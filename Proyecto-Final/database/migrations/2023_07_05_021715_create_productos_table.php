@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('categoria_id')->constrainted('categorias');
-            $table->foreignId('subcategoria_id')->constrainted('subcategorias');
+            $table->foreignId('subcategoria_id')->nullable()->constrainted('subcategorias');
             $table->decimal('precio_compra', 8, 2);
             $table->decimal('precio_venta', 8, 2);
             $table->integer('unidades_disponibles');
