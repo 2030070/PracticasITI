@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('categoria_id')->constrainted('categorias');
             $table->string('codigo')->unique();
+            $table->string('nombre');
             $table->string('descripcion');
             $table->string('creado_por');
             $table->timestamps();

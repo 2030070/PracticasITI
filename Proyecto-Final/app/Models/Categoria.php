@@ -10,6 +10,7 @@ class Categoria extends Model{
     
     protected $fillable = [
         'codigo',
+        'nombre',
         'descripcion',
         'creado_por',
     ];

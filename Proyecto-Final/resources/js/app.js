@@ -1,3 +1,11 @@
+import './plugins/chartjs.min.js';
+import './plugins/Chart.extension.js';
+import './plugins/perfect-scrollbar.min.js';
+import './argon-dashboard-tailwind.js';
+import './argon-dashboard-tailwind.min.js';
+
+import './navbar-sticky.js';
+
 import Dropzone from "dropzone";
 Dropzone.autoDiscover = false;
 const dropzone = new Dropzone ('#dropzone',{

@@ -75,7 +75,7 @@
                     <tbody>
                         @foreach ($productos as $producto)
                         <tr>
-                            <td class="py-2 px-4 border-b">{{ $producto->categoria->descripcion }}</td>
+                            <td class="py-2 px-4 border-b">{{ $producto->categoria->nombre }}</td>
                             {{-- <td class="py-2 px-4 border-b">{{ $producto->subcategoria->descripcion }}</td> --}}
                             <td class="py-2 px-4 border-b">a</td>
                             <td class="py-2 px-4 border-b">{{ $producto->precio_compra }}</td>

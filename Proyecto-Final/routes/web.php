@@ -34,7 +34,7 @@ Route::get('/categorias/create', [CategoriaController::class, 'create'])->name('
 //Crea el registro de la categoria
 Route::post('/categorias', [CategoriaController::class, 'store'])->name('categorias.store');
 //Redirecciona para ver el contenido en la vista de show de la categoria
-Route::get('/categorias/list', [CategoriaController::class, 'show'])->name('categorias.show');
+Route::get('/categorias/{nombreUsuario}', [CategoriaController::class, 'show'])->name('categorias.show');
 //Redirecciona al dashboar despues de haber eliminado la categoria
 Route::delete('/categorias/{id}', [CategoriaController::class, 'destroy'])->name('categorias.destroy');
 
@@ -43,6 +43,7 @@ Route::get('/productos/create', [ProductoController::class, 'create'])->name('pr
 //Crea el registro de la categoria
 Route::post('/productos', [ProductoController::class, 'store'])->name('productos.store');
 //Redirecciona para ver el contenido en la vista de show de la categoria
-Route::get('/productos/list', [ProductoController::class, 'show'])->name('productos.show');
+Route::get('/productos/{nombreUsuario}', [ProductoController::class, 'show'])->name('productos.show');
+
 //Redirecciona al dashboar despues de haber eliminado la categoria
 Route::delete('/productos/{id}', [ProductoController::class, 'destroy'])->name('productos.destroy');

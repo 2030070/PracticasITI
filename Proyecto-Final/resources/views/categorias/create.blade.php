@@ -73,16 +73,18 @@
                                             bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 
                                             focus:border-fuchsia-300 focus:outline-none">
                             </div>
-
                             <div class="w-2/3 ml-2">
-                              <label for="creado_por" class="block mb-2 font-semibold">Creado por:</label>
-                              <input type="text" name="creado_por" id="creado_por" placeholder="Ingrese el nombre del creador" required
+                              <label for="nombre" class="block mb-2 font-semibold">Nombre:</label>
+                              <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre de la categoria" required
                                   class="focus:shadow-primary-outline dark:text-white/80 
                                             text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white 
                                             bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 
                                             focus:border-fuchsia-300 focus:outline-none">
                             </div>
+                          
                         </div>
+                        <input type="hidden" name="creado_por" value="{{ Auth::user()->name }}">
+
 
                         <div class="mb-4">
                             

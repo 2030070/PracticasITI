@@ -65,6 +65,7 @@
                     <thead>
                         <tr>
                             <th class="py-2 px-4 border-b text-left">Código</th>
+                            <th class="py-2 px-4 border-b text-left">Nombre</th>
                             <th class="py-2 px-4 border-b text-left">Descripción</th>
                             <th class="py-2 px-4 border-b text-left">Creado por</th>
                             <th class="py-2 px-4 border-b text-left">Acciones</th>
@@ -74,6 +75,7 @@
                         @foreach ($categorias as $categoria)
                         <tr>
                             <td class="py-2 px-4 border-b text-right">{{ $categoria->codigo }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $categoria->nombre }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $categoria->descripcion }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $categoria->creado_por }}</td>
                             <td class="py-2 px-4 border-b text-left">
