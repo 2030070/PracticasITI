@@ -108,12 +108,9 @@
                             <p class="text-red-500 mt-2">{{ $message }}</p>
                         @enderror
                     </div>
-                    
 
                     <input type="submit" value="Registrar" class="bg-blue-500 hover:bg-blue-800 transition-colors cursor-pointer uppercase font-bold w-full p-3 text-white rounded-lg" />
                 </form>
-                
-        
             </div>
         </div>
     @endauth

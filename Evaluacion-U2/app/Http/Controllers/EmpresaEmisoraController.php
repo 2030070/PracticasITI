@@ -10,16 +10,21 @@ class EmpresaEmisoraController extends Controller{
     /**
      * Display a listing of the resource.
      */
+
+     //Funcion para retoranar a la vista del listado de empresas emisoras
     public function index(){
-        $empresaEmisoras = EmpresaEmisora::all();
+        //Paginación a 10 elementos
+        $empresaEmisoras = EmpresaEmisora::paginate(10);
+        //Envio de datos y retorno a la vista
         return view('empresa_emisora.index', ['empresaEmisora' => $empresaEmisoras]);
     }
 
-
+    //Vista para crear el registro de la empresa emisora
     public function create(){
         return view('empresa_emisora.create');
     }
 
+    //Funcion para la validación de datos de la empresa emisora donde se autentican y redirecciona a la ventana del listado de las empresas
     public function store(Request $request){
         //Validar para que no se repitan las razones sociales con el metodo slug
         $request->merge(['razon_social' => Str::slug($request->razon_social)]);

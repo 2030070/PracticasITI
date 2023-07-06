@@ -9,12 +9,6 @@ use App\Models\EmpresaEmisora;
 use App\Models\EmpresaReceptora;
 
 class FacturasController extends Controller{
-    //
-    public function __construct(){
-        //protegemos la url
-        //al metodo index con el constructor le pasamos el parametro de autenticacion
-        $this->middleware('auth');
-    }
 
     public function create(){
         // Se obtienen todas las empresas emisoras
@@ -36,7 +30,8 @@ class FacturasController extends Controller{
         //     'pdf_file' => 'required',
         //     'xml_file' => 'required',
         // ]));
-
+        
+        //Validacion de los datos de la tabla facturas
         $request->validate([
             'empresa_emisora' => 'required',
             'empresa_receptora' => 'required',
@@ -45,7 +40,7 @@ class FacturasController extends Controller{
             'xml_file' => 'required',
         ]);
 
-        // // Crear una nueva factura en la base de datos
+        // Crear una nueva factura en la base de datos
         Factura::create([
             'empresa_emisora_id' => $request->empresa_emisora,
             'empresa_receptora_id' => $request->empresa_receptora,
@@ -58,10 +53,53 @@ class FacturasController extends Controller{
         return redirect()->route('facturas.index')->with('success', 'La factura se ha creado exitosamente.');
     }
 
+    //Retorna a la vista de la tabla facturas
     public function index(){
         // Obtener todas las facturas desde la base de datos
-        $facturas = Factura::all();
+        // $facturas = Factura::all();
         // Retornar la vista para ver las facturas
+        // return view('facturas.index', compact('facturas'));
+        $facturas = Factura::paginate(10);
         return view('facturas.index', compact('facturas'));
+    }
+
+    public function consultarView(){
+        return view('facturas.consultar');
+    }
+
+    public function buscarFacturas(Request $request)
+    {
+        $razonSocial = $request->input('razon_social');
+        $rfc = $request->input('rfc');
+        $nombre = $request->input('nombre');
+        $folio = $request->input('folio');
+
+        // Realiza la lógica de búsqueda de facturas según los parámetros recibidos
+
+        // Por ejemplo, puedes consultar las facturas en base a los filtros
+        $facturas = Factura::when($razonSocial, function ($query, $razonSocial) {
+            $query->whereHas('empresaReceptora', function ($query) use ($razonSocial) {
+                $query->where('id', $razonSocial);
+            });
+        })
+        ->when($rfc, function ($query, $rfc) {
+            $query->whereHas('empresaReceptora', function ($query) use ($rfc) {
+                $query->where('rfc', $rfc);
+            });
+        })
+        ->when($nombre, function ($query, $nombre) {
+            $query->whereHas('empresaReceptora', function ($query) use ($nombre) {
+                $query->where('nombre', 'like', '%' . $nombre . '%');
+            });
+        })
+        ->when($folio, function ($query, $folio) {
+            $query->where('folio_factura', $folio);
+        })
+        ->get();
+        // Obtener las empresas receptoras para poblar el select de "Razón Social"
+        $empresasReceptoras = EmpresaReceptora::all();
+
+        // Retornar la vista con las facturas encontradas y las empresas receptoras
+        return view('facturas.busqueda', compact('facturas', 'empresasReceptoras'));
     }
 }

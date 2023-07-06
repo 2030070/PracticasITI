@@ -8,19 +8,22 @@ use App\Models\EmpresaReceptora;
 
 class EmpresaReceptoraController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+     /**
+      * Funccion para paginar el contenido de la tabla y el redireccionamiento de los campos totales para ser
+      * utilizados en la vista de la tabla
+      */
     public function index(){
-        $empresaReceptoras = EmpresaReceptora::all();
+        $empresaReceptoras = EmpresaReceptora::paginate(10);
         return view('empresa_receptora.index', ['empresaReceptora' => $empresaReceptoras]);
     }
 
-
+    //Redireccionamiento a la vista para crear el registro de la empresa receptora
     public function create(){
         return view('empresa_receptora.create');
     }
 
+    //Redireccionamiento con los campos validados y creados para ser guardados en la base de datos y observados en la vista 
+    //del contenido en la tabla
     public function store(Request $request){
         //Validar para que no se repitan los rfc con el metodo slug
         $request->merge(['rfc' => Str::slug($request->rfc)]);

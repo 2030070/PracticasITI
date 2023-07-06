@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\File;
     donde se valida, guarda y manda los campos a la vista
     y 'Show'retorna a la vista del show donde muestra el contenido del post y se pasa el parametro del mismo
 */
-class PostController extends Controller
-{
-
+class PostController extends Controller{
     //constructor para proteccion de la url 'dashboard'
     //el constructor es lo que se ejectira cuando instancias un controlador
 
@@ -25,8 +23,7 @@ class PostController extends Controller
         //al metodo index con el constructor le pasamos el parametro de autenticacion
         $this->middleware('auth')->except(['show','index']);
     }
-    public function index(User $user)
-    {
+    public function index(User $user){
     
         // Retornar a la vista con el username y los posts de publicación
         return view('dashboard');

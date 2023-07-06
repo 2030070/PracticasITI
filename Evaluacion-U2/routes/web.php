@@ -52,7 +52,8 @@ Route::get('/facturas/create', [FacturasController::class, 'create'])->name('fac
 Route::get('/facturas', [FacturasController::class, 'index'])->name('facturas.index');
 //Ruta para que el contenido se registre de manera correcta para empresas receptoras
 Route::post('/facturas', [FacturasController::class, 'store'])->name('facturas.store');
-
+Route::post('/facturas/consultar', [FacturasController::class, 'consultarFactura'])->name('buscar_facturas');
+Route::get('/consultar-facturas', [FacturasController::class, 'consultarView'])->name('consultar');
 
 // Ruta para guardar un archio XML o PDF en uploads
 Route::post('/facturaPDF', [ArchivosController::class, 'storePDF'])->name('archivos.store');
