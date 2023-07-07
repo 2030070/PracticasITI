@@ -23,6 +23,8 @@
     </style>
 @endpush
 
+{{-- cuerpo del contenido del dashboard donde se muestra 4 tarjetas para ejecutar en el dashboard para registrar facturas, empresas
+    emisoras y receptoras, cada una de ellas te redirecciona a l --}}
 @section('contenido')
     @auth
         <div class="grid grid-cols-2 gap-6 justify-center items-center">

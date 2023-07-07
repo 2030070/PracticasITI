@@ -1,10 +1,13 @@
+{{-- Se tiene el contenido principal para la estructura de layouts.app.blade.php --}}
 @extends('layouts.app')
 
+{{-- seccion para el titulo --}}
 @section('titulo')
     Empresa Emisora
 @endsection
 
-
+{{-- seccion para un encabezado donde se centran dos botones para poder ver y navegar por el sitio web el cual 
+    se les asigna iconos representativos --}}
 @section('nav')
     <nav class="flex justify-center items-center mb-4 bg-blue-500">
         <div class="flex items-center mr-6" title="Dashboard">
@@ -27,6 +30,8 @@
     </nav>
 @endsection
 
+{{-- cuerpo de la vista, donde viene rel registro de para la empresa emisora solicitando los campos de 
+    razon_social, correo_contacto, rfc_emisor y manda los datos de una empresa emisora al modelo de la misma --}}
 @section('contenido')
     @auth
         <div class="flex justify-center items-center">

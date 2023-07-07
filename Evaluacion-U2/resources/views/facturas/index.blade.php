@@ -1,9 +1,14 @@
+{{-- Se tiene el contenido principal para la estructura de layouts.app.blade.php --}}
 @extends('layouts.app')
 
+{{-- seccion para el titulo --}}
 @section('titulo')
     Listado de Facturas
 @endsection
 
+
+{{-- seccion para un encabezado donde se centran dos botones para poder ver y navegar por el sitio web el cual 
+    se les asigna iconos representativos --}}
 @section('nav')
     <nav class="flex justify-center items-center mb-4 bg-blue-500">
         <div class="flex items-center mr-6" title="Dashboard">
@@ -25,6 +30,8 @@
     </nav>
 @endsection
 
+{{-- cuerpo del contenido en donde se agregan los botones para exportar a pdf y xml, asi como se muestran los elementos de la 
+    base de datos para las facturas, obteniendo los campos rqueridos como id, emisor, receptor, folio, los archivos pdf y xm y acciones como eliminar --}}
 @section('contenido')
     <div class="my-4 flex justify-end space-x-2">
         @auth
@@ -63,6 +70,7 @@
             </thead>
             @auth
             <tbody>
+                {{-- si se encuentran más de 0 datos se aprecia el contenido siempre y cuando este exista --}}
                 @if ($facturas->count() > 0)
                     @foreach ($facturas as $factura)
                         <tr>
@@ -88,6 +96,7 @@
                         </tr>
                     @endforeach
                 @else
+                {{-- en caso de no tener resultados no habra resultados que mostrr --}}
                     <tr>
                         <td colspan="5" class="py-2 px-4 font-bold">No hay facturas registradas.</td>
                     </tr>
@@ -96,6 +105,7 @@
             @endauth
         </table>
     </div>
+    {{-- paginación de la tabla a 10 filas y luego ejecutar la  --}}
     <div class="mt-4">
         {{ $facturas->links() }}
     </div
