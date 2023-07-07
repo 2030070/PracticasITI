@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\ArchivosController;
+use App\Http\Controllers\BuscarFacturaController;
 use App\Http\Controllers\FacturasController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmpresaEmisoraController;
@@ -38,6 +39,7 @@ Route::get('/empresas_emisoras/create', [EmpresaEmisoraController::class, 'creat
 Route::get('/empresas_emisoras', [EmpresaEmisoraController::class, 'index'])->name('empresas_emisoras.index');
 //Ruta para que el contenido se regisre de manera correcta para empresas emisoras
 Route::post('/empresas_emisoras', [EmpresaEmisoraController::class, 'store'])->name('empresas_emisoras.store');
+Route::delete('/empresas_emisoras/{id}', [EmpresaEmisoraController::class, 'destroy'])->name('empresas_emisoras.destroy');
 
 //Rutas para empresas receptoras
 Route::get('/empresas_receptoras/create', [EmpresaReceptoraController::class, 'create'])->name('empresas_receptoras.create');
@@ -45,6 +47,7 @@ Route::get('/empresas_receptoras/create', [EmpresaReceptoraController::class, 'c
 Route::get('/empresas_receptoras', [EmpresaReceptoraController::class, 'index'])->name('empresas_receptoras.index');
 //Ruta para que el contenido se registre de manera correcta para empresas receptoras
 Route::post('/empresas_receptoras', [EmpresaReceptoraController::class, 'store'])->name('empresas_receptoras.store');
+Route::delete('/empresas_receptoras/{id}', [EmpresaReceptoraController::class, 'destroy'])->name('empresas_receptoras.destroy');
 
 //Rutas para empresas receptoras
 Route::get('/facturas/create', [FacturasController::class, 'create'])->name('facturas.create');
@@ -52,8 +55,11 @@ Route::get('/facturas/create', [FacturasController::class, 'create'])->name('fac
 Route::get('/facturas', [FacturasController::class, 'index'])->name('facturas.index');
 //Ruta para que el contenido se registre de manera correcta para empresas receptoras
 Route::post('/facturas', [FacturasController::class, 'store'])->name('facturas.store');
-Route::post('/facturas/consultar', [FacturasController::class, 'consultarFactura'])->name('buscar_facturas');
-Route::get('/consultar-facturas', [FacturasController::class, 'consultarView'])->name('consultar');
+Route::delete('/facturas/{id}', [FacturasController::class, 'destroy'])->name('facturas.destroy');
+
+//Rutas para la busqueda de las facturas del portal web
+Route::post('/facturas/consultar', [BuscarFacturaController::class, 'buscarFacturas'])->name('buscar_facturas');
+Route::get('/consultar-facturas', [BuscarFacturaController::class, 'consultarView'])->name('consultar');
 
 // Ruta para guardar un archio XML o PDF en uploads
 Route::post('/facturaPDF', [ArchivosController::class, 'storePDF'])->name('archivos.store');

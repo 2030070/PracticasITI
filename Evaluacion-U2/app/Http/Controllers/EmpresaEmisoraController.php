@@ -46,4 +46,14 @@ class EmpresaEmisoraController extends Controller{
         //retorna la vista para ver el contenido en tablas
         return redirect()->route('empresas_emisoras.index')->with('success', 'Empresa emisora registrada exitosamente');
     }
+
+    //Elimina las empresas emisoras mediante su id
+    public function destroy($id){
+        $empresaEmisora = EmpresaEmisora::findOrFail($id);
+        $empresaEmisora->facturas()->delete();
+        // Eliminar la empresa emisora y las relaciones en cascada
+        $empresaEmisora->delete();
+        return redirect()->route('empresas_emisoras.index')->with('success', 'Empresa emisora eliminada exitosamente.');
+    }
+
 }

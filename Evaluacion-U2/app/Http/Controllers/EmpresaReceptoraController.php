@@ -49,4 +49,14 @@ class EmpresaReceptoraController extends Controller
         //retorna a la visra para ver el contenido en tablas
         return redirect()->route('empresas_receptoras.index')->with('success', 'Empresa emisora registrada exitosamente');
     }
+
+    //elimina las empresas recepotras que fueron creadas mediante su id
+    public function destroy($id){
+        $empresaReceptora = EmpresaReceptora::findOrFail($id);
+        // Eliminar la empresa receptora y las relaciones en cascada
+        $empresaReceptora->facturas()->delete();
+        $empresaReceptora->delete();
+        return redirect()->route('empresas_receptoras.index')->with('success', 'Empresa receptora eliminada exitosamente.');
+    }
+
 }
