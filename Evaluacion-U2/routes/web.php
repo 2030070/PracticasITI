@@ -6,9 +6,10 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\ArchivosController;
-use App\Http\Controllers\BuscarFacturaController;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FacturasController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BuscarFacturaController;
 use App\Http\Controllers\EmpresaEmisoraController;
 use App\Http\Controllers\EmpresaReceptoraController;
 
@@ -64,6 +65,8 @@ Route::get('/consultar-facturas', [BuscarFacturaController::class, 'consultarVie
 // Ruta para guardar un archio XML o PDF en uploads
 Route::post('/facturaPDF', [ArchivosController::class, 'storePDF'])->name('archivos.store');
 Route::post('/facturaXML', [ArchivosController::class, 'storeXML'])->name('archivos2.store');
+Route::get('/download/{filename}', [DownloadController::class, 'downloadFile'])->name('download');
+
 
 
 

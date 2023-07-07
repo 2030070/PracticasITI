@@ -80,23 +80,28 @@
     @if (session('success'))
       
 <div class="my-10 py-2 overflow-x-auto sm:-mx-6 justify-center sm:px-6 lg:-mx-8 pr-10 lg:px-8">
-    <h1 class="text-black text-sm lg:text-2xl text-center font-bold">Facturas encontradas</h1>
-    <button onclick="exportToPDF('facturas')" class="inline-block px-2 py-1 rounded-lg font-bold text-sm text-white bg-blue-500 hover:bg-blue-700 transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#ffffff" viewBox="0 0 256 256">
-            <path d="M224,152a8,8,0,0,1-8,8H192v16h16a8,8,0,0,1,0,16H192v16a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8h32A8,8,0,0,1,224,152ZM92,172a28,28,0,0,1-28,28H56v8a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8H64A28
-            ,28,0,0,1,92,172Zm-16,0a12,12,0,0,0-12-12H56v24h8A12,12,0,0,0,76,172Zm88,8a36,36,0,0,1-36,36H112a8,8,0,0,1-8-8V152a8,8,0,0,1,8-8h16A36,36,0,0,1,164,180Zm-16,0a20,20,0,0,0-20-20h-8v40h8A20,
-            20,0,0,0,148,180ZM40,112V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88v24a8,8,0,0,1-16,0V96H152a8,8,0,0,1-8-8V40H56v72a8,8,0,0,1-16,0ZM160,80h28.69L160,51.31Z"></path>
-        </svg>
-    </button>
+    <div class="flex flex-col items-center justify-center">
+        <div class="space-x-4">
+        
+            <h1 class="text-black text-lg text-center font-bold">Facturas encontradas</h1>
+            <button onclick="exportToPDF('facturas')" class="inline-block px-2 py-1 rounded-lg font-bold text-sm  items-center justify-center text-white bg-blue-500 hover:bg-blue-700 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#ffffff" viewBox="0 0 256 256">
+                    <path d="M224,152a8,8,0,0,1-8,8H192v16h16a8,8,0,0,1,0,16H192v16a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8h32A8,8,0,0,1,224,152ZM92,172a28,28,0,0,1-28,28H56v8a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8H64A28
+                    ,28,0,0,1,92,172Zm-16,0a12,12,0,0,0-12-12H56v24h8A12,12,0,0,0,76,172Zm88,8a36,36,0,0,1-36,36H112a8,8,0,0,1-8-8V152a8,8,0,0,1,8-8h16A36,36,0,0,1,164,180Zm-16,0a20,20,0,0,0-20-20h-8v40h8A20,
+                    20,0,0,0,148,180ZM40,112V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88v24a8,8,0,0,1-16,0V96H152a8,8,0,0,1-8-8V40H56v72a8,8,0,0,1-16,0ZM160,80h28.69L160,51.31Z"></path>
+                </svg>
+            </button>
 
-    <button onclick="exportToExcel('facturas')" class="inline-block px-2 py-1 rounded-lg font-bold text-sm text-white bg-blue-500 hover:bg-blue-700 transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#ffffff" viewBox="0 0 256 256"><path d="M156,208a8,8,0,0,1-8,8H120a8,8,0,0,1-8-8V152a8,8,0,0,1,16,0v48h20A8,8,0,0,1,156,208ZM92.65,
-            145.49a8,8,0,0,0-11.16,1.86L68,166.24,54.51,147.35a8,8,0,1,0-13,9.3L58.17,180,41.49,203.35a8,8,0,0,0,13,9.3L68,193.76l13.49,18.89a8,8,0,0,0,13-9.3L77.83,180l16.68-23.35A8,8,0,0,0,92.65,145.49Zm98.94,
-            25.82c-4-1.16-8.14-2.35-10.45-3.84-1.25-.82-1.23-1-1.12-1.9a4.54,4.54,0,0,1,2-3.67c4.6-3.12,15.34-1.72,19.82-.56a8,8,0,0,0,4.07-15.48c-2.11-.55-21-5.22-32.83,2.76a20.58,20.58,0,0,0-8.95,14.95c-2,15.88,
-            13.65,20.41,23,23.11,12.06,3.49,13.12,4.92,12.78,7.59-.31,2.41-1.26,3.33-2.15,3.93-4.6,3.06-15.16,1.55-19.54.35A8,8,0,0,0,173.93,214a60.63,60.63,0,0,0,15.19,2c5.82,0,12.3-1,17.49-4.46a20.81,20.81,0,0,0,
-            9.18-15.23C218,179,201.48,174.17,191.59,171.31ZM40,112V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88v24a8,8,0,1,1-16,0V96H152a8,8,0,0,1-8-8V40H56v72a8,8,0,0,1-16,0ZM160,80h28.68L160,51.31Z"></path>
-        </svg>
-    </button>    
+            <button onclick="exportToExcel('facturas')" class="inline-block px-2 py-1 rounded-lg font-bold text-sm items-center justify-center text-white bg-blue-500 hover:bg-blue-700 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#ffffff" viewBox="0 0 256 256"><path d="M156,208a8,8,0,0,1-8,8H120a8,8,0,0,1-8-8V152a8,8,0,0,1,16,0v48h20A8,8,0,0,1,156,208ZM92.65,
+                    145.49a8,8,0,0,0-11.16,1.86L68,166.24,54.51,147.35a8,8,0,1,0-13,9.3L58.17,180,41.49,203.35a8,8,0,0,0,13,9.3L68,193.76l13.49,18.89a8,8,0,0,0,13-9.3L77.83,180l16.68-23.35A8,8,0,0,0,92.65,145.49Zm98.94,
+                    25.82c-4-1.16-8.14-2.35-10.45-3.84-1.25-.82-1.23-1-1.12-1.9a4.54,4.54,0,0,1,2-3.67c4.6-3.12,15.34-1.72,19.82-.56a8,8,0,0,0,4.07-15.48c-2.11-.55-21-5.22-32.83,2.76a20.58,20.58,0,0,0-8.95,14.95c-2,15.88,
+                    13.65,20.41,23,23.11,12.06,3.49,13.12,4.92,12.78,7.59-.31,2.41-1.26,3.33-2.15,3.93-4.6,3.06-15.16,1.55-19.54.35A8,8,0,0,0,173.93,214a60.63,60.63,0,0,0,15.19,2c5.82,0,12.3-1,17.49-4.46a20.81,20.81,0,0,0,
+                    9.18-15.23C218,179,201.48,174.17,191.59,171.31ZM40,112V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88v24a8,8,0,1,1-16,0V96H152a8,8,0,0,1-8-8V40H56v72a8,8,0,0,1-16,0ZM160,80h28.68L160,51.31Z"></path>
+                </svg>
+            </button> 
+        </div>   
+    </div>
     <div class="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg my-4">
         <table class="min-w-full" id="maintable">
             <thead>
@@ -105,8 +110,8 @@
                     <th class="px-6 py-3 border-b-2 border-blue-500 text-center leading-4 text-bold tracking-wider">Empresa Emisora</th>
                     <th class="px-6 py-3 border-b-2 border-blue-500 text-center leading-4 text-bold tracking-wider">Empresa Receptora</th>
                     <th class="px-6 py-3 border-b-2 border-blue-500 text-center leading-4 text-bold tracking-wider">Folio de Factura</th>
-                    <th class="px-6 py-3 border-b-2 border-blue-500 text-center leading-4 text-bold tracking-wider">Archivo PDF</th>
-                    <th class="px-6 py-3 border-b-2 border-blue-500 text-center leading-4 text-bold tracking-wider">Archivo XML</th>
+                    <th class="px-6 py-3 border-b-2 border-blue-500 text-center leading-4 text-bold tracking-wider">PDF</th>
+                    <th class="px-6 py-3 border-b-2 border-blue-500 text-center leading-4 text-bold tracking-wider">XML</th>
                     <th class="px-6 py-3 border-b-2 border-blue-500 text-center leading-4 text-bold tracking-wider">Fecha de Creación</th>
                 </tr>
             </thead>
@@ -117,10 +122,31 @@
                             <div class="text-sm leading-5 text-gray-800 text-center">{{ $factura->id }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-blue-500  text-sm leading-5 text-center">{{ $factura->empresaEmisora->razon_social }}</td>
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-blue-500  text-sm leading-5 text-center">{{ $factura->empresaReceptora }}</td>
+                        <td class="px-6 py-4 whitespace-no-wrap border-b border-blue-500  text-sm leading-5 text-center">{{ $factura->empresaReceptora}}</td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-blue-500  text-sm leading-5 text-center">{{ $factura->folio_factura }}</td>
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-blue-500  text-sm leading-5 text-center">{{ $factura->pdf_file }}</td>
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-blue-500  text-sm leading-5 text-center">{{ $factura->xml_file }}</td>
+                        {{-- <td class="px-6 py-4 whitespace-no-wrap border-b border-blue-500  text-sm leading-5 text-center">{{ $factura->pdf_file }}</td> --}}
+                        {{-- <td class="px-6 py-4 whitespace-no-wrap border-b border-blue-500  text-sm leading-5 text-center">{{ $factura->xml_file }}</td> --}}
+                        <td class="px-6 py-4 whitespace-no-wrap border-b border-blue-500  text-sm leading-5 text-center items-center justify-center">
+                            <a href="{{ route('download', ['filename' => $factura->pdf_file]) }}" download class="text-blue-500 font-bold underline " >  
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#3b82f6" viewBox="0 0 256 256" >
+                                    <path d="M224,152a8,8,0,0,1-8,8H192v16h16a8,8,0,0,1,0,16H192v16a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8h32A8,8,0,0,1,224,152ZM92,172a28,28,0,0,1-28,28H56v8a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8H64A28
+                                    ,28,0,0,1,92,172Zm-16,0a12,12,0,0,0-12-12H56v24h8A12,12,0,0,0,76,172Zm88,8a36,36,0,0,1-36,36H112a8,8,0,0,1-8-8V152a8,8,0,0,1,8-8h16A36,36,0,0,1,164,180Zm-16,0a20,20,0,0,0-20-20h-8v40h8A20,
+                                    20,0,0,0,148,180ZM40,112V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88v24a8,8,0,0,1-16,0V96H152a8,8,0,0,1-8-8V40H56v72a8,8,0,0,1-16,0ZM160,80h28.69L160,51.31Z"></path>
+                                </svg>
+                                {{ $factura->pdf_file }}
+                            </a>
+                        </td>
+                        <td class="px-6 py-4 whitespace-no-wrap border-b border-blue-500  text-sm leading-5 text-center items-center justify-center">
+                            <a href="{{ route('download', ['filename' => $factura->xml_file]) }}" download class="text-blue-500 font-bold underline " >  
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#3b82f6" viewBox="0 0 256 256"><path d="M156,208a8,8,0,0,1-8,8H120a8,8,0,0,1-8-8V152a8,8,0,0,1,16,0v48h20A8,8,0,0,1,156,208ZM92.65,
+                                    145.49a8,8,0,0,0-11.16,1.86L68,166.24,54.51,147.35a8,8,0,1,0-13,9.3L58.17,180,41.49,203.35a8,8,0,0,0,13,9.3L68,193.76l13.49,18.89a8,8,0,0,0,13-9.3L77.83,180l16.68-23.35A8,8,0,0,0,92.65,145.49Zm98.94,
+                                    25.82c-4-1.16-8.14-2.35-10.45-3.84-1.25-.82-1.23-1-1.12-1.9a4.54,4.54,0,0,1,2-3.67c4.6-3.12,15.34-1.72,19.82-.56a8,8,0,0,0,4.07-15.48c-2.11-.55-21-5.22-32.83,2.76a20.58,20.58,0,0,0-8.95,14.95c-2,15.88,
+                                    13.65,20.41,23,23.11,12.06,3.49,13.12,4.92,12.78,7.59-.31,2.41-1.26,3.33-2.15,3.93-4.6,3.06-15.16,1.55-19.54.35A8,8,0,0,0,173.93,214a60.63,60.63,0,0,0,15.19,2c5.82,0,12.3-1,17.49-4.46a20.81,20.81,0,0,0,
+                                    9.18-15.23C218,179,201.48,174.17,191.59,171.31ZM40,112V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88v24a8,8,0,1,1-16,0V96H152a8,8,0,0,1-8-8V40H56v72a8,8,0,0,1-16,0ZM160,80h28.68L160,51.31Z"></path>
+                                </svg>
+                                {{ $factura->xml_file }}
+                            </a>
+                        </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-blue-500  text-sm leading-5 text-center">{{ $factura->created_at }}</td>
                     </tr>
                 @endforeach
