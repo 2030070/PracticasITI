@@ -9,42 +9,46 @@ use Illuminate\Routing\Controller;
 
 class ArchivosController extends Controller{
 
-    //Constructor para validar usuario autentificado
-    public function __construct(){
-        // Para verificar que el user este autenticado
-        // except() es para indicar cuales metodos pueden usarse sin autenticarse
+      //Constructor para validar usuario autenticado
+      public function __construct(){
+        // Verifica que el usuario esté autenticado
+        // 'auth' es el middleware de autenticación en Laravel
+        // El middleware se ejecuta antes de los métodos del controlador
         $this->middleware('auth');
     }
-    //Función para almacenar el archivo PDF
+
+    // Función para almacenar el archivo PDF
     public function storePDF(Request $request){
         $pdf = $request->file('file');
-        // Se obtiene el nombre del archivo
+        // Se obtiene el nombre original del archivo
         $nombrepdf = $pdf->getClientOriginalName();
-        //Se obtiene el path en donde queremos almecenar el archivo
+        // Se define el path en donde queremos almacenar el archivo
         $pdfPath = public_path('uploads') . '/' . $nombrepdf;
-        //Con la creación del archivo, se coloca en la ruta establecida
-        copy($pdf,$pdfPath);
+        // Se copia el archivo a la ruta establecida
+        copy($pdf, $pdfPath);
 
+        // Se devuelve una respuesta JSON con el nombre del archivo PDF almacenado
         return response()->json(['pdf' => $nombrepdf]);
     }
-    //Funcion para almacenar archivos XML    
-    public function storeXML(Request $request){
-        // dd($request->all());
 
+    // Función para almacenar archivos XML
+    public function storeXML(Request $request){
         $xml = $request->file('file');
         // Se obtiene el nombre original del archivo
         $nombrexml = $xml->getClientOriginalName();
-
-        //Se obtiene el path en donde queremos almecenar el archivo
+        // Se define el path en donde queremos almacenar el archivo
         $xmlPath = public_path('uploads') . '/' . $nombrexml;
-        //Con la creación del archivo, se coloca en la ruta establecida
-        copy($xml,$xmlPath);
-        
+        // Se copia el archivo a la ruta establecida
+        copy($xml, $xmlPath);
+
+        // Se devuelve una respuesta JSON con el nombre del archivo XML almacenado
         return response()->json(['xml' => $nombrexml]);
     }
 
+    // Función para descargar archivos
     public function download($file){
         $pathFile = public_path('uploads').'/'.$file;
+        // Se genera una respuesta de descarga del archivo
         return response()->download($pathFile);
     }
 }
