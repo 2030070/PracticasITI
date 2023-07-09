@@ -4,62 +4,6 @@
    Listado de Productos
 @endsection
 
-
-@section('sliderbar')
-  <!-- sidenav -->
-  <aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto antialiased transition-transform duration-200 -translate-x-full bg-white border-0 shadow-xl dark:shadow-none dark:bg-slate-850 max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0 " aria-expanded="false">
-    <div class="h-19 py-14">
-      <i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-white text-slate-400 xl:hidden" sidenav-close></i>
-    </div>
-
-    <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
-
-    <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
-      <ul class="flex flex-col pl-0 mb-0">
-        <li class="mt-0.5 w-full">
-          <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('productos.create') }}">
-            <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-              <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-box-open"></i>
-            </div>
-            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Crear Producto</span>
-          </a>
-        </li>
-
-        <li class="mt-0.5 w-full">
-          <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('categorias.create') }}">
-            <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-              <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-folder-plus"></i>
-            </div>
-            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Crear Categoría</span>
-          </a>
-        </li>
-        <li class="mt-0.5 w-full">
-          {{-- <nav class=" py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors"> --}}
-            <form method="POST" action="{{route('logout')}}">
-                @csrf
-                <button type="submit">
-                  <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors">
-                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                      <i class="relative top-0 text-sm leading-normal text-blue-500  fas fa-sign-out-alt "></i>
-                    </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Cerrar Sesion</span>
-                  </a>
-                   
-                </button>
-            </form>
-        {{-- </nav> --}}
-        </li>
-      </ul>
-    </div>
-
-    <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
-
-  </aside>
-  <!-- end sidenav -->
-@endsection
-
-
-
 @section('contenido')
 <div class="container mx-auto ">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -83,7 +27,6 @@
                         @foreach ($productos as $producto)
                         <tr>
                             <td class="py-2 px-4 border-b">{{ $producto->categoria->nombre }}</td>
-                            {{-- <td class="py-2 px-4 border-b">{{ $producto->subcategoria->descripcion }}</td> --}}
                             <td class="py-2 px-4 border-b">a</td>
                             <td class="py-2 px-4 border-b">{{ $producto->nombre }}</td>
                             <td class="py-2 px-4 border-b">{{ $producto->precio_compra }}</td>
@@ -101,6 +44,11 @@
                                         </svg>
                                     </button>
                                 </form>
+                                <a href="{{ route('productos.edit', $producto->id) }}" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#3B82F6" viewBox="0 0 256 256">
+                                        <path d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31l83.67-83.66,3.48,13.9-36.8,36.79a8,8,0,0,0,11.31,11.32l40-40a8,8,0,0,0,2.11-7.6l-6.9-27.61L227.32,96A16,16,0,0,0,227.32,73.37ZM48,179.31,76.69,208H48Zm48,25.38L51.31,160,136,75.31,180.69,120Zm96-96L147.32,64l24-24L216,84.69Z"></path>
+                                    </svg>
+                                </a>
                             </td>
                         </tr>
                         @endforeach

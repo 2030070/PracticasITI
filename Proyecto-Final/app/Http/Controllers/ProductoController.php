@@ -9,9 +9,15 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductoController extends Controller
 {
+    public function __construct(){
+        //protegemos la url
+        //al metodo index con el constructor le pasamos el parametro de autenticacion
+        $this->middleware('auth');
+    }
     public function create()
     {
         $categorias = Categoria::all();
+        
         // $subcategorias = Subcategoria::all();
         return view('productos.create', compact('categorias'));
     }
@@ -39,20 +45,54 @@ class ProductoController extends Controller
             'creado_por' => Auth::user()->name,
         ]);
         //redirecciona a la vista de productos para ver la tabla
-         // Redirigir a la vista de mostrar categorías
-         $nombreUsuario = Auth::user()->name;
-        return redirect()->route('productos.show', ['nombreUsuario' => $nombreUsuario]);
+        return redirect()->route('productos.show');
+    }
+
+    public function edit(Producto $producto)
+    {
+        $categorias = Categoria::all();
+
+        return view('productos.edit', compact('producto','categorias'));
     }
 
     //Manda los datos de la tabla productos a la vista show productos y pagina el contenido de 10 en 10
-    public function show($nombreUsuario){
+    public function show(){
         $productos = Producto::paginate(10);
-        return view('productos.show',  ['productos' => $productos, 'nombreUsuario' => $nombreUsuario]);
+        $categorias = Categoria::all();
+
+        return view('productos.show', ['productos' => $productos, 'categorias' => $categorias]);
     }
 
     //Elimina el contenido de la base de datos con ayuda del id del producto creado
     public function destroy($id){
         Producto::findOrFail($id)->delete();
-        return redirect()->route('post_index');
+        return redirect()->route('productos.show');
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'categoria_id' => 'required',
+            'subcategoria_id' => '',
+            'nombre' =>'required',
+            'precio_compra' => 'required|numeric|min:0',
+            'precio_venta' => 'required|numeric|min:0',
+            'unidades_disponibles' => 'required|integer|min:0',
+            'creado_por' => 'required',
+
+        ]);
+
+        $producto = Producto::findOrFail($id);
+        $producto->categoria_id = $request->categoria_id;
+        $producto->subcategoria_id = $request->subcategoria_id;
+        $producto->nombre = $request->nombre;
+        $producto->precio_compra = $request->precio_compra;
+        $producto->precio_venta = $request->precio_venta;
+        $producto->unidades_disponibles = $request->unidades_disponibles;
+        $producto->creado_por = Auth::user()->name;
+        $producto->save();
+
+        return redirect()->route('productos.show')->with('actualizado', 'Producto actualizado correctamente.');
+    }
+
 }

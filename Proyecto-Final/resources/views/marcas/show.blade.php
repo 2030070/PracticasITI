@@ -1,30 +1,19 @@
 @extends('layouts.app')
 
 @section('titulo')
-   Consultar Categorías
+   Consultar Marcas
 @endsection
-
 
 @section('contenido')
 <div class="container mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div class="col-span-1 md:col-span-1"></div> <!-- Espacio en blanco para el menú lateral -->
         <div class="col-span-1 md:col-span-2">
-            @if(session('success'))
-                    <div class="bg-green-200 p-2 rounded-lg mb-6 text-black text-center ">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                @if(session('actualizada'))
-                    <div class="bg-green-200 p-2 rounded-lg mb-6 text-black text-center ">
-                        {{ session('actualizada') }}
-                    </div>
-                @endif
             <div class="overflow-x-auto">
                 <table class="min-w-full border-2 border-blue-500 rounded-lg">
                     <thead>
                         <tr>
-                            <th class="py-2 px-4 border-b text-left">Código</th>
+                            <th class="py-2 px-4 border-b text-left">Imagen</th>
                             <th class="py-2 px-4 border-b text-left">Nombre</th>
                             <th class="py-2 px-4 border-b text-left">Descripción</th>
                             <th class="py-2 px-4 border-b text-left">Creado por</th>
@@ -32,14 +21,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categorias as $categoria)
+                        @foreach ($marcas as $marca)
                         <tr>
-                            <td class="py-2 px-4 border-b text-right">{{ $categoria->codigo }}</td>
-                            <td class="py-2 px-4 border-b text-left">{{ $categoria->nombre }}</td>
-                            <td class="py-2 px-4 border-b text-left">{{ $categoria->descripcion }}</td>
-                            <td class="py-2 px-4 border-b text-left">{{ $categoria->creado_por }}</td>
                             <td class="py-2 px-4 border-b text-left">
-                                <form action="{{ route('categorias.destroy', $categoria->id) }}" method="POST">
+                                <img src="{{ asset('uploads/' . $marca->imagen) }}" alt="Imagen de la marca" class="w-20 h-20 object-cover">
+                            </td>
+                            <td class="py-2 px-4 border-b text-left">{{ $marca->nombre }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $marca->descripcion }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $marca->creado_por }}</td>
+                            <td class="py-2 px-4 border-b text-left">
+                                <form action="{{ route('marcas.destroy', $marca->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600">
@@ -49,11 +40,6 @@
                                         </svg>
                                     </button>
                                 </form>
-                                <a href="{{ route('categorias.edit', $categoria->id) }}" >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#3B82F6" viewBox="0 0 256 256">
-                                        <path d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31l83.67-83.66,3.48,13.9-36.8,36.79a8,8,0,0,0,11.31,11.32l40-40a8,8,0,0,0,2.11-7.6l-6.9-27.61L227.32,96A16,16,0,0,0,227.32,73.37ZM48,179.31,76.69,208H48Zm48,25.38L51.31,160,136,75.31,180.69,120Zm96-96L147.32,64l24-24L216,84.69Z"></path>
-                                    </svg>
-                                </a>
                             </td>
                         </tr>
                         @endforeach
@@ -62,7 +48,7 @@
             </div>
 
             <div class="mt-4">
-                {{ $categorias->links() }}
+                {{ $marcas->links() }}
             </div>
         </div>
         <div class="col-span-1 md:col-span-1"></div> <!-- Espacio en blanco para el menú lateral -->

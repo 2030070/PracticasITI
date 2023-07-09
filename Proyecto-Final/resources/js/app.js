@@ -6,53 +6,55 @@ import './argon-dashboard-tailwind.min.js';
 
 import './navbar-sticky.js';
 
+// import './bootstrap';
+// configuración de Dropzone
 import Dropzone from "dropzone";
+
 Dropzone.autoDiscover = false;
-const dropzone = new Dropzone ('#dropzone',{
-    dictDefaultMessage:"Sube archivos pdf/xml aquí",
-    acceptedFiles: ".pdf,.xml",
+const dropzone = new Dropzone('#dropzone', {
+    dictDefaultMessage: "Sube tu imagen aqui",
+    acceptedFiles: ".png,.jpg,.jpeg,.gif",
     addRemoveLinks: true,
     dictRemoveFile: "Borrar archivo",
-    maxFiles: 2,
-    uploadMultiple: false,
-    
-    //Trabajando con imagen en el contenedor de dropzone
-    init: function(){
-        if(document.querySelector('[name="imagen"]').value.trim()){
-            const imagenPublicada ={};
+    maxFiles: 1,
+    uploadMUltiple: false,
+    //trabajando con imagen en el contenedor de dropzone
+    init: function () {
+        if (document.querySelector('[name="imagen"]').value.trim()) {
+            const imagenPublicada = {};
             imagenPublicada.size = 1234
-            imagenPublicada.name=
+            imagenPublicada.name =
                 document.querySelector('[name="imagen"]').value;
             this.options.addedfile.call(this, imagenPublicada);
-            this.options.thumbnail.call(
-                this,
-                imagenPublicada,
-                '/uploads/${imagenPublicada.name}'
-            );
+            this.options.thumbnail.call(this, imagenPublicada, '/uploads/{$imagenPublicada.name}')
             imagenPublicada.previewElement.classList.add(
                 "dz-success",
-                "dz-complete"
+                "dz-complete",
             );
-        }
-    },
+        };
+    }
 });
 
-//Eventos de Dropzone
-//dropzone.on('sending', function(file, xhr, formdata){
-//    console.log(file);
-//});
 
-//Evento de envio correcto de imagen
-dropzone.on('success', function(file, response){
-    document.querySelector('[name="imagen"]').value  =response.imagen;
+// Dropzone.on('sending', function(file, xhr,formdata){
+//     console.log(file)
+// });
+
+//evento de envio de correo correcto 
+dropzone.on('success', function (file, response) {
+    // console.log(response)
+    document.querySelector('[name="imagen"]').value = response.imagen;
 });
 
-//Envío cuando hay error
-dropzone.on('error', function(file, message){
-    console.log(message);
+//Envio cuando hay error
+dropzone.on('error', function (file, message) {
+    console.log(message)
 });
 
-//Remover un archivo
-dropzone.on('removedfile', function(){
-   document.querySelector('[name="imagen"]').value="";
+//remover un archivo
+dropzone.on('removedfile', function () {
+    // console.log('El archivo se elimino')
+    document.querySelector('[name="imagen"]').value="";
 });
+
+
