@@ -15,10 +15,9 @@ class ProductoController extends Controller
         //al metodo index con el constructor le pasamos el parametro de autenticacion
         $this->middleware('auth');
     }
-    public function create()
-    {
+
+    public function create(){
         $categorias = Categoria::all();
-        
         $subcategorias = Subcategoria::all();
         return view('productos.create', compact('categorias','subcategorias'));
     }
@@ -49,8 +48,7 @@ class ProductoController extends Controller
         return redirect()->route('productos.show')->with('success', 'Producto creada correctamente.');
     }
 
-    public function edit(Producto $producto)
-    {
+    public function edit(Producto $producto){
         $categorias = Categoria::all();
 
         $subcategorias = Subcategoria::all();

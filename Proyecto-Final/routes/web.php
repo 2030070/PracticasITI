@@ -53,17 +53,17 @@ Route::get('/categorias/{categoria}/edit', [CategoriaController::class, 'edit'])
 // Actualizar la categoría
 Route::put('/categorias/{id}/edit', [CategoriaController::class, 'update'])->name('categorias.update');
 
-//Redireccionar para hacer el registro de la cateoria
+//Redireccionar para hacer el registro de los productos
 Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
-//Crea el registro de la categoria
+//Crea el registro de la productos
 Route::post('/productos', [ProductoController::class, 'store'])->name('productos.store');
-//Redirecciona para ver el contenido en la vista de show de la categoria
+//Redirecciona para ver el contenido en la vista de show de la productos
 Route::get('/productos', [ProductoController::class, 'show'])->name('productos.show');
-//Redirecciona al dashboar despues de haber eliminado la categoria
+//Redirecciona al dashboar despues de haber eliminado la productos
 Route::delete('/productos/{id}', [ProductoController::class, 'destroy'])->name('productos.destroy');
-// Redireccionar para editar la categoría
+// Redireccionar para editar la productos
 Route::get('/productos/{producto}/edit', [ProductoController::class, 'edit'])->name('productos.edit');
-// Actualizar la categoría
+// Actualizar la productos
 Route::put('/productos/{id}/edit', [ProductoController::class, 'update'])->name('productos.update');
 
 
@@ -75,22 +75,22 @@ Route::post('/marcas', [MarcaController::class, 'store'])->name('marcas.store');
 Route::get('/marcas', [MarcaController::class, 'show'])->name('marcas.show');
 // Ruta para eliminar una marca
 Route::delete('/marcas/{marca}', [MarcaController::class, 'destroy'])->name('marcas.destroy');
-// Redireccionar para editar la categoría
+// Redireccionar para editar la marcas
 Route::get('/marcas/{marca}/edit', [MarcaController::class, 'edit'])->name('marcas.edit');
-// Actualizar la categoría
+// Actualizar la marcas
 Route::put('/marcas/{id}/edit', [MarcaController::class, 'update'])->name('marcas.update');
 
 
 Route::get('/subcategorias/create', [SubcategoriaController::class, 'create'])->name('subcategorias.create');
-// Crea el registro de la categoría
+// Crea el registro de la subcategoría
 Route::post('/subcategorias', [SubcategoriaController::class, 'store'])->name('subcategorias.store');
-// Redirecciona para ver el contenido en la vista de show de la categoría
+// Redirecciona para ver el contenido en la vista de show de la subcategoría
 Route::get('/subcategorias', [SubcategoriaController::class, 'show'])->name('subcategorias.show');
-// Redirecciona al dashboard después de haber eliminado la categoría
+// Redirecciona al dashboard después de haber eliminado la subcategoría
 Route::delete('/subcategorias/{id}', [SubcategoriaController::class, 'destroy'])->name('subcategorias.destroy');
-// Redireccionar para editar la categoría
+// Redireccionar para editar la subcategoría
 Route::get('/subcategorias/{subcategoria}/edit', [SubcategoriaController::class, 'edit'])->name('subcategorias.edit');
-// Actualizar la categoría
+// Actualizar la subcategoría
 Route::put('/subcategorias/{id}/edit', [SubcategoriaController::class, 'update'])->name('subcategorias.update');
 
 Route::post('/imagenes', [ImagenController::class, 'store'])->name('imagenes.store');
@@ -104,3 +104,7 @@ Route::post('/devoluciones/devolucion-store', [DevolucionController::class, 'sto
 Route::get('/devoluciones', [DevolucionController::class, 'show'])->name('devoluciones.show');
 // Redirecciona a para mostrar las devolucciones ventas
 Route::delete('/devoluciones/{id}', [DevolucionController::class, 'destroy'])->name('devoluciones.destroy');
+//redirecciona para editar las devolucciones ventas
+Route::get('/devoluciones/{devolucion}/edit', [DevolucionController::class, 'edit'])->name('devoluciones.edit');
+// Actualizar la categoría
+Route::put('/devoluciones/{id}/edit', [DevolucionController::class, 'update'])->name('devoluciones.update');

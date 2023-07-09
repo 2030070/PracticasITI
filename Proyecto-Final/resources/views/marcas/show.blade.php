@@ -7,8 +7,8 @@
 @section('contenido')
 <div class="container mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div class="col-span-1 md:col-span-1"></div> <!-- Espacio en blanco para el menú lateral -->
-        <div class="col-span-1 md:col-span-2">
+        <div class="col-span-1/2 md:col-span-1/2"></div> <!-- Espacio en blanco para el menú lateral -->
+        <div class="col-span-2 md:col-span-3">
             <div class="overflow-x-auto">
                 <table class="min-w-full border-2 border-blue-500 rounded-lg">
                     <thead>
