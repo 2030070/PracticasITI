@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\VentaController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProductoController;
@@ -108,3 +109,11 @@ Route::delete('/devoluciones/{id}', [DevolucionController::class, 'destroy'])->n
 Route::get('/devoluciones/{devolucion}/edit', [DevolucionController::class, 'edit'])->name('devoluciones.edit');
 // Actualizar la categoría
 Route::put('/devoluciones/{id}/edit', [DevolucionController::class, 'update'])->name('devoluciones.update');
+
+
+Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas.create');
+Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
+Route::get('/ventas', [VentaController::class, 'show'])->name('ventas.show');
+Route::get('/ventas/{venta}/edit', [VentaController::class, 'edit'])->name('ventas.edit');
+Route::put('/ventas/{venta}', [VentaController::class, 'update'])->name('ventas.update');
+Route::delete('/ventas/{venta}', [VentaController::class, 'destroy'])->name('ventas.destroy');
