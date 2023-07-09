@@ -9,6 +9,16 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="col-span-1 md:col-span-1"></div> <!-- Espacio en blanco para el menú lateral -->
         <div class="col-span-2 md:col-span-2">
+            @if(session('success'))
+                    <div class="bg-green-200 p-2 rounded-lg mb-6 text-black text-center ">
+                        {{ session('success') }}
+                    </div>
+            @endif
+            @if(session('actualizada'))
+                <div class="bg-green-200 p-2 rounded-lg mb-6 text-black text-center ">
+                    {{ session('actualizada') }}
+                </div>
+            @endif
             <div class="overflow-x-auto">
                 <table class="min-w-full border-2 border-blue-500 rounded-lg">
                     <thead>
@@ -27,7 +37,15 @@
                         @foreach ($productos as $producto)
                         <tr>
                             <td class="py-2 px-4 border-b">{{ $producto->categoria->nombre }}</td>
-                            <td class="py-2 px-4 border-b">a</td>
+                            {{-- <td class="py-2 px-4 border-b">{{ $producto->subcategoria->nombre}}</td> --}}
+                            <td class="py-2 px-4 border-b">
+                                @if ($producto->subcategoria)
+                                    {{ $producto->subcategoria->nombre }}
+                                @else
+                                    <!-- Valor predeterminado o campo vacío si no hay subcategoría -->
+                                   Sin subcategoria
+                                @endif
+                            </td>
                             <td class="py-2 px-4 border-b">{{ $producto->nombre }}</td>
                             <td class="py-2 px-4 border-b">{{ $producto->precio_compra }}</td>
                             <td class="py-2 px-4 border-b">{{ $producto->precio_venta }}</td>

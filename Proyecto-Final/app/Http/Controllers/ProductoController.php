@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use App\Models\Categoria;
+use App\Models\Subcategoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,8 +19,8 @@ class ProductoController extends Controller
     {
         $categorias = Categoria::all();
         
-        // $subcategorias = Subcategoria::all();
-        return view('productos.create', compact('categorias'));
+        $subcategorias = Subcategoria::all();
+        return view('productos.create', compact('categorias','subcategorias'));
     }
 
     //Funcion que valida los elementos en la base de datos para la tabla de productos, se establecen requerimientos para algunos campos
@@ -45,32 +46,34 @@ class ProductoController extends Controller
             'creado_por' => Auth::user()->name,
         ]);
         //redirecciona a la vista de productos para ver la tabla
-        return redirect()->route('productos.show');
+        return redirect()->route('productos.show')->with('success', 'Producto creada correctamente.');
     }
 
     public function edit(Producto $producto)
     {
         $categorias = Categoria::all();
 
-        return view('productos.edit', compact('producto','categorias'));
+        $subcategorias = Subcategoria::all();
+
+        return view('productos.edit', compact('producto','categorias','subcategorias'));
     }
 
     //Manda los datos de la tabla productos a la vista show productos y pagina el contenido de 10 en 10
     public function show(){
         $productos = Producto::paginate(10);
         $categorias = Categoria::all();
+        $subcategorias = Subcategoria::all();
 
-        return view('productos.show', ['productos' => $productos, 'categorias' => $categorias]);
+        return view('productos.show', ['productos' => $productos, 'categorias' => $categorias, 'subcategorias' => $subcategorias]);
     }
 
     //Elimina el contenido de la base de datos con ayuda del id del producto creado
     public function destroy($id){
         Producto::findOrFail($id)->delete();
-        return redirect()->route('productos.show');
+        return redirect()->route('productos.show')->with('success', 'Producto eliminada correctamente.');
     }
 
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $request->validate([
             'categoria_id' => 'required',
             'subcategoria_id' => '',

@@ -14,12 +14,12 @@
                     <div class="bg-green-200 p-2 rounded-lg mb-6 text-black text-center ">
                         {{ session('success') }}
                     </div>
-                @endif
-                @if(session('actualizada'))
-                    <div class="bg-green-200 p-2 rounded-lg mb-6 text-black text-center ">
-                        {{ session('actualizada') }}
-                    </div>
-                @endif
+            @endif
+            @if(session('actualizada'))
+                <div class="bg-green-200 p-2 rounded-lg mb-6 text-black text-center ">
+                    {{ session('actualizada') }}
+                </div>
+            @endif
             <div class="overflow-x-auto">
                 <table class="min-w-full border-2 border-blue-500 rounded-lg">
                     <thead>

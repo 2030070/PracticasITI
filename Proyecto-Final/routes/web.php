@@ -8,6 +8,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SubcategoriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,7 @@ Route::delete('/categorias/{id}', [CategoriaController::class, 'destroy'])->name
 Route::get('/categorias/{categoria}/edit', [CategoriaController::class, 'edit'])->name('categorias.edit');
 // Actualizar la categoría
 Route::put('/categorias/{id}/edit', [CategoriaController::class, 'update'])->name('categorias.update');
+
 //Redireccionar para hacer el registro de la cateoria
 Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
 //Crea el registro de la categoria
@@ -63,15 +65,24 @@ Route::post('/marcas', [MarcaController::class, 'store'])->name('marcas.store');
 Route::get('/marcas', [MarcaController::class, 'show'])->name('marcas.show');
 // Ruta para eliminar una marca
 Route::delete('/marcas/{marca}', [MarcaController::class, 'destroy'])->name('marcas.destroy');
+// Redireccionar para editar la categoría
+Route::get('/marcas/{marca}/edit', [MarcaController::class, 'edit'])->name('marcas.edit');
+// Actualizar la categoría
+Route::put('/marcas/{id}/edit', [MarcaController::class, 'update'])->name('marcas.update');
 
-// Ruta para mostrar el formulario de creación de una marca
-Route::get('/subcategorias/create', [MarcaController::class, 'create'])->name('subcategorias.create');
-// Ruta para almacenar una nueva marca
-Route::post('/subcategorias', [MarcaController::class, 'store'])->name('subcategorias.store');
-// Ruta para mostrar las marcas existentes
-Route::get('/subcategorias', [MarcaController::class, 'show'])->name('subcategorias.show');
-// Ruta para eliminar una marca
-Route::delete('/subcategorias/{subcategoria}', [MarcaController::class, 'destroy'])->name('subcategorias.destroy');
+
+Route::get('/subcategorias/create', [SubcategoriaController::class, 'create'])->name('subcategorias.create');
+// Crea el registro de la categoría
+Route::post('/subcategorias', [SubcategoriaController::class, 'store'])->name('subcategorias.store');
+// Redirecciona para ver el contenido en la vista de show de la categoría
+Route::get('/subcategorias', [SubcategoriaController::class, 'show'])->name('subcategorias.show');
+// Redirecciona al dashboard después de haber eliminado la categoría
+Route::delete('/subcategorias/{id}', [SubcategoriaController::class, 'destroy'])->name('subcategorias.destroy');
+// Redireccionar para editar la categoría
+Route::get('/subcategorias/{subcategoria}/edit', [SubcategoriaController::class, 'edit'])->name('subcategorias.edit');
+// Actualizar la categoría
+Route::put('/subcategorias/{id}/edit', [SubcategoriaController::class, 'update'])->name('subcategorias.update');
+
 
 
 Route::post('/imagenes', [ImagenController::class, 'store'])->name('imagenes.store');

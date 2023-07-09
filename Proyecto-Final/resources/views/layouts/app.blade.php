@@ -9,10 +9,10 @@
 
         {{-- Titulo de la pagina --}}
         <title>@yield('titulo')</title>
-
+        
         {{-- Asignación de estilos usando un template --}}
         @stack('styles')
-        @stack('scripts')
+
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
         <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -48,7 +48,7 @@
                                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                         <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-box-open"></i>
                                     </div>
-                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Crear Producto</span>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Productos</span>
                                 </a>
                             </li>
 
@@ -57,7 +57,15 @@
                                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                         <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-folder-plus"></i>
                                     </div>
-                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Crear Categoría</span>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Categorías</span>
+                                </a>
+                            </li>
+                            <li class="mt-0.5 w-full">
+                                <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('subcategorias.create') }}">
+                                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                        <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-folder-plus"></i>
+                                    </div>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Subcategorias</span>
                                 </a>
                             </li>
                             <li class="mt-0.5 w-full">
@@ -65,7 +73,7 @@
                                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                         <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-folder-plus"></i>
                                     </div>
-                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Crear Marcas</span>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Marcas</span>
                                 </a>
                             </li>
                             <li class="mt-0.5 w-full">
@@ -93,6 +101,7 @@
                 @yield('contenido')
             </main>
         </div>
+        @stack('scripts')
         {{-- Diseño del footer es decir el pie de pagina --}}
         <footer>
             <div class="container mx-auto px-4 text-lg text-center py-4">

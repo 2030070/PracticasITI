@@ -44,7 +44,7 @@ class CategoriaController extends Controller
 
         // Redirigir a la vista de mostrar categorías
        
-        return redirect()->route('categorias.show')->with('agregada', 'Categoría agregada correctamente');
+        return redirect()->route('categorias.show')->with('success', 'Categoría agregada correctamente');
 
     }
 
@@ -57,7 +57,7 @@ class CategoriaController extends Controller
     // Elimina el contenido de la base de datos con ayuda del id del producto creado
     public function destroy($id){
         Categoria::findOrFail($id)->delete();
-        return redirect()->route('categorias.show');
+        return redirect()->route('categorias.show')->with('success', 'Categoria eliminada correctamente.');
     }
 
 
