@@ -8,6 +8,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DevolucionController;
 use App\Http\Controllers\SubcategoriaController;
 
 /*
@@ -23,13 +24,22 @@ use App\Http\Controllers\SubcategoriaController;
 // Ruta para vista página principal
 Route::get('/',[DashboardController::class,'inicio']);
 //Ruta para Login
-Route::get('/login',[LoginController::class,'index'])->name('login');
-//Ruta de validacion del login
-Route::post('/login',[LoginController::class,'store']);
+// Route::get('/login',[LoginController::class,'index'])->name('login');
+// //Ruta de validacion del login
+// Route::post('/login',[LoginController::class,'store']);
+// Ruta de inicio de sesión
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'store']);
+});
+
+// Otras rutas de tu aplicación...
+
 //Ruta de validacion del logout
 Route::post('/logout',[LogoutController::class,'store'])->name('logout');
 // Route::get('/logout',[LogoutController::class,'store'])->name('logout');
 Route::get('/dashboard',[DashboardController::class,'index'])->name('post_index');
+
 // Redireccionar para hacer el registro de la categoría
 Route::get('/categorias/create', [CategoriaController::class, 'create'])->name('categorias.create');
 // Crea el registro de la categoría
@@ -83,6 +93,14 @@ Route::get('/subcategorias/{subcategoria}/edit', [SubcategoriaController::class,
 // Actualizar la categoría
 Route::put('/subcategorias/{id}/edit', [SubcategoriaController::class, 'update'])->name('subcategorias.update');
 
-
-
 Route::post('/imagenes', [ImagenController::class, 'store'])->name('imagenes.store');
+
+
+// Redirecciona a las devolucciones ventas
+Route::get('/devoluciones/create', [DevolucionController::class, 'create'])->name('devoluciones.create');
+// Redirecciona a crear el registro devolucciones ventas
+Route::post('/devoluciones/devolucion-store', [DevolucionController::class, 'store'])->name('devoluciones.store');
+// Redirecciona a para mostrar las devolucciones ventas
+Route::get('/devoluciones', [DevolucionController::class, 'show'])->name('devoluciones.show');
+// Redirecciona a para mostrar las devolucciones ventas
+Route::delete('/devoluciones/{id}', [DevolucionController::class, 'destroy'])->name('devoluciones.destroy');

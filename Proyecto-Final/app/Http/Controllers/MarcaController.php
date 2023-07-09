@@ -60,14 +60,13 @@ class MarcaController extends Controller{
 
             $imagenPath = public_path('uploads') . '/' . $nombreImagen;
             $imagenServidor->save($imagenPath);
-
-            Marca::create([
-                'imagen' => $nombreImagen,
-                'nombre' => $request->nombre,
-                'descripcion' => $request->descripcion,
-                'creado_por' => Auth::user()->name,
-            ]);
         }
+        Marca::create([
+            'imagen' => $nombreImagen,
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+            'creado_por' => Auth::user()->name,
+        ]);
 
         $nombreUsuario = Auth::user()->name;
         return redirect()->route('marcas.show', ['nombreUsuario' => $nombreUsuario])->with('success', 'Marca creada exitosamente.');
