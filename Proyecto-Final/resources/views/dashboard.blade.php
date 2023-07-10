@@ -52,60 +52,140 @@
 </div>
 @endsection
 
-@section('sliderbar')
-  <!-- sidenav -->
-  <aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto antialiased transition-transform duration-200 -translate-x-full bg-white border-0 shadow-xl dark:shadow-none dark:bg-slate-850 max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0 " aria-expanded="false">
-    <div class="h-19 py-14">
-      <i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-white text-slate-400 xl:hidden" sidenav-close></i>
-    </div>
-
-    <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
-
-    <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
-      <ul class="flex flex-col pl-0 mb-0">
-        <li class="mt-0.5 w-full">
-          <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('productos.create') }}">
-            <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-              <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-box-open"></i>
-            </div>
-            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Crear Producto</span>
-          </a>
-        </li>
-
-        <li class="mt-0.5 w-full">
-          <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('categorias.create') }}">
-            <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-              <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-folder-plus"></i>
-            </div>
-            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Crear Categoría</span>
-          </a>
-        </li>
-        <li class="mt-0.5 w-full">
-          {{-- <nav class=" py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors"> --}}
-            <form method="POST" action="{{route('logout')}}">
-                @csrf
-                <button type="submit">
-                  <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors">
-                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                      <i class="relative top-0 text-sm leading-normal text-blue-500  fas fa-sign-out-alt "></i>
-                    </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Cerrar Sesion</span>
-                  </a>
-                   
-                </button>
-            </form>
-        {{-- </nav> --}}
-        </li>
-      </ul>
-    </div>
-
-    <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
-
-  </aside>
-  <!-- end sidenav -->
-@endsection
 
 
 @section('contenido')
+<style>
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .card {
+    width: calc(33.33% - 40px);
+    margin-bottom: 40px;
+    font-size: 24px;
+    transition: transform 0.5s;
+  }
+  
+  .card:hover {
+    transform: scale(1.15);
+  }
+</style>
 
+<div class="container mx-auto " style="margin-top: 1.5cm;">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="col-span-1/2 md:col-span-1/2"></div> <!-- Espacio en blanco para el menú lateral -->
+      <div class="col-span-2 md:col-span-3 ">
+        <div class="container">
+          <div class="card">
+            <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+              <div class="flex-auto p-4">
+                <div class="flex flex-row -mx-3">
+                  <div class="flex-none w-2/3 max-w-full px-3">
+                    <div>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Productos</p>
+                      <h5 class="mb-2 font-bold dark:text-white">Total: {{ App\Models\Producto::count() }}</h5>
+                    </div>
+                  </div>
+                  <div class="px-3 text-right basis-1/3">
+                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
+                      {{-- <i class="ni leading-none ni-paper-diploma text-lg relative top-3.5 text-white"></i> --}}
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="card">
+            <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+              <div class="flex-auto p-4">
+                <div class="flex flex-row -mx-3">
+                  <div class="flex-none w-2/3 max-w-full px-3">
+                    <div>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Categorias</p>
+                      <h5 class="mb-2 font-bold dark:text-white">Total: {{ App\Models\Categoria::count() }}</h5>
+                    </div>
+                  </div>
+                  <div class="px-3 text-right basis-1/3">
+                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
+                      {{-- <i class="ni leading-none ni-paper-diploma text-lg relative top-3.5 text-white"></i> --}}
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="card">
+            <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+              <div class="flex-auto p-4">
+                <div class="flex flex-row -mx-3">
+                  <div class="flex-none w-2/3 max-w-full px-3">
+                    <div>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Subcategorías</p>
+                      <h5 class="mb-2 font-bold dark:text-white">Total: {{ App\Models\Subcategoria::count() }}</h5>
+                    </div>
+                  </div>
+                  <div class="px-3 text-right basis-1/3">
+                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
+                      {{-- <i class="ni leading-none ni-paper-diploma text-lg relative top-3.5 text-white"></i> --}}
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="card">
+            <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+              <div class="flex-auto p-4">
+                <div class="flex flex-row -mx-3">
+                  <div class="flex-none w-2/3 max-w-full px-3">
+                    <div>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Ventas</p>
+                      <h5 class="mb-2 font-bold dark:text-white">Total: {{ App\Models\Venta::count() }}</h5>
+                    </div>
+                  </div>
+                  <div class="px-3 text-right basis-1/3">
+                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
+                      {{-- <i class="ni leading-none ni-paper-diploma text-lg relative top-3.5 text-white"></i> --}}
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="card">
+            <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+              <div class="flex-auto p-4">
+                <div class="flex flex-row -mx-3">
+                  <div class="flex-none w-2/3 max-w-full px-3">
+                    <div>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Devoluciones</p>
+                      <h5 class="mb-2 font-bold dark:text-white">Total: {{ App\Models\Devolucion::count() }}</h5>
+                    </div>
+                  </div>
+                  <div class="px-3 text-right basis-1/3">
+                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
+                      {{-- <i class="ni leading-none ni-paper-diploma text-lg relative top-3.5 text-white"></i> --}}
+
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
 @endsection
