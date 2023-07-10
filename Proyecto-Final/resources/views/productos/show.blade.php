@@ -29,6 +29,7 @@
                             <th class="py-2 px-4 border-b text-left">Precio de Compra</th>
                             <th class="py-2 px-4 border-b text-left">Precio de Venta</th>
                             <th class="py-2 px-4 border-b text-left">Unidades Disponibles</th>
+                            <th class="py-2 px-4 border-b text-left">Marca</th>
                             <th class="py-2 px-4 border-b text-left">Creado por</th>
                             <th class="py-2 px-4 border-b text-left">Acciones</th>
                         </tr>
@@ -37,19 +38,26 @@
                         @foreach ($productos as $producto)
                         <tr>
                             <td class="py-2 px-4 border-b">{{ $producto->categoria->nombre }}</td>
-                            {{-- <td class="py-2 px-4 border-b">{{ $producto->subcategoria->nombre}}</td> --}}
                             <td class="py-2 px-4 border-b">
                                 @if ($producto->subcategoria)
                                     {{ $producto->subcategoria->nombre }}
                                 @else
                                     <!-- Valor predeterminado o campo vacío si no hay subcategoría -->
-                                   Sin subcategoria
+                                   Sin subcategoría
                                 @endif
                             </td>
                             <td class="py-2 px-4 border-b">{{ $producto->nombre }}</td>
                             <td class="py-2 px-4 border-b">{{ $producto->precio_compra }}</td>
                             <td class="py-2 px-4 border-b">{{ $producto->precio_venta }}</td>
                             <td class="py-2 px-4 border-b">{{ $producto->unidades_disponibles }}</td>
+                            <td class="py-2 px-4 border-b">
+                                @if ($producto->marca)
+                                    {{ $producto->marca->nombre }}
+                                @else
+                                    <!-- Valor predeterminado o campo vacío si no hay marca -->
+                                   Sin marca
+                                @endif
+                            </td>
                             <td class="py-2 px-4 border-b">{{ $producto->creado_por }}</td>
                             <td class="py-2 px-4 border-b">
                                 <form action="{{ route('productos.destroy', $producto->id) }}" method="POST">

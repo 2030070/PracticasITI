@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('categoria_id')->constrainted('categorias');
             $table->foreignId('subcategoria_id')->nullable()->constrainted('subcategorias');
+            $table->foreignId('marca_id')->nullable()->constrained('marcas');
             $table->string('nombre');
             $table->decimal('precio_compra', 8, 2);
             $table->decimal('precio_venta', 8, 2);
