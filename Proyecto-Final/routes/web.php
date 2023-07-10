@@ -78,8 +78,10 @@ Route::get('/marcas', [MarcaController::class, 'show'])->name('marcas.show');
 Route::delete('/marcas/{marca}', [MarcaController::class, 'destroy'])->name('marcas.destroy');
 // Redireccionar para editar la marcas
 Route::get('/marcas/{marca}/edit', [MarcaController::class, 'edit'])->name('marcas.edit');
+Route::post('/marcas/images', [ImagenController::class, 'store'])->name('marcas_imagenes.store');
 // Actualizar la marcas
-Route::put('/marcas/{id}/edit', [MarcaController::class, 'update'])->name('marcas.update');
+Route::put('/marcas/{marca}', [MarcaController::class, 'update'])->name('marcas.update');
+Route::put('/marcas/{marca}/update-imagen', [MarcaController::class, 'updateImagen'])->name('marcas.update_imagen');
 
 
 Route::get('/subcategorias/create', [SubcategoriaController::class, 'create'])->name('subcategorias.create');

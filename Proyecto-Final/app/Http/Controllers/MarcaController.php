@@ -15,54 +15,19 @@ class MarcaController extends Controller{
         return view('marcas.create');
     }
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //         'nombre' => 'required|max:255',
-    //         'descripcion' => 'required',
-    //         'creado_por' => 'required'
-    //     ]);
-
-    //     // // Obtener la imagen del request
-    //     // $imagen = $request->file('imagen');
-    //     // // Generar un nombre único para la imagen
-    //     // $nombreImagen = Str::uuid() . "." . $imagen->extension();
-    //     // // Guardar la imagen en la carpeta "uploads"
-    //     // $imagen->storeAs('uploads', $nombreImagen, 'public');
-
-    //     // Crear la marca con los datos proporcionados
-    //     Marca::create([
-    //         'imagen' => $request->imagen,
-    //         'nombre' => $request->nombre,
-    //         'descripcion' => $request->descripcion,
-    //         'creado_por' => Auth::user()->name,
-    //     ]);
-
-    //     $nombreUsuario = Auth::user()->name;
-    //     return redirect()->route('marcas.index', ['nombreUsuario' => $nombreUsuario])->with('success', 'Marca creada exitosamente.');
-    // }
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'imagen' => 'required',
             'nombre' => 'required|max:255',
             'descripcion' => 'required',
-            'creado_por' => 'required'
+            'creado_por' => 'required',
         ]);
 
-        if ($request->hasFile('imagen')) {
-            $imagen = $request->file('imagen');
-            $nombreImagen = Str::uuid() . "." . $imagen->extension();
 
-            $imagenServidor = Image::make($imagen);
-            $imagenServidor->fit(1000, 1000);
-
-            $imagenPath = public_path('uploads') . '/' . $nombreImagen;
-            $imagenServidor->save($imagenPath);
-        }
         Marca::create([
-            'imagen' => $nombreImagen,
+            'imagen' => $request->imagen,
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'creado_por' => Auth::user()->name,
@@ -72,19 +37,61 @@ class MarcaController extends Controller{
         return redirect()->route('marcas.show', ['nombreUsuario' => $nombreUsuario])->with('success', 'Marca creada exitosamente.');
     }
 
-    public function show()
-    {
+    public function show(){
         $marcas = Marca::paginate(10);
         return view('marcas.show', ['marcas' => $marcas]);
     }
 
-    public function destroy(Marca $marca)
-    {
+    public function destroy(Marca $marca){
         // Eliminar la imagen asociada a la marca
         Storage::disk('public')->delete('uploads/' . $marca->imagen);
 
         $marca->delete();
 
-        return redirect()->route('post_index');
+        return redirect()->route('marcas.show');
+    }
+
+    public function edit(Marca $marca){
+        return view('marcas.edit', compact('marca'));
+    }
+
+    public function update(Request $request, Marca $marca)
+    {
+        $request->validate([
+            'nombre' => 'required|max:255',
+            'descripcion' => 'required',
+            'creado_por' => 'required',
+        ]);
+
+        $marca->nombre = $request->nombre;
+        $marca->descripcion = $request->descripcion;
+        $marca->creado_por = Auth::user()->name;
+        $marca->save();
+
+        return redirect()->route('marcas.show')->with('success', 'Marca actualizada exitosamente.');
+    }
+
+    public function updateImagen(Request $request, Marca $marca)
+    {
+        $request->validate([
+            'imagen' => 'required',
+        ]);
+
+        if ($request->hasFile('imagen')) {
+            // Eliminar la imagen anterior
+            Storage::disk('public')->delete('uploads/' . $marca->imagen);
+
+            // Procesar y almacenar la nueva imagen
+            $imagenPath = $request->file('imagen')->store('uploads', 'public');
+            $imagen = Image::make(public_path("storage/{$imagenPath}"))->fit(500, 500);
+            $imagen->save();
+
+            $marca->imagen = $imagenPath;
+            $marca->save();
+
+            return redirect()->route('marcas.show')->with('success', 'Imagen de la marca actualizada exitosamente.');
+        }
+
+        return redirect()->route('marcas.show')->with('error', 'Error al actualizar la imagen de la marca.');
     }
 }
