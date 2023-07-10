@@ -101,7 +101,7 @@
                             <div class="relative flex flex-col justify-center h-full bg-cover px-24 m-4 overflow-hidden 
                             bg-[url('https://i.blogs.es/953f95/liondp3wallpaper/450_1000.webp')] rounded-xl ">
                                 <span class="absolute top-0 left-0 w-full h-full bg-center bg-cover bg-gradient-to-tl from-blue-500 to-violet-500 opacity-60"></span>
-                                <h4 class="z-20 mt-12 font-bold text-white">"Bienvenido a nuestro punto de venta administrador"</h4>
+                                <h4 class="z-20 mt-12 font-bold text-white">"Bienvenido a nuestro ¡POS!"</h4>
                                 <span class="z-20 mt-12 font-bold text-white"> Integrantes: EQUIPO-08 <br>Cesar Aldahir Flores Gámez <br>Jorge Guevara García <br> Martinez Zuñiga Juan Eduardo <br></span>
                             </div>
                         </div>
