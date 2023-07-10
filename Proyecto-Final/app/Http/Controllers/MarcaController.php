@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
-class MarcaController extends Controller{
+class MarcaController extends Controller
+{
     public function create()
     {
         return view('marcas.create');
@@ -17,14 +18,12 @@ class MarcaController extends Controller{
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'imagen' => 'required',
             'nombre' => 'required|max:255',
             'descripcion' => 'required',
             'creado_por' => 'required',
         ]);
-
 
         Marca::create([
             'imagen' => $request->imagen,
@@ -37,21 +36,24 @@ class MarcaController extends Controller{
         return redirect()->route('marcas.show', ['nombreUsuario' => $nombreUsuario])->with('success', 'Marca creada exitosamente.');
     }
 
-    public function show(){
+    public function show()
+    {
         $marcas = Marca::paginate(10);
         return view('marcas.show', ['marcas' => $marcas]);
     }
 
-    public function destroy(Marca $marca){
+    public function destroy(Marca $marca)
+    {
         // Eliminar la imagen asociada a la marca
         Storage::disk('public')->delete('uploads/' . $marca->imagen);
 
         $marca->delete();
 
-        return redirect()->route('marcas.show');
+        return redirect()->route('marcas.show')->with('success', 'Marca eliminada correctamente.');
     }
 
-    public function edit(Marca $marca){
+    public function edit(Marca $marca)
+    {
         return view('marcas.edit', compact('marca'));
     }
 
@@ -74,7 +76,7 @@ class MarcaController extends Controller{
     public function updateImagen(Request $request, Marca $marca)
     {
         $request->validate([
-            'imagen' => 'required',
+            'imagen' => 'required|image|max:2048',
         ]);
 
         if ($request->hasFile('imagen')) {
