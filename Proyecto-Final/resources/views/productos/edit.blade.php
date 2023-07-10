@@ -35,18 +35,18 @@
             </div>
           </div>
 
-          <div class="mb-4">
-            <label for="marca_id" class="block mb-2 font-semibold">Marca:</label>
-            <select name="marca_id" id="marca_id" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" placeholder="Seleccione una marca">
-              <option value="">Seleccione una marca (opcional)</option>
-              @foreach ($marcas as $marca)
-                <option value="{{ $marca->id }}" @if($marca->id == $producto->marca_id) selected @endif>{{ $marca->nombre }}</option>
-              @endforeach
-            </select>
-          </div>
-
           <div class="mb-4 flex">
             <div class="w-1/2 mr-2">
+              <label for="marca_id" class="block mb-2 font-semibold">Marca:</label>
+              <select name="marca_id" id="marca_id" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" placeholder="Seleccione una marca">
+                <option value="">Seleccione una marca (opcional)</option>
+                @foreach ($marcas as $marca)
+                  <option value="{{ $marca->id }}" @if($marca->id == $producto->marca_id) selected @endif>{{ $marca->nombre }}</option>
+                @endforeach
+              </select>
+            </div>
+
+            <div class="w-1/2 ml-2">
               <label for="nombre" class="block mb-2 font-semibold">Nombre:</label>
               <input type="text" name="nombre" id="nombre" value="{{ $producto->nombre }}" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" step="0.01" min="0" placeholder="Ingrese el precio de compra">
             </div>
