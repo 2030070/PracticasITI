@@ -76,7 +76,7 @@
                         <tr>
                             <td class="py-2 px-4 border-2 border-blue-400 text-right">{{ $factura->id }}</td>
                             <td class="py-2 px-4 border-2 border-blue-400 ">{{ $factura->empresaEmisora->razon_social }}</td>
-                            <td class="py-2 px-4 border-2 border-blue-400 ">{{ $factura->empresaReceptora }}</td>
+                            <td class="py-2 px-4 border-2 border-blue-400 ">{{ $factura->empresaReceptora->nombre }}</td>
                             <td class="py-2 px-4 border-2 border-blue-400 text-right">{{ $factura->folio_factura }}</td>
                             <td class="py-2 px-4 border-2 border-blue-400">{{ $factura->pdf_file}}</td>
                             <td class="py-2 px-4 border-2 border-blue-400">{{ $factura->xml_file }}</td>

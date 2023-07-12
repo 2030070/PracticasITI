@@ -5,6 +5,7 @@
 @endsection
 
 @section('nav')
+
 <div class="container sticky top-0 z-sticky">
     <div class="flex flex-wrap -mx-3">
       <div class="w-full max-w-full px-3 flex-0">
@@ -54,6 +55,7 @@
 
 
 @section('contenido')
+@guest
 <body class="m-0 font-sans antialiased font-normal bg-white text-start text-base leading-default text-slate-500">
     <main class="mt-0 transition-all duration-200 ease-in-out">
         <section>
@@ -112,5 +114,7 @@
     </main>
 
 </body>
+@endguest
+
 
 @endsection

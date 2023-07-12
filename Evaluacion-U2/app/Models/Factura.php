@@ -21,6 +21,6 @@ class Factura extends Model
         return $this->belongsTo(EmpresaEmisora::class,'empresa_emisora_id');
     }
     public function empresaReceptora(){
-        return $this->belongsTo(EmpresaReceptora::class,'empresa_receptor_id');
+        return $this->belongsTo(EmpresaReceptora::class,'empresa_receptora_id');
     }
 }
