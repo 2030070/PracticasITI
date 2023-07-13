@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('titulo')
-    Dashboard 
-@endsection
-
 @section('nav')
 
 <div class="container sticky top-0 z-sticky">

@@ -6,9 +6,11 @@ use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\DevolucionController;
 use App\Http\Controllers\SubcategoriaController;
 
@@ -119,3 +121,19 @@ Route::get('/ventas', [VentaController::class, 'show'])->name('ventas.show');
 Route::get('/ventas/{venta}/edit', [VentaController::class, 'edit'])->name('ventas.edit');
 Route::put('/ventas/{venta}', [VentaController::class, 'update'])->name('ventas.update');
 Route::delete('/ventas/{venta}', [VentaController::class, 'destroy'])->name('ventas.destroy');
+
+Route::get('/clientes', [ClienteController::class, 'show'])->name('clientes.show');
+Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
+Route::post('/clientes/images', [ImagenController::class, 'store'])->name('clientes_imagenes.store');
+Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
+Route::get('/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
+Route::put('/clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
+Route::put('/marcas/{cliente}/update-imagen', [ClienteController::class, 'updateImagen'])->name('clientes.update_imagen');
+Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+
+Route::get('/proveedores', [ProveedorController::class, 'show'])->name('proveedores.show');
+Route::get('/proveedores/create', [ProveedorController::class, 'create'])->name('proveedores.create');
+Route::post('/proveedores', [ProveedorController::class, 'store'])->name('proveedores.store');
+Route::get('/proveedores/{proveedor}/edit', [ProveedorController::class, 'edit'])->name('proveedores.edit');
+Route::put('/proveedores/{proveedor}', [ProveedorController::class, 'update'])->name('proveedores.update');
+Route::delete('/proveedores/{proveedor}', [ProveedorController::class, 'destroy'])->name('proveedores.destroy');
