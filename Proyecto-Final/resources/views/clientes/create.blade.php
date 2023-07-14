@@ -15,7 +15,7 @@
         <div class="col-span-1 md:col-span-1"></div> <!-- Espacio en blanco para el menú lateral -->
         <div class="col-span-1 md:col-span-2">
             <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                <form action="{{ route('clientes_imagenes.store') }}" method="POST" enctype="multipart/form-data" class="dropzone" id="dropzone" style="border: 4px solid; border-radius: 20px; border-image: linear-gradient(to right, #d77cd7, #3B82F6); border-image-slice: 1;">
+                <form action="{{ route('imagenes.store') }}" method="POST" enctype="multipart/form-data" class="dropzone" id="dropzone" style="border: 4px solid; border-radius: 20px; border-image: linear-gradient(to right, #d77cd7, #3B82F6); border-image-slice: 1;">
                     @csrf
                 </form>
 

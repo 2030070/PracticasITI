@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Marca;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -27,10 +25,10 @@ class ImagenController extends Controller{
     }
 
     // Método para mostrar una imagen en la vista de detalle de una marca
-    public function index($id)
-    {
-        $marca = Marca::find($id); // Obtener la marca según su ID
-        $creadoPor = User::where('id', $marca->creado_por)->value('name'); // Obtener el nombre del usuario que creó la marca
-        return view('marcas.show', ['marca' => $marca, 'creadoPor' => $creadoPor]); // Mostrar la vista de detalle de la marca con la información correspondiente
-    }
+    // public function index($id)
+    // {
+    //     $marca = Marca::find($id); // Obtener la marca según su ID
+    //     $creadoPor = User::where('id', $marca->creado_por)->value('name'); // Obtener el nombre del usuario que creó la marca
+    //     return view('marcas.show', ['marca' => $marca, 'creadoPor' => $creadoPor]); // Mostrar la vista de detalle de la marca con la información correspondiente
+    // }
 }

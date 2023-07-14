@@ -15,7 +15,7 @@
         <div class="col-span-1 md:col-span-1"></div> <!-- Espacio en blanco para el menú lateral -->
         <div class="col-span-1 md:col-span-2">
             <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                <form action="{{ route('marcas_imagenes.store') }}" method="POST" enctype="multipart/form-data" class="dropzone" id="dropzone" style="border: 4px solid; border-radius: 20px; border-image: linear-gradient(to right, #d77cd7, #3B82F6); border-image-slice: 1;">
+                <form action="{{ route('imagenes.store') }}" method="POST" enctype="multipart/form-data" class="dropzone" id="dropzone" style="border: 4px solid; border-radius: 20px; border-image: linear-gradient(to right, #d77cd7, #3B82F6); border-image-slice: 1;">
                     @csrf
                 </form>
                 
@@ -67,37 +67,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.js"></script>
 
 <script>
-// Dropzone.autoDiscover = false;
-// const dropzone = new Dropzone('#dropzone', {
-//     url: "{{ route('imagenes.store') }}",
-//     dictDefaultMessage: "Sube tu imagen aquí",
-//     acceptedFiles: ".png,.jpg,.jpeg,.gif",
-//     addRemoveLinks: true,
-//     dictRemoveFile: "Borrar archivo",
-//     maxFiles: 1,
-//     uploadMultiple: false,
-//     // Trabajando con imagen en el contenedor de dropzone
-//     init: function () {
-//         if (document.querySelector('[name="imagen"]').value.trim()) {
-//             const imagenPublicada = {
-//                 size: 1234,
-//                 name: document.querySelector('[name="imagen"]').value
-//             };
-//             this.options.addedfile.call(this, imagenPublicada);
-//             this.options.thumbnail.call(this, imagenPublicada, '/uploads/' + imagenPublicada.name);
-//             imagenPublicada.previewElement.classList.add("dz-success", "dz-complete");
-//         }
-//     },
-//     success: function (file, response) {
-//         document.querySelector('[name="imagen"]').value = response.imagen;
-//     },
-//     error: function (file, message) {
-//         console.log(message);
-//     },
-//     removedfile: function () {
-//         document.querySelector('[name="imagen"]').value = "";
-//     }
-// });
+
 // import Dropzone from "dropzone";
 Dropzone.autoDiscover = false;
 const dropzone = new Dropzone('#dropzone', {
