@@ -10,6 +10,12 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class MarcaController extends Controller{
+    public function __construct(){
+        //protegemos la url
+        //al metodo index con el constructor le pasamos el parametro de autenticacion
+        $this->middleware('auth');
+    }
+    
     // Método para mostrar el formulario de creación de marca
     public function create()
     {
