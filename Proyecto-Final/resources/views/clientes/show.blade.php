@@ -23,6 +23,7 @@
                 <table class="min-w-full border-2 border-blue-500 rounded-lg">
                     <thead>
                         <tr>
+                            <th class="py-2 px-4 border-b text-left">Imagen</th>
                             <th class="py-2 px-4 border-b text-left">Nombre</th>
                             <th class="py-2 px-4 border-b text-left">Empresa</th>
                             <th class="py-2 px-4 border-b text-left">Código</th>
@@ -34,6 +35,7 @@
                     <tbody>
                         @foreach ($clientes as $cliente)
                         <tr>
+                            <td class="py-2 px-4 border-b text-left"><img src="{{ asset('uploads/'.$cliente->imagen) }}" alt="Imagen del cliente" class="w-20 h-20 object-cover"></td>
                             <td class="py-2 px-4 border-b text-left">{{ $cliente->nombre }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $cliente->empresa }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $cliente->codigo }}</td>

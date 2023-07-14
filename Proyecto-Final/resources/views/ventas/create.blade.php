@@ -74,7 +74,17 @@
           </form>
         </div>
       </div>
-    <div class="col-span-1 md:col-span-1"></div> <!-- Espacio en blanco para el menú lateral -->
+    {{-- <div class="col-span-1 md:col-span-1"></div> <!-- Espacio en blanco para el menú lateral --> --}}
+    <div class="col-span-1 md:col-span-1">
+      <div class="sticky top-0 h-screen p-4 rounded-lg">
+        <div class="flex flex-col items-center justify-center gap-4 bg-blue-500/13 rounded-lg p-4">
+          <a href="{{ route('ventas.show') }}">
+            <img src="{{ asset('img/ventas.png') }}" alt="Imagen" class="flex flex-col justify-center w-48 h-48 rounded-sm">
+            <h3 class="text-blue-700 text-center">Ver Ventas</h3>
+          </a> 
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 @endsection

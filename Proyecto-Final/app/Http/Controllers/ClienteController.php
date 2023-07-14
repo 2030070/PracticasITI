@@ -19,18 +19,17 @@ class ClienteController extends Controller
     {
         $request->validate([
             'nombre' => 'required|max:255',
-            'imagen' => 'required|image|max:2048',
+            'imagen' => 'required',
             'codigo' => 'required',
             'empresa' => 'required',
             'telefono' => 'required',
             'correo' => 'required|email',
         ]);
 
-        $imagenPath = $request->file('imagen')->store('uploads', 'public');
 
         Cliente::create([
             'nombre' => $request->nombre,
-            'imagen' => $imagenPath,
+            'imagen' => $request->imagen,
             'codigo' => $request->codigo,
             'empresa' => $request->empresa,
             'telefono' => $request->telefono,
