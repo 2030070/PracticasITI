@@ -21,7 +21,7 @@ class ProveedorController extends Controller
     public function store(Request $request){
         $request->validate([
             'nombre' => 'required', // Campo nombre requerido
-            'codigo' => 'required|unique:proveedores', // Campo código requerido y único en la tabla proveedores
+            'codigo' => 'required|unique:proveedores,codigo', // Campo código requerido y único en la tabla proveedores
             'telefono' => 'required', // Campo teléfono requerido
             'email' => 'required|email|unique:proveedores', // Campo email requerido y debe ser una dirección de correo válida y única en la tabla proveedores
         ]);

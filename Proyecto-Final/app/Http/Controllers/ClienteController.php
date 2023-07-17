@@ -25,7 +25,7 @@ class ClienteController extends Controller
         $request->validate([
             'nombre' => 'required|max:255',
             'imagen' => 'required',
-            'codigo' => 'required',
+            'codigo' => 'required|unique:clientes,codigo',
             'empresa' => 'required',
             'telefono' => 'required',
             'correo' => 'required|email',
