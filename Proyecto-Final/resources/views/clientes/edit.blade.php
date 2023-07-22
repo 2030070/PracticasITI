@@ -25,7 +25,13 @@
                 <form action="{{ route('clientes.update', $cliente->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                
+
+                    <div class="mb-5">
+                        <input name="imagen" type="hidden" value="{{$cliente->imagen}}" />
+                        @error('imagen')
+                            <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                        @enderror
+                    </div>
                     
                     <div class="mb-4">
                         <label for="nombre" class="block mb-2 font-semibold">Nombre:</label>
@@ -68,32 +74,52 @@
 <script>
 Dropzone.autoDiscover = false;
 const dropzone = new Dropzone('#dropzone', {
-    dictDefaultMessage: "Sube tu imagen aquí",
-    acceptedFiles: ".png,.jpg,.jpeg,.gif",
-    addRemoveLinks: true,
-    dictRemoveFile: "Borrar archivo",
-    maxFiles: 1,
-    uploadMultiple: false,
-    init: function () {
-        if (document.querySelector('[name="imagen"]').value.trim()) {
-            const imagenPublicada = {
-                size: 1234,
-                name: document.querySelector('[name="imagen"]').value
-            };
-            this.options.addedfile.call(this, imagenPublicada);
-            this.options.thumbnail.call(this, imagenPublicada, '/uploads/' + imagenPublicada.name);
-            imagenPublicada.previewElement.classList.add("dz-success", "dz-complete");
-        }
-    },
-    success: function (file, response) {
-        document.querySelector('[name="imagen"]').value = response.imagen;
-    },
-    error: function (file, message) {
-        console.log(message);
-    },
-    removedfile: function () {
-        document.querySelector('[name="imagen"]').value = "";
+  dictDefaultMessage: "Sube tu imagen aquí",
+  acceptedFiles: ".png,.jpg,.jpeg,.gif",
+  addRemoveLinks: true,
+  dictRemoveFile: "Borrar archivo",
+  maxFiles: 1,
+  uploadMultiple: false,
+  init: function() {
+    const dropzoneInstance = this;
+
+    // Verificar si hay una imagen existente
+    const imagenActual = document.querySelector('[name="imagen"]').value.trim();
+    if (imagenActual) {
+      const imagenPublicada = {
+        size: 1234,
+        name: imagenActual
+      };
+
+      // Mostrar la imagen existente
+      dropzoneInstance.emit("addedfile", imagenPublicada);
+      dropzoneInstance.emit("thumbnail", imagenPublicada, '/uploads/' + imagenPublicada.name);
+      dropzoneInstance.files.push(imagenPublicada);
+      imagenPublicada.previewElement.classList.add("dz-success", "dz-complete");
     }
+
+    // Listener para reemplazar la imagen existente
+    dropzoneInstance.on("addedfile", function(file) {
+      // Eliminar la imagen existente
+      if (this.files.length > 1) {
+        dropzoneInstance.removeFile(this.files[0]);
+      }
+    });
+
+    // Listener para actualizar el valor del campo oculto al subir una nueva imagen
+    dropzoneInstance.on("success", function(file, response) {
+      document.querySelector('[name="imagen"]').value = response.imagen;
+    });
+
+    // Listener para limpiar el valor del campo oculto al eliminar la imagen
+    dropzoneInstance.on("removedfile", function(file) {
+      document.querySelector('[name="imagen"]').value = "";
+    });
+  },
+  error: function(file, message) {
+    console.log(message);
+  }
 });
+
 </script>
 @endpush

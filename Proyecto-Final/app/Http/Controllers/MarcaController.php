@@ -81,12 +81,14 @@ class MarcaController extends Controller{
             'nombre' => 'required|max:255', // Nombre requerido y longitud máxima de 255 caracteres
             'descripcion' => 'required', // Descripción requerida
             'creado_por' => 'required', // Creado por requerido
+            'imagen' => 'required',
         ]);
 
         // Actualizar los datos de la marca con los datos proporcionados
         $marca->nombre = $request->nombre;
         $marca->descripcion = $request->descripcion;
         $marca->creado_por = Auth::user()->name;
+        $marca->imagen = $request->imagen;
         $marca->save();
 
         // Redireccionar a la vista de mostrar marcas con un mensaje de éxito

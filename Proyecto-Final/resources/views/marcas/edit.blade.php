@@ -26,7 +26,13 @@ Editar Marca
                     @csrf
                     @method('PUT')
                 
-                    
+                    <div class="mb-5">
+                        <input name="imagen" type="hidden" value="{{$marca->imagen}}" />
+                        @error('imagen')
+                            <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <div class="mb-4">
                         <label for="nombre" class="block mb-2 font-semibold">Nombre:</label>
                         <input type="text" name="nombre" id="nombre" value="{{ $marca->nombre }}" placeholder="Ingrese el nombre de la marca" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
@@ -55,42 +61,51 @@ Editar Marca
 <script>
 Dropzone.autoDiscover = false;
 const dropzone = new Dropzone('#dropzone', {
-    dictDefaultMessage: "Sube tu imagen aqui",
-    acceptedFiles: ".png,.jpg,.jpeg,.gif",
-    addRemoveLinks: true,
-    dictRemoveFile: "Borrar archivo",
-    maxFiles: 1,
-    uploadMUltiple: false,
-    //trabajando con imagen en el contenedor de dropzone
-    init: function () {
-        if (document.querySelector('[name="imagen"]').value.trim()) {
-            const imagenPublicada = {};
-            imagenPublicada.size = 1234
-            imagenPublicada.name =
-                document.querySelector('[name="imagen"]').value;
-            this.options.addedfile.call(this, imagenPublicada);
-            this.options.thumbnail.call(this, imagenPublicada, '/uploads/{$imagenPublicada.name}')
-            imagenPublicada.previewElement.classList.add(
-                "dz-success",
-                "dz-complete",
-            );
-        };
-    }
-});
+  dictDefaultMessage: "Sube tu imagen aquí",
+  acceptedFiles: ".png,.jpg,.jpeg,.gif",
+  addRemoveLinks: true,
+  dictRemoveFile: "Borrar archivo",
+  maxFiles: 1,
+  uploadMultiple: false,
+  init: function() {
+    const dropzoneInstance = this;
 
-//evento de envio de correo correcto 
-dropzone.on('success', function (file, response) {
-    // console.log(response)
-    document.querySelector('[name="imagen"]').value = response.imagen;
-});
-//Envio cuando hay error
-dropzone.on('error', function (file, message) {
-    console.log(message)
-});
-//remover un archivo
-dropzone.on('removedfile', function () {
-    // console.log('El archivo se elimino')
-    document.querySelector('[name="imagen"]').value="";
+    // Verificar si hay una imagen existente
+    const imagenActual = document.querySelector('[name="imagen"]').value.trim();
+    if (imagenActual) {
+      const imagenPublicada = {
+        size: 1234,
+        name: imagenActual
+      };
+
+      // Mostrar la imagen existente
+      dropzoneInstance.emit("addedfile", imagenPublicada);
+      dropzoneInstance.emit("thumbnail", imagenPublicada, '/uploads/' + imagenPublicada.name);
+      dropzoneInstance.files.push(imagenPublicada);
+      imagenPublicada.previewElement.classList.add("dz-success", "dz-complete");
+    }
+
+    // Listener para reemplazar la imagen existente
+    dropzoneInstance.on("addedfile", function(file) {
+      // Eliminar la imagen existente
+      if (this.files.length > 1) {
+        dropzoneInstance.removeFile(this.files[0]);
+      }
+    });
+
+    // Listener para actualizar el valor del campo oculto al subir una nueva imagen
+    dropzoneInstance.on("success", function(file, response) {
+      document.querySelector('[name="imagen"]').value = response.imagen;
+    });
+
+    // Listener para limpiar el valor del campo oculto al eliminar la imagen
+    dropzoneInstance.on("removedfile", function(file) {
+      document.querySelector('[name="imagen"]').value = "";
+    });
+  },
+  error: function(file, message) {
+    console.log(message);
+  }
 });
 </script>
 @endpush

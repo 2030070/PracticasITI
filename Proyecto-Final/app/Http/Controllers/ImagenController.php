@@ -24,6 +24,22 @@ class ImagenController extends Controller{
         return response()->json(['imagen' => $nombreImagen]); // Devolver el nombre de la imagen como respuesta en formato JSON
     }
 
+    public function update(Request $request)
+    {
+        // Obtener la imagen del formulario
+        $imagen = $request->file('file');
+        $nombreImagen = Str::uuid() . "." . $imagen->extension();
+
+        $imagenServidor = Image::make($imagen);
+        $imagenServidor->fit(1000, 1000);
+
+        $imagenPath = public_path('uploads') . '/' . $nombreImagen;
+        $imagenServidor->save($imagenPath);
+
+        return response()->json(['imagen' => $nombreImagen]);
+    }
+
+
     // Método para mostrar una imagen en la vista de detalle de una marca
     // public function index($id)
     // {

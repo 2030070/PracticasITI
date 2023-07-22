@@ -8,6 +8,7 @@ use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProveedorController;
@@ -83,7 +84,7 @@ Route::get('/marcas/{marca}/edit', [MarcaController::class, 'edit'])->name('marc
 Route::post('/marcas/images', [ImagenController::class, 'store'])->name('marcas_imagenes.store');
 // Actualizar la marcas
 Route::put('/marcas/{marca}', [MarcaController::class, 'update'])->name('marcas.update');
-Route::put('/marcas/{marca}/update-imagen', [MarcaController::class, 'updateImagen'])->name('marcas.update_imagen');
+Route::put('/marcas/{marca}/update-imagen', [ImagenController::class, 'update'])->name('marcas.update_imagen');
 
 
 Route::get('/subcategorias/create', [SubcategoriaController::class, 'create'])->name('subcategorias.create');
@@ -128,7 +129,7 @@ Route::post('/clientes/images', [ImagenController::class, 'store'])->name('clien
 Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
 Route::get('/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
 Route::put('/clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
-Route::put('/marcas/{cliente}/update-imagen', [ClienteController::class, 'updateImagen'])->name('clientes.update_imagen');
+Route::put('/marcas/{cliente}/update-imagen', [ImagenController::class, 'update'])->name('clientes.update_imagen');
 Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
 
 Route::get('/proveedores', [ProveedorController::class, 'show'])->name('proveedores.show');
@@ -137,3 +138,12 @@ Route::post('/proveedores', [ProveedorController::class, 'store'])->name('provee
 Route::get('/proveedores/{proveedor}/edit', [ProveedorController::class, 'edit'])->name('proveedores.edit');
 Route::put('/proveedores/{proveedor}', [ProveedorController::class, 'update'])->name('proveedores.update');
 Route::delete('/proveedores/{proveedor}', [ProveedorController::class, 'destroy'])->name('proveedores.destroy');
+
+Route::get('/usuarios', [UsuariosController::class, 'show'])->name('usuarios.show');
+Route::get('/usuarios/create', [UsuariosController::class, 'create'])->name('usuarios.create');
+Route::post('/usuarios', [UsuariosController::class, 'store'])->name('usuarios.store');
+Route::get('/usuarios/{usuario}/edit', [UsuariosController::class, 'edit'])->name('usuarios.edit');
+Route::put('/usuarios/{usuario}', [UsuariosController::class, 'update'])->name('usuarios.update');
+Route::delete('/usuarios/{usuario}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy');
+Route::post('/usuarios/images', [ImagenController::class, 'store'])->name('usuarios_imagenes.store');
+Route::put('/usuarios/{usuario}/update-imagen', [ImagenController::class, 'update'])->name('usuarios.update_imagen');

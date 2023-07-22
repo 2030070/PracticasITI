@@ -71,6 +71,7 @@ class ClienteController extends Controller
             'empresa' => 'required',
             'telefono' => 'required',
             'correo' => 'required|email',
+            'imagen' => 'required',
         ]);
 
         $cliente->nombre = $request->nombre;
@@ -78,6 +79,7 @@ class ClienteController extends Controller
         $cliente->empresa = $request->empresa;
         $cliente->telefono = $request->telefono;
         $cliente->correo = $request->correo;
+        $cliente->imagen = $request->imagen;
         $cliente->save();
 
         return redirect()->route('clientes.show')->with('success', 'Cliente actualizado exitosamente.');
