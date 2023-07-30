@@ -30,7 +30,7 @@
       <div class="col-span-1/2 md:col-span-1/2"></div> <!-- Espacio en blanco para el menú lateral -->
       <div class="col-span-2 md:col-span-3 ">
         <div class="container">
-          <div class="card">
+          <div class="card ">
             <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
               <div class="flex-auto p-4">
                 <div class="flex flex-row -mx-3">
@@ -54,7 +54,7 @@
             </div>
           </div>
         
-          <div class="card">
+          <div class="card ">
             <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
               <div class="flex-auto p-4">
                 <div class="flex flex-row -mx-3">
@@ -77,7 +77,7 @@
             </div>
           </div>
         
-          <div class="card">
+          <div class="card ">
             <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
               <div class="flex-auto p-4">
                 <div class="flex flex-row -mx-3">
@@ -100,7 +100,7 @@
             </div>
           </div>
         
-          <div class="card">
+          <div class="card ">
             <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
               <div class="flex-auto p-4">
                 <div class="flex flex-row -mx-3">
@@ -123,7 +123,7 @@
             </div>
           </div>
         
-          <div class="card">
+          <div class="card ">
             <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
               <div class="flex-auto p-4">
                 <div class="flex flex-row -mx-3">
@@ -147,7 +147,7 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card ">
             <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
               <div class="flex-auto p-4">
                 <div class="flex flex-row -mx-3">
@@ -171,7 +171,7 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card ">
             <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
               <div class="flex-auto p-4">
                 <div class="flex flex-row -mx-3">
@@ -195,7 +195,7 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card ">
             <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
               <div class="flex-auto p-4">
                 <div class="flex flex-row -mx-3">
@@ -219,7 +219,7 @@
             </div>
           </div>
           
-          <div class="card">
+          <div class="card ">
             <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
               <div class="flex-auto p-4">
                 <div class="flex flex-row -mx-3">

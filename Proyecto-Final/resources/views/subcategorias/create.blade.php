@@ -22,7 +22,10 @@
                                     class="focus:shadow-primary-outline dark:text-white/80 
                                             text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white 
                                             bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 
-                                            focus:border-fuchsia-300 focus:outline-none">
+                                            focus:border-fuchsia-300 focus:outline-none" value="{{ old('codigo') }}">
+                                @error('codigo')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="w-2/3 ml-2">
                                 <label for="nombre" class="block mb-2 font-semibold">Nombre:</label>
@@ -30,7 +33,10 @@
                                     class="focus:shadow-primary-outline dark:text-white/80 
                                             text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white 
                                             bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 
-                                            focus:border-fuchsia-300 focus:outline-none">
+                                            focus:border-fuchsia-300 focus:outline-none" value="{{ old('nombre') }}">
+                                @error('nombre')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
 
@@ -43,9 +49,12 @@
                                         focus:border-fuchsia-300 focus:outline-none">
                                         <option value="">Seleccione una categoría</option>
                                 @foreach ($categorias as $categoria)
-                                    <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                                    <option value="{{ $categoria->id }}" {{ old('categoria_id') == $categoria->id ? 'selected' : '' }}>{{ $categoria->nombre }}</option>
                                 @endforeach
                             </select>
+                            @error('categoria_id')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mb-4">
@@ -54,7 +63,10 @@
                                 class="focus:shadow-primary-outline dark:text-white/80 
                                 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white 
                                 bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 
-                                focus:border-fuchsia-300 focus:outline-none">
+                                focus:border-fuchsia-300 focus:outline-none" value="{{ old('descripcion') }}">
+                            @error('descripcion')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <input type="hidden" name="creado_por" value="{{ Auth::user()->name }}">

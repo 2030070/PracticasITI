@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
 use App\Models\Devolucion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,11 +15,13 @@ class DevolucionController extends Controller{
     }
     //Redirecciona a la vista para registrar las devoluciones
     public function create(){
-        return view('devoluciones.create');
+        $clientes = Cliente::all();
+        return view('devoluciones.create',compact('clientes'));
     }
 
     public function edit(Devolucion $devolucion){
-        return view('devoluciones.edit', compact('devolucion'));
+        $clientes = Cliente::all();
+        return view('devoluciones.edit', compact('devolucion','clientes'));
 
     }
 
@@ -55,7 +58,7 @@ class DevolucionController extends Controller{
 
     //Manda los datos de la tabla devoluciones a la vista show devoluciones y pagina el contenido de 10 en 10
     public function show(){
-        $devoluciones = Devolucion::paginate(10);
+        $devoluciones = Devolucion::all();
         return view('devoluciones.show',  ['devoluciones' => $devoluciones]);
     }
 
@@ -93,7 +96,7 @@ class DevolucionController extends Controller{
         $devolucion->save();
 
         // Redirecciona a la vista de devoluciones para ver la tabla
-        return redirect()->route('devoluciones.show')->with('actualizado', 'Devolución actualizado correctamente.');
+        return redirect()->route('devoluciones.show')->with('actualizada', 'Devolución actualizado correctamente.');
     }
 
 }

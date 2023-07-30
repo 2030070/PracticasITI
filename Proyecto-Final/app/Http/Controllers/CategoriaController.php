@@ -50,7 +50,7 @@ class CategoriaController extends Controller
 
     // Manda los datos de la tabla categoria a la vista show categoria y pagina el contenido de 10 en 10    
     public function show(){
-        $categorias = Categoria::paginate(10);
+        $categorias = Categoria::all();
         return view('categorias.show')->with(['categorias' => $categorias]);
     }
 

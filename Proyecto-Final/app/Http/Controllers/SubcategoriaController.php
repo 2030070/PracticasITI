@@ -42,10 +42,10 @@ class SubcategoriaController extends Controller{
         return redirect()->route('subcategorias.show')->with('success', 'Subcategoría creada correctamente.');
     }
     /**
- * Mostrar la subcategoría especificada.
- */
+     * Mostrar la subcategoría especificada.
+     */
     public function show(){
-        $subcategorias = Subcategoria::paginate(10);
+        $subcategorias = Subcategoria::all();
         return view('subcategorias.show', compact('subcategorias'));
     }
 

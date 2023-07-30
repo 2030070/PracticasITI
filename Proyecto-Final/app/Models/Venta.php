@@ -21,4 +21,8 @@ class Venta extends Model
         'pago_pendiente',
         'creado_por',
     ];
+
+    public function cliente(){
+        return $this->belongsTo(Cliente::class);
+    }
 }

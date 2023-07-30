@@ -65,7 +65,7 @@ class ProductoController extends Controller
 
     // Método para mostrar todos los productos
     public function show(){
-        $productos = Producto::paginate(10);
+        $productos = Producto::all();
         $categorias = Categoria::all(); // Obtener todas las categorías
         $subcategorias = Subcategoria::all(); // Obtener todas las subcategorías
 
@@ -107,6 +107,6 @@ class ProductoController extends Controller
         $producto->save();
 
         // Redireccionar a la vista de mostrar productos con un mensaje de éxito
-        return redirect()->route('productos.show')->with('actualizado', 'Producto actualizado correctamente.');
+        return redirect()->route('productos.show')->with('actualizada', 'Producto actualizado correctamente.');
     }
 }

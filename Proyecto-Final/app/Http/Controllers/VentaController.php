@@ -3,23 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Venta;
+use App\Models\Cliente; // Asegúrate de importar el modelo Cliente
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class VentaController extends Controller{
-    public function __construct(){
+class VentaController extends Controller
+{
+    public function __construct()
+    {
         // Proteger las rutas del controlador con autenticación
         $this->middleware('auth');
     }
 
     // Redirecciona a la vista para registrar una venta
     public function create(){
-        return view('ventas.create');
+        $clientes = Cliente::all();
+        return view('ventas.create', compact('clientes'));
     }
 
     public function edit(Venta $venta){
-        return view('ventas.edit', compact('venta'));
+        // Cargar el nombre del cliente asociado con la venta
+        $clientes = Cliente::all();
+        return view('ventas.edit', compact('venta', 'clientes'));
     }
 
     public function store(Request $request){
@@ -54,10 +60,10 @@ class VentaController extends Controller{
     }
 
     // Muestra los datos de la tabla ventas en la vista show ventas, paginando el contenido de 10 en 10
-    public function show()
-    {
-        $ventas = Venta::paginate(10);
-        return view('ventas.show')->with(['ventas' => $ventas]);
+    public function show(){
+        // Cargar el nombre del cliente asociado con cada venta
+        $ventas = Venta::all();
+        return view('ventas.show', compact('ventas'));
     }
 
     // Elimina una venta de la base de datos utilizando su ID

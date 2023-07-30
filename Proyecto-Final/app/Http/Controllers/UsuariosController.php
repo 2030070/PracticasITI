@@ -26,7 +26,7 @@ class UsuariosController extends Controller
             'apellidos' => 'required', //
             'usuario' => 'required', //
             'password' => 'required', //
-            'telefono' => 'required', // Campo teléfono requerido
+            'telefono' => 'required|max:10', // Campo teléfono requerido
             'email' => 'required|email', // Campo email requerido y debe ser una dirección de correo válida y única en la tabla proveedores
             'rol' => 'required',
             'creado_por' => 'required',
@@ -57,7 +57,7 @@ class UsuariosController extends Controller
     // Método para mostrar todos los proveedores
     public function show(){
         // Obtener una lista paginada de proveedores (10 proveedores por página)
-        $usuarios = Usuario::paginate(10);
+        $usuarios = Usuario::all();
         return view('usuarios.show', ['usuarios' => $usuarios]);
     }
 
@@ -73,7 +73,7 @@ class UsuariosController extends Controller
             'apellidos' => 'required', //
             'usuario' => 'required', //
             'password' => 'required', //
-            'telefono' => 'required', // Campo teléfono requerido
+            'telefono' => 'required|max:10', // Campo teléfono requerido
             'email' => 'required|email|unique:usuarios,email,' . $usuario->id,
             'rol' => 'required',
             'creado_por' => 'required',

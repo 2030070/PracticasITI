@@ -17,14 +17,12 @@ class MarcaController extends Controller{
     }
     
     // Método para mostrar el formulario de creación de marca
-    public function create()
-    {
+    public function create(){
         return view('marcas.create');
     }
 
     // Método para almacenar una nueva marca en la base de datos
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $request->validate([
             'imagen' => 'required', // Imagen requerida
             'nombre' => 'required|max:255', // Nombre requerido y longitud máxima de 255 caracteres
@@ -48,16 +46,14 @@ class MarcaController extends Controller{
     }
 
     // Método para mostrar todas las marcas
-    public function show()
-    {
+    public function show(){
         // Obtener una lista paginada de marcas (10 marcas por página)
-        $marcas = Marca::paginate(10);
+        $marcas = Marca::all();
         return view('marcas.show', ['marcas' => $marcas]);
     }
 
     // Método para eliminar una marca existente de la base de datos
-    public function destroy(Marca $marca)
-    {
+    public function destroy(Marca $marca){
         // Eliminar la imagen asociada a la marca
         Storage::disk('public')->delete('uploads/' . $marca->imagen);
 
@@ -69,14 +65,12 @@ class MarcaController extends Controller{
     }
 
     // Método para mostrar el formulario de edición de una marca existente
-    public function edit(Marca $marca)
-    {
+    public function edit(Marca $marca){
         return view('marcas.edit', compact('marca'));
     }
 
     // Método para actualizar los datos de una marca existente en la base de datos
-    public function update(Request $request, Marca $marca)
-    {
+    public function update(Request $request, Marca $marca){
         $request->validate([
             'nombre' => 'required|max:255', // Nombre requerido y longitud máxima de 255 caracteres
             'descripcion' => 'required', // Descripción requerida
@@ -96,8 +90,7 @@ class MarcaController extends Controller{
     }
 
     // Método para actualizar la imagen de una marca existente
-    public function updateImagen(Request $request, Marca $marca)
-    {
+    public function updateImagen(Request $request, Marca $marca){
         $request->validate([
             'imagen' => 'required|image|max:2048', // Imagen requerida y tamaño máximo de 2MB
         ]);

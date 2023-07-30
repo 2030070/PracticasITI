@@ -10,18 +10,20 @@ use Illuminate\Support\Facades\Storage;
 class ClienteController extends Controller
 {
     public function __construct(){
-        //protegemos la url
-        //al metodo index con el constructor le pasamos el parametro de autenticacion
+        // Protegemos la URL utilizando el middleware 'auth'.
+        // Esto asegura que solo usuarios autenticados puedan acceder a las rutas de este controlador.
         $this->middleware('auth');
     }
-    //
-    public function create()
-    {
+
+    // Mostrar el formulario de creación de cliente
+    public function create(){
         return view('clientes.create');
     }
 
-    public function store(Request $request)
-    {
+    // Almacenar un nuevo cliente en la base de datos
+    public function store(Request $request){
+        // Validamos los datos enviados desde el formulario de creación del cliente.
+        // Establecemos reglas de validación para cada campo.
         $request->validate([
             'nombre' => 'required|max:255',
             'imagen' => 'required',
@@ -31,7 +33,8 @@ class ClienteController extends Controller
             'correo' => 'required|email',
         ]);
 
-
+        // Creamos un nuevo registro de cliente en la base de datos utilizando el modelo Cliente.
+        // Los datos del cliente se toman del objeto $request que contiene los datos enviados desde el formulario.
         Cliente::create([
             'nombre' => $request->nombre,
             'imagen' => $request->imagen,
@@ -41,30 +44,43 @@ class ClienteController extends Controller
             'correo' => $request->correo,
         ]);
 
+        // Redirigimos al usuario a la ruta 'clientes.show' (que muestra la lista de clientes) con un mensaje de éxito.
         return redirect()->route('clientes.show')->with('success', 'Cliente creado exitosamente.');
     }
 
-    public function show()
-    {
-        $clientes = Cliente::paginate(10);
+    // Mostrar la lista de clientes
+    public function show(){
+        // Obtenemos todos los registros de clientes desde la base de datos utilizando el modelo Cliente.
+        // Luego, los enviamos a la vista 'clientes.show' para que puedan ser mostrados.
+        $clientes = Cliente::all();
         return view('clientes.show', ['clientes' => $clientes]);
     }
 
-    public function destroy(Cliente $cliente)
-    {
+    // Eliminar un cliente de la base de datos
+    public function destroy(Cliente $cliente){
+        // Utilizamos el objeto $cliente pasado como parámetro para acceder a los datos del cliente que se desea eliminar.
+
+        // Primero, eliminamos la imagen asociada al cliente almacenada en el sistema de archivos utilizando el Storage de Laravel.
         Storage::disk('public')->delete('uploads/' . $cliente->imagen);
+
+        // Luego, eliminamos el registro del cliente de la base de datos.
         $cliente->delete();
 
+        // Redirigimos al usuario a la ruta 'clientes.show' (que muestra la lista de clientes) con un mensaje de éxito.
         return redirect()->route('clientes.show')->with('success', 'Cliente eliminado correctamente.');
     }
 
-    public function edit(Cliente $cliente)
-    {
+    // Mostrar el formulario de edición de cliente
+    public function edit(Cliente $cliente){
+        // Utilizamos el objeto $cliente pasado como parámetro para acceder a los datos del cliente que se desea editar.
+        // Luego, enviamos estos datos a la vista 'clientes.edit' para que puedan ser mostrados en el formulario de edición.
         return view('clientes.edit', compact('cliente'));
     }
 
-    public function update(Request $request, Cliente $cliente)
-    {
+    // Actualizar un cliente en la base de datos
+    public function update(Request $request, Cliente $cliente){
+        // Validamos los datos enviados desde el formulario de edición del cliente.
+        // Establecemos reglas de validación para cada campo.
         $request->validate([
             'nombre' => 'required|max:255',
             'codigo' => 'required',
@@ -74,6 +90,8 @@ class ClienteController extends Controller
             'imagen' => 'required',
         ]);
 
+        // Actualizamos los datos del cliente en la base de datos utilizando el objeto $cliente pasado como parámetro.
+        // Los nuevos datos se toman del objeto $request que contiene los datos enviados desde el formulario de edición.
         $cliente->nombre = $request->nombre;
         $cliente->codigo = $request->codigo;
         $cliente->empresa = $request->empresa;
@@ -82,30 +100,39 @@ class ClienteController extends Controller
         $cliente->imagen = $request->imagen;
         $cliente->save();
 
+        // Redirigimos al usuario a la ruta 'clientes.show' (que muestra la lista de clientes) con un mensaje de éxito.
         return redirect()->route('clientes.show')->with('success', 'Cliente actualizado exitosamente.');
     }
 
-    public function updateImagen(Request $request, Cliente $cliente)
-    {
+    // Actualizar la imagen de un cliente en la base de datos
+    public function updateImagen(Request $request, Cliente $cliente){
+        // Validamos los datos enviados desde el formulario de actualización de imagen del cliente.
+        // Establecemos reglas de validación para el campo 'imagen'.
         $request->validate([
             'imagen' => 'required|image|max:2048',
         ]);
 
+        // Verificamos si se ha enviado un nuevo archivo de imagen.
         if ($request->hasFile('imagen')) {
-            // Eliminar la imagen anterior
+            // Eliminamos la imagen anterior asociada al cliente utilizando el Storage de Laravel.
             Storage::disk('public')->delete('uploads/' . $cliente->imagen);
 
-            // Procesar y almacenar la nueva imagen
+            // Procesamos y almacenamos la nueva imagen en el sistema de archivos utilizando el Storage de Laravel.
             $imagenPath = $request->file('imagen')->store('uploads', 'public');
+
+            // También redimensionamos la nueva imagen para que tenga un tamaño máximo de 500x500 píxeles utilizando la biblioteca Intervention Image.
             $imagen = Image::make(public_path("storage/{$imagenPath}"))->fit(500, 500);
             $imagen->save();
 
+            // Actualizamos la ruta de la imagen del cliente en la base de datos con la nueva ruta de la imagen.
             $cliente->imagen = $imagenPath;
             $cliente->save();
 
-            return redirect()->route('clientes.show')->with('success', 'Imagen de la cliente actualizada exitosamente.');
+            // Redirigimos al usuario a la ruta 'clientes.show' (que muestra la lista de clientes) con un mensaje de éxito.
+            return redirect()->route('clientes.show')->with('success', 'Imagen del cliente actualizada exitosamente.');
         }
 
-        return redirect()->route('clientes.show')->with('error', 'Error al actualizar la imagen de la cliente.');
+        // Si no se envió una nueva imagen, redirigimos al usuario a la ruta 'clientes.show' con un mensaje de error.
+        return redirect()->route('clientes.show')->with('error', 'Error al actualizar la imagen del cliente.');
     }
 }

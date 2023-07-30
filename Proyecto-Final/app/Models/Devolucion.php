@@ -20,5 +20,7 @@ class Devolucion extends Model
         'estatus_pago',
         'creado_por',
     ];
-
+    public function cliente(){
+        return $this->belongsTo(Cliente::class);
+    }
 }
