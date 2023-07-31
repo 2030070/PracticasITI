@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Models\Producto;
 use App\Models\Devolucion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,12 +17,14 @@ class DevolucionController extends Controller{
     //Redirecciona a la vista para registrar las devoluciones
     public function create(){
         $clientes = Cliente::all();
-        return view('devoluciones.create',compact('clientes'));
+        $productos = Producto::all();
+        return view('devoluciones.create',compact('clientes','productos'));
     }
 
     public function edit(Devolucion $devolucion){
         $clientes = Cliente::all();
-        return view('devoluciones.edit', compact('devolucion','clientes'));
+        $productos = Producto::all();
+        return view('devoluciones.edit', compact('devolucion','clientes','productos'));
 
     }
 

@@ -23,4 +23,7 @@ class Devolucion extends Model
     public function cliente(){
         return $this->belongsTo(Cliente::class);
     }
+    public function producto(){
+        return $this->belongsTo(Producto::class);
+    }
 }

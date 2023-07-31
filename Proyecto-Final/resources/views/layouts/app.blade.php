@@ -57,14 +57,13 @@
                                         <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Dashboard</span>
                                     </a>
                                 </li>
+                                <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
                             </ul>
                             <i class=" h-6 absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-white text-slate-400 xl:hidden" sidenav-close></i>
                             
                         </div>
                         
-                        <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
-
-                        <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
+                       {{-- <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full"> --}}
                             <ul class="flex flex-col pl-0 mb-0">
                                 
                                 <li class="mt-0.5 w-full">
@@ -101,22 +100,6 @@
                                     </a>
                                 </li>
                                 <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('ventas.create')}}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-chart-line"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Ventas</span>
-                                    </a>
-                                </li>
-                                <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('devoluciones.create') }}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-undo"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Devoluciones</span>
-                                    </a>
-                                </li>
-                                <li class="mt-0.5 w-full">
                                     <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('clientes.create')}}">
                                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                             <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-user-friends"></i>
@@ -140,13 +123,44 @@
                                         <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Usuarios</span>
                                     </a>
                                 </li>
-                                
+                                <li class="mt-0.5 w-full">
+                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="#">
+                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                            {{-- <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-chart-line"></i> --}}
+                                        </div>
+                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Cotizaciónes</span>
+                                    </a>
+                                </li>
+                                <li class="mt-0.5 w-full">
+                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="#">
+                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                            {{-- <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-undo"></i> --}}
+                                        </div>
+                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Compras</span>
+                                    </a>
+                                </li>
+                                <li class="mt-0.5 w-full">
+                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('ventas.create')}}">
+                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-chart-line"></i>
+                                        </div>
+                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Ventas</span>
+                                    </a>
+                                </li>
+                                <li class="mt-0.5 w-full">
+                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('devoluciones.create') }}">
+                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-undo"></i>
+                                        </div>
+                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Devoluciones</span>
+                                    </a>
+                                </li>
                             </ul>
-                        </div>
+                        {{-- </div> --}}
 
-                        <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
-                        
                         <ul class="flex flex-col pl-0 mb-0">
+                            <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
+                        
                             <li class="mt-0.5 w-full">
                                 <form method="POST" action="{{route('logout')}}">
                                     @csrf

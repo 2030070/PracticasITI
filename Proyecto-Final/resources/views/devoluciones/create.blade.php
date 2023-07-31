@@ -16,7 +16,12 @@
               <div class="mb-4 flex">
                 <div class="w-1/2 mr-2">
                   <label for="nombre_producto" class="block mb-2 font-semibold">Nombre de Producto:</label>
-                  <input type="text" name="nombre_producto" id="nombre_producto" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" step="0.01" min="0" placeholder="Ingrese el nombre del producto">
+                  <select name="nombre_producto" id="nombre_producto" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                    <option value="">Seleccione el producto</option>
+                    @foreach($productos as $producto)
+                      <option value="{{ $producto->nombre }}" {{ old('nombre_producto') == $producto->nombre ? 'selected' : '' }}>{{ $producto->nombre }}</option>
+                    @endforeach
+                  </select>
                 </div>
                 <div class="w-1/2 ml-2">
                   <label for="fecha_devolucion" class="block mb-2 font-semibold">Fecha de Devolución:</label>

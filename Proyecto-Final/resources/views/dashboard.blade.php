@@ -7,7 +7,7 @@
 
 @section('contenido')
 <style>
-  .container {
+  .containerCard {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -25,11 +25,11 @@
   }
 </style>
 
-<div class="container mx-auto " style="margin-top: 1.5cm;">
+<div class="container mx-auto">
   <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
       <div class="col-span-1/2 md:col-span-1/2"></div> <!-- Espacio en blanco para el menú lateral -->
       <div class="col-span-2 md:col-span-3 ">
-        <div class="container">
+        <div class="containerCard">
           <div class="card ">
             <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
               <div class="flex-auto p-4">
@@ -93,53 +93,6 @@
                       <a href="{{ route('subcategorias.show') }}" >
                         <i class="relative top-0 text-xl text-purple-300 fas fa-folder"></i>
                       </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="card ">
-            <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-              <div class="flex-auto p-4">
-                <div class="flex flex-row -mx-3">
-                  <div class="flex-none w-2/3 max-w-full px-3">
-                    <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Ventas</p>
-                      <h5 class="mb-2 font-bold dark:text-white">Total: {{ App\Models\Venta::count() }}</h5>
-                    </div>
-                  </div>
-                  <div class="px-3 text-right basis-1/3">
-                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
-                      
-                      <a href="{{ route('ventas.show') }}" >
-                        <i class="relative top-0 text-xl text-purple-300 fas fa-chart-line"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="card ">
-            <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-              <div class="flex-auto p-4">
-                <div class="flex flex-row -mx-3">
-                  <div class="flex-none w-2/3 max-w-full px-3">
-                    <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Devoluciones</p>
-                      <h5 class="mb-2 font-bold dark:text-white">Total: {{ App\Models\Devolucion::count() }}</h5>
-                    </div>
-                  </div>
-                  <div class="px-3 text-right basis-1/3">
-                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
-                      
-                      <a href="{{ route('devoluciones.show') }}" >
-                        <i class="relative top-0 text-xl text-purple-300 fas fa-undo"></i>
-                      </a>
-
                     </div>
                   </div>
                 </div>
@@ -242,6 +195,102 @@
               </div>
             </div>
           </div>
+
+          <div class="card ">
+            <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+              <div class="flex-auto p-4">
+                <div class="flex flex-row -mx-3">
+                  <div class="flex-none w-2/3 max-w-full px-3">
+                    <div>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Ventas</p>
+                      <h5 class="mb-2 font-bold dark:text-white">Total: {{ App\Models\Venta::count() }}</h5>
+                    </div>
+                  </div>
+                  <div class="px-3 text-right basis-1/3">
+                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
+                      
+                      <a href="{{ route('ventas.show') }}" >
+                        <i class="relative top-0 text-xl text-purple-300 fas fa-chart-line"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="card ">
+            <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+              <div class="flex-auto p-4">
+                <div class="flex flex-row -mx-3">
+                  <div class="flex-none w-2/3 max-w-full px-3">
+                    <div>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Devoluciones</p>
+                      <h5 class="mb-2 font-bold dark:text-white">Total: {{ App\Models\Devolucion::count() }}</h5>
+                    </div>
+                  </div>
+                  <div class="px-3 text-right basis-1/3">
+                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
+                      
+                      <a href="{{ route('devoluciones.show') }}" >
+                        <i class="relative top-0 text-xl text-purple-300 fas fa-undo"></i>
+                      </a>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card ">
+            <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+              <div class="flex-auto p-4">
+                <div class="flex flex-row -mx-3">
+                  <div class="flex-none w-2/3 max-w-full px-3">
+                    <div>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Cptozaciónes</p>
+                      <h5 class="mb-2 font-bold dark:text-white">Total: </h5>
+                    </div>
+                  </div>
+                  <div class="px-3 text-right basis-1/3">
+                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
+                      
+                      <a href="#" >
+                        {{-- <i class="relative top-0 text-xl text-purple-300 fas fa-user"></i> --}}
+                      </a>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card ">
+            <div class="relative flex flex-col min-w-0 break-words bg-blue-300 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+              <div class="flex-auto p-4">
+                <div class="flex flex-row -mx-3">
+                  <div class="flex-none w-2/3 max-w-full px-3">
+                    <div>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Compras</p>
+                      <h5 class="mb-2 font-bold dark:text-white">Total: </h5>
+                    </div>
+                  </div>
+                  <div class="px-3 text-right basis-1/3">
+                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
+                      
+                      <a href="#" >
+                        {{-- <i class="relative top-0 text-xl text-purple-300 fas fa-user"></i> --}}
+                      </a>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
 
         </div>
       </div>
