@@ -24,7 +24,7 @@ class CompraController extends Controller
     }
 
     public function edit(Compra $compra){
-        // Cargar el nombre del proveedor asociado con la compra
+        // Cargar el nombre del proveedor asociado con la compra y el nombre del producto
         $proveedores = Proveedor::all();
         $productos = Producto::all();
         return view('compras.edit', compact('compra', 'proveedores', 'productos'));

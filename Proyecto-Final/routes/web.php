@@ -13,6 +13,7 @@ use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\CotizacionController;
 use App\Http\Controllers\DevolucionController;
 use App\Http\Controllers\SubcategoriaController;
 
@@ -162,3 +163,17 @@ Route::get('/compras/{compra}/edit', [CompraController::class, 'edit'])->name('c
 Route::put('/compras/{compra}', [CompraController::class, 'update'])->name('compras.update');
 // Ruta para eliminar una compra específica de la base de datos
 Route::delete('/compras/{compra}', [CompraController::class, 'destroy'])->name('compras.destroy');
+
+
+// Ruta para mostrar el formulario de creación de una nueva cotizacion
+Route::get('/cotizacion/create', [CotizacionController::class, 'create'])->name('cotizaciones.create');
+// Ruta para almacenar una nueva cotizacion en la base de datos
+Route::post('/cotizacion', [CotizacionController::class, 'store'])->name('cotizaciones.store');
+// Ruta para mostrar los detalles de una cotizacion específica
+Route::get('/cotizacion', [CotizacionController::class, 'show'])->name('cotizaciones.show');
+// Ruta para mostrar el formulario de edición de una cotizacion específica
+Route::get('/cotizacion/{cotizacion}/edit', [CotizacionController::class, 'edit'])->name('cotizaciones.edit');
+// Ruta para actualizar una cotizacion específica en la base de datos
+Route::put('/cotizacion/{cotizacion}', [CotizacionController::class, 'update'])->name('cotizaciones.update');
+// Ruta para eliminar una cotizacion específica de la base de datos
+Route::delete('/cotizacion/{cotizacion}', [CotizacionController::class, 'destroy'])->name('cotizaciones.destroy');

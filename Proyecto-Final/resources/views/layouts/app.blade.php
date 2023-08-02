@@ -19,6 +19,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        {{-- Estilos y js para el manejo de las diversas seccones del data table  --}}
         <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
 
@@ -121,9 +122,9 @@
                                     </a>
                                 </li>
                                 <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="#">
+                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('cotizaciones.create')}}">
                                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            {{-- <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-chart-line"></i> --}}
+                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-file-invoice"></i>
                                         </div>
                                         <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Cotizaciónes</span>
                                     </a>
