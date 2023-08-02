@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('titulo')
-   Crear Venta
+   Registrar Venta
 @endsection
 
 @section('contenido')

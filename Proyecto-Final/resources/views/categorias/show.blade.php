@@ -55,6 +55,11 @@
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div class="col-span-1/2 md:col-span-1/2"></div> <!-- Espacio en blanco para el menú lateral -->
         <div class="col-span-2 md:col-span-3">
+            <div class="flex justify-end"> <!-- Alineación a la derecha -->
+                <a href="{{ route('categorias.create') }}" class="inline-block ml-auto px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-purple-400">
+                    <i class="fas fa-plus mr-2"></i> Registrar Categoría
+                </a>
+            </div>
             @if(session('success'))
                     <div class="bg-green-200 p-2 rounded-lg mb-6 text-black text-center ">
                         {{ session('success') }}
