@@ -249,7 +249,7 @@
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Cptozaciónes</p>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Cotizaciónes</p>
                       <h5 class="mb-2 font-bold dark:text-white">Total: </h5>
                     </div>
                   </div>
@@ -274,14 +274,14 @@
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
                       <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Compras</p>
-                      <h5 class="mb-2 font-bold dark:text-white">Total: </h5>
+                      <h5 class="mb-2 font-bold dark:text-white">Total: {{ App\Models\Compra::count() }}</h5>
                     </div>
                   </div>
                   <div class="px-3 text-right basis-1/3">
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
                       
-                      <a href="#" >
-                        {{-- <i class="relative top-0 text-xl text-purple-300 fas fa-user"></i> --}}
+                      <a href="{{ route('compras.show') }}" >
+                        <i class="relative top-0 text-xl text-purple-300 fas fa-cart-arrow-down"></i>
                       </a>
 
                     </div>

@@ -33,16 +33,13 @@
         @vite('resources/js/argon-dashboard-tailwind.min.js')
         @vite('resources/js/navbar-sticky.js')
 
-        <style>
-            
-        </style>
     </head>
     {{-- Cuerpo principal --}}
     <body class="m-0 font-sans text-base antialiased font-normal leading-default h-full">
         <div class="min-h-full">
             <!-- Crear un contenedor dinamico para el nav, header y el cuerpo del contenido -->
             @yield('nav')
-            @unless(request()->is('/'))
+                @unless(request()->is('/'))
                 @auth
                 <!-- sidenav -->
                     <aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto antialiased transition-transform duration-200 -translate-x-full bg-blue-50 border-0 shadow-xl dark:shadow-none dark:bg-slate-850 max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0" aria-expanded="false">
@@ -132,9 +129,9 @@
                                     </a>
                                 </li>
                                 <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="#">
+                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('compras.create')}}">
                                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            {{-- <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-undo"></i> --}}
+                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-cart-arrow-down"></i>
                                         </div>
                                         <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Compras</span>
                                     </a>
@@ -181,10 +178,11 @@
                 @endauth
             @endunless
 
-            @unless(request()->is('dashboard') || request()->is('/') || request()->is('/login'))
-                <div class="text-center mt-2">
-                    <h1 class="text-4xl text-blue-500">@yield('titulo')</h1>
+            @unless(request()->is('dashboard') || request()->is('/') || request()->is('login'))
+                <div class="bg-blue-500 rounded-b-lg text-center py-16">
+                    <h1 class="text-4xl text-white">@yield('titulo')</h1>
                 </div>
+                
             @endunless
 
 

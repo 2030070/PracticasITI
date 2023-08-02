@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\VentaController;
+use App\Http\Controllers\CompraController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ClienteController;
@@ -147,3 +148,17 @@ Route::put('/usuarios/{usuario}', [UsuariosController::class, 'update'])->name('
 Route::delete('/usuarios/{usuario}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy');
 Route::post('/usuarios/images', [ImagenController::class, 'store'])->name('usuarios_imagenes.store');
 Route::put('/usuarios/{usuario}/update-imagen', [ImagenController::class, 'update'])->name('usuarios.update_imagen');
+
+// Ruta para mostrar el listado de compras
+// Ruta para mostrar el formulario de creación de una nueva compra
+Route::get('/compras/create', [CompraController::class, 'create'])->name('compras.create');
+// Ruta para almacenar una nueva compra en la base de datos
+Route::post('/compras', [CompraController::class, 'store'])->name('compras.store');
+// Ruta para mostrar los detalles de una compra específica
+Route::get('/compras', [CompraController::class, 'show'])->name('compras.show');
+// Ruta para mostrar el formulario de edición de una compra específica
+Route::get('/compras/{compra}/edit', [CompraController::class, 'edit'])->name('compras.edit');
+// Ruta para actualizar una compra específica en la base de datos
+Route::put('/compras/{compra}', [CompraController::class, 'update'])->name('compras.update');
+// Ruta para eliminar una compra específica de la base de datos
+Route::delete('/compras/{compra}', [CompraController::class, 'destroy'])->name('compras.destroy');
