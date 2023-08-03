@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('empresa');
             $table->string('telefono');
             $table->string('correo');
+            $table->string('pais');   // New field: pais
+            $table->string('estado'); // New field: estado
+            $table->string('ciudad'); // New field: ciudad
             $table->timestamps();
         });
     }

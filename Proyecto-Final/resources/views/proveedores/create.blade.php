@@ -36,6 +36,25 @@
                             <input type="email" name="email" id="email" placeholder="Ingrese el correo electrónico del proveedor" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
                         </div>
                     </div>
+
+                    <div class="mb-4 flex">
+                      <div class="w-1/2 mr-2">
+                          <label for="pais" class="block mb-2 font-semibold">País:</label>
+                          <input type="text" name="pais" id="pais" placeholder="Ingrese el país" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                      </div>
+                      
+                      <div class="w-1/2 ml-2">
+                          <label for="estado" class="block mb-2 font-semibold">Estado:</label>
+                          <input type="text" name="estado" id="estado" placeholder="Ingrese el estado" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                      </div>
+                  </div>
+                  
+                  <div class="mb-4 flex">
+                      <div class="w-1/2 mr-2">
+                          <label for="ciudad" class="block mb-2 font-semibold">Ciudad:</label>
+                          <input type="text" name="ciudad" id="ciudad" placeholder="Ingrese la ciudad" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                      </div>
+                  </div>
                     
 
                     <div>

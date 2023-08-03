@@ -5,6 +5,7 @@
 @endsection
 
 @push('styles')
+<!-- Estilos para la tabla y la paginación -->
 <style>
     /* Estilos para los botones Anterior y Siguiente */
     .dataTables_wrapper .dataTables_paginate .paginate_button.previous,
@@ -32,7 +33,6 @@
         padding: 0.5rem;
     }
 
-
     /* Alinear los botones de paginación debajo de la tabla */
     .dataTables_wrapper .dataTables_paginate {
         display: flex;
@@ -40,8 +40,9 @@
         align-items: center;
         margin-top: 1rem;
     }
-        /* New styles to align search input and "Mostrar registros por página" text in the same row */
-        .dataTables_wrapper .dataTables_length {
+
+    /* New styles to align search input and "Mostrar registros por página" text in the same row */
+    .dataTables_wrapper .dataTables_length {
         display: flex;
         align-items: center;
     }
@@ -51,9 +52,9 @@
 
 @section('contenido')
 <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-5">
         <div class="col-span-1/2 md:col-span-1/2"></div> <!-- Espacio en blanco para el menú lateral -->
-        <div class="col-span-2 md:col-span-3">
+        <div class="col-span-2 md:col-span-4">
             <div class="flex justify-end"> <!-- Alineación a la derecha -->
                 <a href="{{ route('proveedores.create') }}" class="inline-block ml-auto px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-purple-400">
                     <i class="fas fa-plus mr-2"></i> Registrar Proveedor
@@ -77,6 +78,9 @@
                             <th class="py-2 px-4 border-b text-left">Código</th>
                             <th class="py-2 px-4 border-b text-left">Teléfono</th>
                             <th class="py-2 px-4 border-b text-left">Correo</th>
+                            <th class="py-2 px-4 border-b text-left">País</th>
+                            <th class="py-2 px-4 border-b text-left">Estado</th>
+                            <th class="py-2 px-4 border-b text-left">Ciudad</th>
                             <th class="py-2 px-4 border-b text-left">Acciones</th>
                         </tr>
                     </thead>
@@ -87,6 +91,9 @@
                             <td class="py-2 px-4 border-b text-left">{{ $proveedor->codigo }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $proveedor->telefono }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $proveedor->email }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $proveedor->pais }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $proveedor->estado }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $proveedor->ciudad }}</td>
                             <td class="py-2 px-4 border-b text-left">
                                 <form action="{{ route('proveedores.destroy', $proveedor->id) }}" method="POST">
                                     @csrf
@@ -115,8 +122,8 @@
 </div>
 @endsection
 
-
 @push('scripts')
+<!-- Agregamos el script de DataTables para el funcionamiento de la tabla -->
 <script>
     $(document).ready(function() {
         $('#prove-table').DataTable({

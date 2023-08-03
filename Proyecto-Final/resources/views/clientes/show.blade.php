@@ -81,9 +81,13 @@
                             <th class="py-2 px-4 border-b text-left">Código</th>
                             <th class="py-2 px-4 border-b text-left">Teléfono</th>
                             <th class="py-2 px-4 border-b text-left">Correo</th>
+                            <th class="py-2 px-4 border-b text-left">País</th>
+                            <th class="py-2 px-4 border-b text-left">Estado</th>
+                            <th class="py-2 px-4 border-b text-left">Ciudad</th>
                             <th class="py-2 px-4 border-b text-left">Acciones</th>
                         </tr>
                     </thead>
+                    
                     <tbody>
                         @foreach ($clientes as $cliente)
                         <tr>
@@ -93,6 +97,9 @@
                             <td class="py-2 px-4 border-b text-left">{{ $cliente->codigo }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $cliente->telefono }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $cliente->correo }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $cliente->pais }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $cliente->estado }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $cliente->ciudad }}</td>
                             <td class="py-2 px-4 border-b text-left">
                                 <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST">
                                     @csrf

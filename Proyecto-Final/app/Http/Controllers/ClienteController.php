@@ -31,6 +31,9 @@ class ClienteController extends Controller
             'empresa' => 'required',
             'telefono' => 'required',
             'correo' => 'required|email',
+            'pais' => 'required',
+            'estado' => 'required',
+            'ciudad' => 'required'
         ]);
 
         // Creamos un nuevo registro de cliente en la base de datos utilizando el modelo Cliente.
@@ -42,6 +45,9 @@ class ClienteController extends Controller
             'empresa' => $request->empresa,
             'telefono' => $request->telefono,
             'correo' => $request->correo,
+            'pais' => $request->pais,
+            'estado' => $request->estado,
+            'ciudad' => $request->ciudad,
         ]);
 
         // Redirigimos al usuario a la ruta 'clientes.show' (que muestra la lista de clientes) con un mensaje de éxito.
@@ -88,6 +94,9 @@ class ClienteController extends Controller
             'telefono' => 'required',
             'correo' => 'required|email',
             'imagen' => 'required',
+            'pais' => 'required',
+            'estado' => 'required',
+            'ciudad' => 'required',
         ]);
 
         // Actualizamos los datos del cliente en la base de datos utilizando el objeto $cliente pasado como parámetro.
@@ -98,6 +107,9 @@ class ClienteController extends Controller
         $cliente->telefono = $request->telefono;
         $cliente->correo = $request->correo;
         $cliente->imagen = $request->imagen;
+        $cliente->pais = $request->pais;
+        $cliente->estado = $request->estado;
+        $cliente->ciudad = $request->ciudad;	
         $cliente->save();
 
         // Redirigimos al usuario a la ruta 'clientes.show' (que muestra la lista de clientes) con un mensaje de éxito.

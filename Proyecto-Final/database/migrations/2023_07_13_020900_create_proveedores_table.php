@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('codigo')->unique();
             $table->string('telefono');
             $table->string('email')->unique();
+            $table->string('pais');   // New field: pais
+            $table->string('estado'); // New field: estado
+            $table->string('ciudad'); // New field: ciudad
             $table->timestamps();
         });
     }
