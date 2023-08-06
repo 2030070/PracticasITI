@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('subcategorias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('categoria_id')->constrainted('categorias');
+            $table->foreignId('categoria_id')->constrainted('categorias')->onDelete('cascade');
             $table->string('codigo')->unique();
             $table->string('nombre');
             $table->string('descripcion');

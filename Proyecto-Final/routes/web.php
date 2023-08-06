@@ -70,8 +70,10 @@ Route::get('/productos', [ProductoController::class, 'show'])->name('productos.s
 Route::delete('/productos/{id}', [ProductoController::class, 'destroy'])->name('productos.destroy');
 // Redireccionar para editar la productos
 Route::get('/productos/{producto}/edit', [ProductoController::class, 'edit'])->name('productos.edit');
+Route::post('/productos/images', [ImagenController::class, 'store'])->name('productos_imagenes.store');
 // Actualizar la productos
 Route::put('/productos/{id}/edit', [ProductoController::class, 'update'])->name('productos.update');
+Route::put('/productos/{producto}/update-imagen', [ImagenController::class, 'update'])->name('productos.update_imagen');
 
 
 // Ruta para mostrar el formulario de creación de una marca
@@ -178,7 +180,3 @@ Route::get('/cotizacion/{cotizacion}/edit', [CotizacionController::class, 'edit'
 Route::put('/cotizacion/{cotizacion}', [CotizacionController::class, 'update'])->name('cotizaciones.update');
 // Ruta para eliminar una cotizacion específica de la base de datos
 Route::delete('/cotizacion/{cotizacion}', [CotizacionController::class, 'destroy'])->name('cotizaciones.destroy');
-
-
-
-Route::get('/pos/punto_de_venta', [PuntoDeVentaController::class, 'index'])->name('punto_de_venta.index');

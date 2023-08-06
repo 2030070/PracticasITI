@@ -81,7 +81,7 @@
                             <th class="py-2 px-4 border-b text-left">Nombre del Proveedor</th>
                             <th class="py-2 px-4 border-b text-left">Referencia</th>
                             <th class="py-2 px-4 border-b text-left">Estatus</th>
-                            <th class="py-2 px-4 border-b text-left">Pago Total</th>
+                            <th class="py-2 px-4 border-b text-left">Cantidad de productos</th>
                             <th class="py-2 px-4 border-b text-left">Pago Parcial</th>
                             <th class="py-2 px-4 border-b text-left">Pago Pendiente</th>
                             <th class="py-2 px-4 border-b text-left">Creado por</th>
@@ -97,8 +97,8 @@
                             <td class="py-2 px-4 border-b">{{ $compra->referencia }}</td>
                             <td class="py-2 px-4 border-b">{{ $compra->estatus }}</td>
                             <td class="py-2 px-4 border-b">{{ $compra->total }}</td>
+                            <td class="py-2 px-4 border-b">{{ $compra->pagado }}</td>
                             <td class="py-2 px-4 border-b">{{ $compra->pendiente_de_pago }}</td>
-                            <td class="py-2 px-4 border-b">{{ $compra->estatus_de_pago }}</td>
                             <td class="py-2 px-4 border-b">{{ $compra->creado_por }}</td>
                             <td class="py-2 px-4 border-b">
                                 <form action="{{ route('compras.destroy', $compra->id) }}" method="POST">

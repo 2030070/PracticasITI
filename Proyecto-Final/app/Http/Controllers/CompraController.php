@@ -62,6 +62,11 @@ class CompraController extends Controller
             'creado_por' => Auth::user()->name,
         ]);
 
+        // Actualizar el stock del producto
+        $producto = Producto::where('nombre', $request->nombre_producto)->first();
+        $producto->unidades_disponibles += $request->total;
+        $producto->save();
+
         // Redirigir a la vista de mostrar compras
         return redirect()->route('compras.show')->with('success', 'Compra agregada correctamente');
     }

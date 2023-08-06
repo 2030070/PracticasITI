@@ -8,6 +8,8 @@ use App\Models\Categoria;
 use App\Models\Subcategoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
@@ -28,6 +30,7 @@ class ProductoController extends Controller
     // Método para almacenar un nuevo producto en la base de datos
     public function store(Request $request){
         $request->validate([
+            'imagen' => 'required', // Imagen requerida
             'categoria_id' => 'required', // Categoría requerida
             'subcategoria_id' => '', // Subcategoría opcional
             'marca_id' => '', // Validación opcional para la marca_id
@@ -40,6 +43,7 @@ class ProductoController extends Controller
 
         // Crear un nuevo producto en la base de datos con los datos proporcionados
         Producto::create([
+            'imagen' => $request->imagen,
             'categoria_id' => $request->categoria_id,
             'subcategoria_id' => $request->subcategoria_id,
             'marca_id' => $request->marca_id, // Asignar la marca_id recibida en el formulario
@@ -83,6 +87,7 @@ class ProductoController extends Controller
     // Método para actualizar los datos de un producto existente en la base de datos
     public function update(Request $request, $id){
         $request->validate([
+            'imagen' => 'required',
             'categoria_id' => 'required', // Categoría requerida
             'subcategoria_id' => '', // Subcategoría opcional
             'marca_id' => '', // Validación opcional para la marca_id
@@ -96,6 +101,7 @@ class ProductoController extends Controller
         // Buscar el producto por su ID
         $producto = Producto::findOrFail($id);
         // Actualizar los datos del producto con los datos proporcionados
+        $producto->imagen = $request->imagen;
         $producto->categoria_id = $request->categoria_id;
         $producto->subcategoria_id = $request->subcategoria_id;
         $producto->marca_id = $request->marca_id; // Asignar la marca_id recibida en el formulario
@@ -108,5 +114,31 @@ class ProductoController extends Controller
 
         // Redireccionar a la vista de mostrar productos con un mensaje de éxito
         return redirect()->route('productos.show')->with('actualizada', 'Producto actualizado correctamente.');
+    }
+
+    // Método para actualizar la imagen de una marca existente
+    public function updateImagen(Request $request, Producto $producto){
+        $request->validate([
+            'imagen' => 'required|image|max:2048', // Imagen requerida y tamaño máximo de 2MB
+        ]);
+
+        if ($request->hasFile('imagen')) {
+            // Eliminar la imagen anterior
+            Storage::disk('public')->delete('uploads/' . $producto->imagen);
+
+            // Procesar y almacenar la nueva imagen
+            $imagenPath = $request->file('imagen')->store('uploads', 'public');
+            $imagen = Image::make(public_path("storage/{$imagenPath}"))->fit(500, 500);
+            $imagen->save();
+
+            $producto->imagen = $imagenPath;
+            $producto->save();
+
+            // Redireccionar a la vista de mostrar productos con un mensaje de éxito
+            return redirect()->route('productos.show')->with('success', 'Imagen de prodctos actualizada exitosamente.');
+        }
+
+        // Redireccionar a la vista de mostrar marcas con un mensaje de error
+        return redirect()->route('productos.show')->with('error', 'Error al actualizar la imagen de productos.');
     }
 }

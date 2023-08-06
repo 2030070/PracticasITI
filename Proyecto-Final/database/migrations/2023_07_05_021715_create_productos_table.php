@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('categoria_id')->constrainted('categorias');
-            $table->foreignId('subcategoria_id')->nullable()->constrainted('subcategorias');
-            $table->foreignId('marca_id')->nullable()->constrained('marcas');
+            $table->string('imagen');
+            $table->foreignId('categoria_id')->constrainted('categorias')->onDelete('cascade');
+            $table->foreignId('subcategoria_id')->nullable()->constrainted('subcategorias')->onDelete('cascade');
+            $table->foreignId('marca_id')->nullable()->constrained('marcas')->onDelete('cascade');
             $table->string('nombre');
             $table->decimal('precio_compra', 8, 2);
             $table->decimal('precio_venta', 8, 2);

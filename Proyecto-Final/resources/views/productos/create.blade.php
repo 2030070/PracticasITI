@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@push('styles')
+    {{-- Estilos dropzone --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css" type="text/css">
+@endpush
+
 @section('titulo')
    Crear Producto
 @endsection
@@ -9,9 +14,20 @@
   <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
     <div class="col-span-1 md:col-span-1"></div> <!-- Espacio en blanco para el menú lateral -->
     <div class="col-span-1 md:col-span-2">
-      <div class="">
-        <form action="{{ route('productos.store') }}" method="POST">
+      <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+        
+        <form action="{{ route('imagenes.store') }}" method="POST" enctype="multipart/form-data" class="dropzone" id="dropzone" style="border: 4px solid; border-radius: 20px; border-image: linear-gradient(to right, #d77cd7, #3B82F6); border-image-slice: 1;">
           @csrf
+        </form>
+        
+        <form action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="mb-5">
+            <input name="imagen" type="hidden" value="{{ old('imagen') }}" />
+            @error('imagen')
+                <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+            @enderror
+          </div>
           <div class="mb-4 flex">
             <div class="w-1/2 mr-2">
               <label for="categoria_id" class="block mb-2 font-semibold">Categoría:</label>
@@ -94,3 +110,51 @@
   </div>
 </div>
 @endsection
+
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.js"></script>
+
+<script>
+
+// import Dropzone from "dropzone";
+Dropzone.autoDiscover = false;
+const dropzone = new Dropzone('#dropzone', {
+    dictDefaultMessage: "Sube tu imagen aqui",
+    acceptedFiles: ".png,.jpg,.jpeg,.gif",
+    addRemoveLinks: true,
+    dictRemoveFile: "Borrar archivo",
+    maxFiles: 1,
+    uploadMUltiple: false,
+    //trabajando con imagen en el contenedor de dropzone
+    init: function () {
+        if (document.querySelector('[name="imagen"]').value.trim()) {
+            const imagenPublicada = {};
+            imagenPublicada.size = 1234
+            imagenPublicada.name =
+                document.querySelector('[name="imagen"]').value;
+            this.options.addedfile.call(this, imagenPublicada);
+            this.options.thumbnail.call(this, imagenPublicada, '/uploads/{$imagenPublicada.name}')
+            imagenPublicada.previewElement.classList.add(
+                "dz-success",
+                "dz-complete",
+            );
+        };
+    }
+});
+
+//evento de envio de correo correcto 
+dropzone.on('success', function (file, response) {
+    // console.log(response)
+    document.querySelector('[name="imagen"]').value = response.imagen;
+});
+//Envio cuando hay error
+dropzone.on('error', function (file, message) {
+    console.log(message)
+});
+//remover un archivo
+dropzone.on('removedfile', function () {
+    // console.log('El archivo se elimino')
+    document.querySelector('[name="imagen"]').value="";
+});
+</script>
+@endpush

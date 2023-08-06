@@ -74,7 +74,7 @@ Editar Compra
             </div>
             <div class="w-1/2 ml-2">
               <label for="total" class="block mb-2 font-semibold">Total:</label>
-              <input type="number" name="total" id="total" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" step="0.01" min="0" placeholder="Ingrese el total" value="{{ $compra->total }}">
+              <input type="number" name="total" id="total" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" step="1" min="0" placeholder="Ingrese el total" value="{{ $compra->total }}">
               @error('total')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
               @enderror

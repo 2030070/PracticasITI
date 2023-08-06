@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@push('styles')
+{{-- Estilos dropzone --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css" type="text/css">
+@endpush
+
 @section('titulo')
    Editar Producto
 @endsection
@@ -9,10 +14,25 @@
   <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
     <div class="col-span-1 md:col-span-1"></div> <!-- Espacio en blanco para el menú lateral -->
     <div class="col-span-1 md:col-span-2">
-      <div class="">
+      <div class="col-span-1 md:col-span-2">
+
+        <form action="{{ route('productos.update_imagen', $producto->id) }}" method="POST" enctype="multipart/form-data" class="dropzone" id="dropzone" style="border: 4px solid; border-radius: 20px; border-image: linear-gradient(to right, #d77cd7, #3B82F6); border-image-slice: 1;">
+          @csrf
+          @method('PUT')
+        </form>
+
+
         <form action="{{ route('productos.update', $producto->id) }}" method="POST">
           @csrf
           @method('PUT')
+
+          <div class="mb-5">
+            <input name="imagen" type="hidden" value="{{$producto->imagen}}" />
+            @error('imagen')
+                <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+            @enderror
+          </div>
+
           <div class="mb-4 flex">
             <div class="w-1/2 mr-2">
               <label for="categoria_id" class="block mb-2 font-semibold">Categoría:</label>
@@ -81,3 +101,57 @@
   </div>
 </div>
 @endsection
+
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.js"></script>
+<script>
+Dropzone.autoDiscover = false;
+const dropzone = new Dropzone('#dropzone', {
+  dictDefaultMessage: "Sube tu imagen aquí",
+  acceptedFiles: ".png,.jpg,.jpeg,.gif",
+  addRemoveLinks: true,
+  dictRemoveFile: "Borrar archivo",
+  maxFiles: 1,
+  uploadMultiple: false,
+  init: function() {
+    const dropzoneInstance = this;
+
+    // Verificar si hay una imagen existente
+    const imagenActual = document.querySelector('[name="imagen"]').value.trim();
+    if (imagenActual) {
+      const imagenPublicada = {
+        size: 1234,
+        name: imagenActual
+      };
+
+      // Mostrar la imagen existente
+      dropzoneInstance.emit("addedfile", imagenPublicada);
+      dropzoneInstance.emit("thumbnail", imagenPublicada, '/uploads/' + imagenPublicada.name);
+      dropzoneInstance.files.push(imagenPublicada);
+      imagenPublicada.previewElement.classList.add("dz-success", "dz-complete");
+    }
+
+    // Listener para reemplazar la imagen existente
+    dropzoneInstance.on("addedfile", function(file) {
+      // Eliminar la imagen existente
+      if (this.files.length > 1) {
+        dropzoneInstance.removeFile(this.files[0]);
+      }
+    });
+
+    // Listener para actualizar el valor del campo oculto al subir una nueva imagen
+    dropzoneInstance.on("success", function(file, response) {
+      document.querySelector('[name="imagen"]').value = response.imagen;
+    });
+
+    // Listener para limpiar el valor del campo oculto al eliminar la imagen
+    dropzoneInstance.on("removedfile", function(file) {
+      document.querySelector('[name="imagen"]').value = "";
+    });
+  },
+  error: function(file, message) {
+    console.log(message);
+  }
+});
+</script>
+@endpush

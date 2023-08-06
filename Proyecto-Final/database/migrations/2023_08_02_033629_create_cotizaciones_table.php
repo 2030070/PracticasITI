@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('cotizaciones', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('producto_id')->constrainted('productos');
+            $table->foreignId('producto_id')->constrainted('productos')->onDelete('cascade');
             $table->string('referencia');
-            $table->foreignId('cliente_id')->constrainted('clientes');
+            $table->foreignId('cliente_id')->constrainted('clientes')->onDelete('cascade');
             $table->string('estatus');
             $table->decimal('total_producto', 10, 2);
             $table->timestamps();

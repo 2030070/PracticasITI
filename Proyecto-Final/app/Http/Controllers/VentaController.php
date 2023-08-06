@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Venta;
-use App\Models\Cliente; // Asegúrate de importar el modelo Cliente
+use App\Models\Producto;
+use App\Models\Categoria;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Cliente; // Asegúrate de importar el modelo Cliente
 
 class VentaController extends Controller
 {
@@ -15,13 +17,23 @@ class VentaController extends Controller
         // Proteger las rutas del controlador con autenticación
         $this->middleware('auth');
     }
-
     // Redirecciona a la vista para registrar una venta
-    public function create(){
+    public function create(Request $request) {
         $clientes = Cliente::all();
-        return view('ventas.create', compact('clientes'));
+        $categorias = Categoria::all();
+        $productos = Producto::query();
+    
+        // Filtrar por categoría si se selecciona una en el formulario
+        if ($request->has('categoria_id')) {
+            $categoriaId = $request->input('categoria_id');
+            $productos->where('categoria_id', $categoriaId);
+        }
+    
+        $productos = $productos->get();
+    
+        return view('ventas.create', compact('clientes', 'categorias', 'productos'));
     }
-
+    
     public function edit(Venta $venta){
         // Cargar el nombre del cliente asociado con la venta
         $clientes = Cliente::all();
