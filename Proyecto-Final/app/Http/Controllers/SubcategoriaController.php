@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Subcategoria;
 use Illuminate\Http\Request;
@@ -85,7 +86,18 @@ class SubcategoriaController extends Controller{
      * Eliminar la subcategoría especificada de la base de datos.
      */
     public function destroy($id){
-        Subcategoria::findOrFail($id)->delete();
+        $subcategoria = Subcategoria::findOrFail($id);
+    
+        // Encuentra todos los productos que tienen una referencia a esta subcategoría
+        $productos = Producto::where('subcategoria_id', $subcategoria->id)->get();
+    
+        // Recorre cada producto y elimina el producto
+        foreach ($productos as $producto) {
+            $producto->delete();
+        }
+    
+        // Ahora puedes eliminar la subcategoría
+        $subcategoria->delete();
         return redirect()->route('subcategorias.show')->with('success', 'Subcategoría eliminada correctamente.');
     }
 }

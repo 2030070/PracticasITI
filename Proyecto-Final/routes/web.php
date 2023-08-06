@@ -122,11 +122,9 @@ Route::put('/devoluciones/{id}/edit', [DevolucionController::class, 'update'])->
 
 
 Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas.create');
-Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
+// Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
 Route::get('/ventas', [VentaController::class, 'show'])->name('ventas.show');
-Route::get('/ventas/{venta}/edit', [VentaController::class, 'edit'])->name('ventas.edit');
-Route::put('/ventas/{venta}', [VentaController::class, 'update'])->name('ventas.update');
-Route::delete('/ventas/{venta}', [VentaController::class, 'destroy'])->name('ventas.destroy');
+Route::post('/guardar-venta', 'VentaController@store')->name('venta.store');
 
 Route::get('/clientes', [ClienteController::class, 'show'])->name('clientes.show');
 Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');

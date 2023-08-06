@@ -8,12 +8,12 @@ use App\Models\Categoria;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use App\Models\Cliente; // Asegúrate de importar el modelo Cliente
 
 class VentaController extends Controller
 {
-    public function __construct()
-    {
+    public function __construct(){
         // Proteger las rutas del controlador con autenticación
         $this->middleware('auth');
     }
@@ -30,75 +30,45 @@ class VentaController extends Controller
         }
     
         $productos = $productos->get();
+
+        if ($request->has('product')) {
+            $producto = json_decode($request->input('product'), true);
+            $precio = $request->input('price');
+            $imagen = $request->input('imagen');
+            $venta = [
+                'producto_id' => $producto['id'],
+                'nombre_producto' => $producto['nombre'],
+                'precio' => $precio,
+                'cantidad' => 1, // Puedes cambiar la cantidad inicial según tus necesidades
+                'subtotal' => $precio,
+                'imagen' => $imagen,
+            ];
+
+            Session::push('carrito', $venta);
+        }
+        
     
         return view('ventas.create', compact('clientes', 'categorias', 'productos'));
     }
     
-    public function edit(Venta $venta){
-        // Cargar el nombre del cliente asociado con la venta
-        $clientes = Cliente::all();
-        return view('ventas.edit', compact('venta', 'clientes'));
-    }
-
-    public function store(Request $request){
-        $request->merge(['referencia' => Str::slug($request->referencia)]);
-
-        // Validación de los datos de la venta
-        $this->validate($request, [
-            'fecha' => 'required',
-            'nombre_cliente' => 'required',
-            'referencia' => 'required|unique:ventas,referencia',
-            'estatus' => 'required',
-            'pago' => 'required',
-            'total' => 'required|numeric',
-            'creado_por' => 'required',
-        ]);
-
-        // Crear la nueva venta utilizando el modelo
-        Venta::create([
-            'fecha' => $request->fecha,
-            'nombre_cliente' => $request->nombre_cliente,
-            'referencia' => $request->referencia,
-            'estatus' => $request->estatus,
-            'pago' => $request->pago,
-            'total' => $request->total,
-            'pago_parcial' => $request->pago_parcial,
-            'pago_pendiente' => $request->pago_pendiente,
-            'creado_por' => Auth::user()->name,
-        ]);
-
-        // Redirigir a la vista de mostrar ventas
-        return redirect()->route('ventas.show')->with('success', 'Venta agregada correctamente');
-    }
-
-    // Muestra los datos de la tabla ventas en la vista show ventas, paginando el contenido de 10 en 10
-    public function show(){
-        // Cargar el nombre del cliente asociado con cada venta
-        $ventas = Venta::all();
-        return view('ventas.show', compact('ventas'));
-    }
-
-    // Elimina una venta de la base de datos utilizando su ID
-    public function destroy($id)
+    public function store(Request $request)
     {
-        Venta::findOrFail($id)->delete();
-        return redirect()->route('ventas.show')->with('success', 'Venta eliminada correctamente');
-    }
-
-    // Actualiza una venta en la base de datos
-    public function update(Request $request, $id)
-    {
+        // Validar los datos recibidos desde el cliente si es necesario
         $request->validate([
-            'fecha' => 'required',
-            'nombre_cliente' => 'required',
-            'referencia' => 'required',
-            'estatus' => 'required',
-            'pago' => 'required',
+            'fecha' => 'required|date',
+            'nombre_cliente' => 'required|string|max:255',
+            'referencia' => 'required|string|max:255',
+            'estatus' => 'required|string|max:255',
+            'pago' => 'required|numeric',
             'total' => 'required|numeric',
-            'creado_por' => 'required',
+            'pago_parcial' => 'required|numeric',
+            'pago_pendiente' => 'required|numeric',
+            'creado_por' => 'required|string|max:255',
+            'productos' => 'required|array', // Asegúrate de que 'productos' sea un array
         ]);
 
-        $venta = Venta::findOrFail($id);
+        // Crear una nueva instancia del modelo Venta y asignar los datos recibidos del cliente.
+        $venta = new Venta();
         $venta->fecha = $request->fecha;
         $venta->nombre_cliente = $request->nombre_cliente;
         $venta->referencia = $request->referencia;
@@ -107,9 +77,24 @@ class VentaController extends Controller
         $venta->total = $request->total;
         $venta->pago_parcial = $request->pago_parcial;
         $venta->pago_pendiente = $request->pago_pendiente;
-        $venta->creado_por = Auth::user()->name;
+        $venta->creado_por = $request->creado_por;
+
+        // Guardar la venta en la base de datos
         $venta->save();
 
-        return redirect()->route('ventas.show')->with('actualizada', 'Venta actualizada correctamente');
+        // Ahora, para guardar los productos de la venta, podemos iterar a través de los productos recibidos del cliente y asociarlos a la venta recién creada.
+        foreach ($request->productos as $producto) {
+            $venta->productos()->attach($producto['id'], ['cantidad' => $producto['quantity']]);
+        }
+
+        // Si todo es exitoso, podemos enviar una respuesta JSON al cliente.
+        return response()->json(['message' => 'Venta guardada con éxito'], 200);
+    }
+
+    // Muestra los datos de la tabla ventas en la vista show ventas, paginando el contenido de 10 en 10
+    public function show(){
+        // Cargar el nombre del cliente asociado con cada venta
+        $ventas = Venta::all();
+        return view('ventas.show', compact('ventas'));
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Producto;
 use App\Models\Categoria;
 use Illuminate\Support\Str;
+use App\Models\Subcategoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,10 +58,28 @@ class CategoriaController extends Controller
 
     // Elimina el contenido de la base de datos con ayuda del id del producto creado
     public function destroy($id){
-        Categoria::findOrFail($id)->delete();
+        $categoria = Categoria::findOrFail($id);
+    
+        // Encuentra todas las subcategorías que tienen una referencia a esta categoría
+        $subcategorias = Subcategoria::where('categoria_id', $categoria->id)->get();
+    
+        // Recorre cada subcategoría y elimina la subcategoría
+        foreach ($subcategorias as $subcategoria) {
+            $subcategoria->delete();
+        }
+
+        // Encuentra todos los productos que tienen una referencia a esta categoría
+        $productos = Producto::where('categoria_id', $categoria->id)->get();
+
+        // Recorre cada producto y elimina el producto
+        foreach ($productos as $producto) {
+            $producto->delete();
+        }
+    
+        // Ahora puedes eliminar la categoría
+        $categoria->delete();
         return redirect()->route('categorias.show')->with('success', 'Categoria eliminada correctamente.');
     }
-
 
     // Actualiza la categoría en la base de datos
     public function update(Request $request, $id){

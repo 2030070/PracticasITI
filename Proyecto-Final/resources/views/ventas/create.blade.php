@@ -65,164 +65,226 @@
                     @endforeach
                 @endif
             </div>
-              <div class="container mx-auto px-4 mt-4 bg-blue-500/13 rounded-lg shadow-lg overflow-hidden" id="carrito-container" style="display: none;">
-                  <h2 class="text-lg font-semibold mb-2">Carrito de Compras</h2>
-                  <table class="w-full table-auto">
-                      <thead>
-                          <tr>
-                              {{-- <th class="px-4 py-2">Imagen</th> --}}
-                              <th class="px-4 py-2">Producto</th>
-                              <th class="px-4 py-2">Precio</th>
-                              <th class="px-4 py-2">Cantidad</th>
-                              <th class="px-4 py-2">Subtotal</th>
-                              <th class="px-4 py-2"></th> <!-- Add the Actions column -->
-                          </tr>
-                      </thead>
-                      <tbody id="carrito-body">
-                          <!-- Aquí se agregarán las filas de productos -->
-                      </tbody>
-                  </table>
-              </div>
-              
-          </div>
-      </div>
-      <div class="col-span-1 md:col-span-1"></div>
-  </div>
+            <div class="container mx-auto px-4 mt-4 bg-blue-500/13 rounded-lg shadow-lg overflow-hidden" id="carrito-container" style="display: none;">
+                <h2 class="text-lg font-semibold mb-2">Carrito de Compras</h2>
+                <table class="w-full table-auto">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2">Producto</th>
+                            <th class="px-4 py-2">Precio del producto</th>
+                            <th class="px-4 py-2">Cantidad de productos</th>
+                            <th class="px-4 py-2">Subtotal por producto</th>
+                            <th class="px-4 py-2"></th> <!-- Add the Actions column -->
+                        </tr>
+                    </thead>
+                    <tbody id="carrito-body">
+                        <!-- Aquí se agregarán las filas de productos del carrito -->
+                    </tbody>
+                </table>
+                <!-- Cálculo de total final, IVA y pago neto -->
+                <div class="font-bold text-center">Resumen de la compra</div>
+                <div class="flex justify-center px-4 py-2">
+                    <div class="text-gray-600">
+                        <div class="grid grid-cols-3 gap-4">
+                            <div>
+                                <p class="font-bold">Pago Neto:</p>
+                                <p><span id="pago-neto">$0.00</span></p>
+                            </div>
+                            <div>
+                                <p class="font-bold">IVA:</p>
+                                <p><span id="iva">$0.00</span></p>
+                            </div>
+                            <div>
+                                <p class="font-bold">Total:</p>
+                                <p><span id="total">$0.00</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center px-4 py-2">
+                    <button id="realizar-venta-btn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">
+                        Realizar Venta
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-span-1 md:col-span-1"></div>
+    </div>
+</div>
+
+<!-- Include the external JavaScript file -->
+<script src="{{ asset('js/shopping_cart.js') }}"></script> <!-- Replace 'js/shopping_cart.js' with the actual path to your JavaScript file -->
 
 @endsection
 
 @push('scripts')
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const carritoBody = document.getElementById("carrito-body");
-    const carritoContainer = document.getElementById("carrito-container");
-    const carrito = {}; // Objeto para almacenar los productos en el carrito
+    // Cuando se carga el DOM, se ejecuta la siguiente función.
+    document.addEventListener('DOMContentLoaded', function () {
+        const cart = []; // Array para almacenar los productos en el carrito.
+        const vatRate = 0.16; // Suponiendo una tasa de IVA del 16%.
 
-    // ... Código existente ...
+        // Función para actualizar la interfaz del carrito.
+        function updateCartUI() {
+            const cartBody = document.getElementById('carrito-body');
+            cartBody.innerHTML = ''; // Borra el contenido anterior.
 
-    // Evento para agregar el producto al carrito
-    const addProductBtns = document.getElementsByClassName("add-product-btn");
-        for (const addProductBtn of addProductBtns) {
-            addProductBtn.addEventListener("click", function() {
-                const product = JSON.parse(this.dataset.product);
-                const price = parseFloat(this.dataset.price);
+            let cartTotal = 0;
 
-                // Disable the button to prevent adding the same product multiple times
-                this.disabled = true;
+            // Itera a través de los productos en el carrito.
+            cart.forEach((product) => {
+                const productSubtotal = product.precio_venta * product.quantity;
+                cartTotal += productSubtotal;
 
-                if (carrito.hasOwnProperty(product.id)) {
-                    // Si el producto ya existe, aumentar la cantidad y actualizar el subtotal
-                    const quantityInput = carrito[product.id].row.querySelector(".quantity-input");
-                    const currentQuantity = parseInt(quantityInput.value);
-                    const newQuantity = currentQuantity + 1;
+                // Crea una fila en la tabla para cada producto en el carrito.
+                const row = document.createElement('tr');
 
-                    // Comprobar si hay suficiente stock para agregar más
-                    if (newQuantity <= product.unidades_disponibles) {
-                        quantityInput.value = newQuantity;
-                        const subtotalCell = carrito[product.id].row.querySelector(".subtotal");
-                        const subtotal = newQuantity * price;
-                        subtotalCell.innerText = "$" + subtotal.toFixed(2);
-                    } else {
-                        // Mostrar mensaje de error o simplemente no hacer nada
-                        // Puedes agregar una lógica para mostrar un mensaje de error aquí
-                    }
-                } else {
-                    // Si el producto no existe, agregar una nueva fila al carrito
-                    const row = document.createElement("tr");
-                    row.dataset.productId = product.id;
-                    row.innerHTML = `
-                        <td class="px-4 py-2 text-center flex flex-col items-center object-cover rounded-md uppercase">
-                            ${product.nombre}
-                            <img src="${this.dataset.imagen}" alt="${product.nombre}" class="w-16 h-16 object-cover rounded-md">
-                        </td>
-                        <td class="px-4 py-2">$${price.toFixed(2)}</td>
-                        <td class="px-4 py-2">
-                            <input type="number" min="1" step="1" value="1" class="quantity-input bg-blue-500/13">
-                        </td>
-                        <td class="px-4 py-2 subtotal">$${price.toFixed(2)}</td>
-                    `;
+                // Crea una celda para el nombre del producto con estilo centrado.
+                const productNameCell = document.createElement('td');
+                productNameCell.classList.add('text-center'); // Agrega la clase 'text-center' para centrar horizontalmente.
+                productNameCell.style.display = 'flex';
+                productNameCell.style.flexDirection = 'column';
+                productNameCell.style.alignItems = 'center'; // Centra los elementos horizontalmente.
+                productNameCell.style.gap = '8px'; // Ajusta el espacio entre la imagen y el texto si es necesario.
 
-                    carrito[product.id] = { // Guardar información del producto en el carrito
-                        row: row,
-                        price: price,
-                        maxQuantity: product.unidades_disponibles,
-                    };
+                // Crea un elemento de imagen para la imagen del producto.
+                const productImage = document.createElement('img');
+                productImage.src = "{{ asset('uploads/') }}" + '/' + product.imagen; // Usa la función asset() para generar la URL completa.
+                productImage.alt = product.nombre;
+                productImage.className = 'w-12 h-12 object-cover rounded-md'; // Ajusta el ancho, alto y otros estilos según sea necesario.
 
-                    carritoBody.appendChild(row);
+                // Agrega la imagen del producto a productNameCell.
+                productNameCell.appendChild(productImage);
 
-                    const removeButton = document.createElement("button");
-                    removeButton.innerHTML = "<i class='fas fa-trash-alt'></i>";
-                    removeButton.classList.add("remove-product-btn", "bg-red-500", "hover:bg-red-700", "text-white", "font-bold", "py-1", "px-2", "rounded");
-                    row.appendChild(removeButton);
+                // Agrega el nombre del producto a productNameCell.
+                const productName = document.createElement('span');
+                productName.textContent = product.nombre;
+                productNameCell.appendChild(productName);
 
-                    // Add the click event to remove the product
-                    removeButton.addEventListener("click", function() {
-                        row.remove(); // Remove the row from the cart
-                        delete carrito[product.id]; // Remove the product from the cart object
+                // Crea celdas para el precio, cantidad y subtotal del producto.
+                const productPriceCell = document.createElement('td');
+                productPriceCell.textContent = '$' + product.precio_venta;
 
-                        // Habilitar el botón para agregar el producto nuevamente
-                        addProductBtn.disabled = false;
+                const productQuantityCell = document.createElement('td');
+                productQuantityCell.textContent = product.quantity;
 
-                        updateTotal(); // Update the total after removing the product
+                const productSubtotalCell = document.createElement('td');
+                productSubtotalCell.textContent = '$' + productSubtotal;
 
-                        // Check if the cart is empty and hide it
-                        if (Object.keys(carrito).length === 0) {
-                            carritoContainer.style.display = "none";
-                        }
-                    });
-                }
+                // Crea una celda para el botón "Eliminar" del producto.
+                const removeBtnCell = document.createElement('td');
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg remove-product-btn';
+                removeBtn.dataset.product = JSON.stringify(product); // Almacena el objeto de producto en el dataset.
+                const trashIcon = document.createElement('i');
+                trashIcon.className = 'fas fa-trash-alt'; // Usa el ícono de basura rojo.
+                removeBtn.appendChild(trashIcon);
 
-                updateTotal();
-                carritoContainer.style.display = "block"; // Show the cart section
+                // Cuando se hace clic en el botón "Eliminar", se llama a la función para quitar el producto del carrito.
+                removeBtn.addEventListener('click', () => removeProductFromCart(product));
+                removeBtnCell.appendChild(removeBtn);
+
+                // Agrega todas las celdas a la fila.
+                row.appendChild(productNameCell);
+                row.appendChild(productPriceCell);
+                row.appendChild(productQuantityCell);
+                row.appendChild(productSubtotalCell);
+                row.appendChild(removeBtnCell);
+
+                // Agrega la fila a la tabla.
+                cartBody.appendChild(row);
             });
+
+            // Calcula el total, IVA y pago neto basado en los productos en el carrito y actualiza los elementos correspondientes en la interfaz.
+            const total = cartTotal.toFixed(2);
+            const vat = (cartTotal * vatRate).toFixed(2);
+            const netPayment = (cartTotal - vat).toFixed(2);
+
+            document.getElementById('pago-neto').textContent = '$' + netPayment;
+            document.getElementById('iva').textContent = '$' + vat;
+            document.getElementById('total').textContent = '$' + total;
+
+            // Muestra u oculta el contenedor del carrito según si hay productos en el carrito o no.
+            const cartContainer = document.getElementById('carrito-container');
+            cartContainer.style.display = cart.length > 0 ? 'block' : 'none';
         }
 
+        // Función para agregar un producto al carrito.
+        function addProductToCart(product) {
+            const existingProductIndex = cart.findIndex((item) => item.id === product.id);
 
-    // Evento para actualizar el subtotal al cambiar la cantidad
-    carritoBody.addEventListener("input", function(event) {
-        if (event.target.classList.contains("quantity-input")) {
-            const quantity = parseInt(event.target.value);
-            const price = parseFloat(event.target.parentElement.previousElementSibling.innerText.replace("$", ""));
-            const subtotalCell = event.target.parentElement.nextElementSibling;
+            // Si el producto ya está en el carrito, aumenta la cantidad; de lo contrario, agrega el producto al carrito con cantidad 1.
+            if (existingProductIndex !== -1) {
+                cart[existingProductIndex].quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
 
-            const subtotal = quantity * price;
-            subtotalCell.innerText = "$" + subtotal.toFixed(2);
-
-            updateTotal();
+            // Actualiza la interfaz del carrito.
+            updateCartUI();
         }
+
+        // Función para eliminar un producto del carrito.
+        function removeProductFromCart(product) {
+            const existingProductIndex = cart.findIndex((item) => item.id === product.id);
+
+            // Si el producto está en el carrito, disminuye la cantidad; si la cantidad es menor o igual a 0, elimina el producto del carrito.
+            if (existingProductIndex !== -1) {
+                cart[existingProductIndex].quantity--;
+
+                if (cart[existingProductIndex].quantity <= 0) {
+                    cart.splice(existingProductIndex, 1); // Elimina el producto del carrito.
+                }
+            }
+
+            // Actualiza la interfaz del carrito.
+            updateCartUI();
+        }
+
+        // Asigna los manejadores de eventos click a los elementos 'add-product-btn'.
+        const addProductButtons = document.querySelectorAll('.add-product-btn');
+        addProductButtons.forEach((button) => {
+            button.addEventListener('click', function () {
+                // Obtiene el objeto de producto desde el atributo 'data-product' y lo agrega al carrito.
+                const product = JSON.parse(this.dataset.product);
+                addProductToCart(product);
+            });
+        });
+
+        // Asigna el manejador de eventos click al botón 'realizar-venta-btn'.
+        const realizarVentaBtn = document.getElementById('realizar-venta-btn');
+        realizarVentaBtn.addEventListener('click', function () {
+            // Aquí crearemos un objeto que contendrá los datos que deseamos enviar al servidor.
+            const data = {
+                fecha: new Date().toISOString(), // Supongamos que la fecha de venta es la fecha actual.
+                nombre_cliente: 'Nombre del cliente', // Reemplaza 'Nombre del cliente' con el nombre real del cliente.
+                referencia: 'Referencia de venta', // Reemplaza 'Referencia de venta' con la referencia real de la venta.
+                estatus: 'En proceso', // Supongamos que el estatus inicial es 'En proceso'.
+                pago: parseFloat(document.getElementById('pago-neto').textContent.replace('$', '')), // Obtén el valor del pago neto y conviértelo a un número flotante.
+                total: parseFloat(document.getElementById('total').textContent.replace('$', '')), // Obtén el valor total y conviértelo a un número flotante.
+                pago_parcial: 0.0, // Supongamos que el pago parcial inicial es 0.0.
+                pago_pendiente: parseFloat(document.getElementById('total').textContent.replace('$', '')), // Suponemos que el pago pendiente inicial es igual al total.
+                creado_por: 'Nombre del usuario', // Reemplaza 'Nombre del usuario' con el nombre real del usuario que realiza la venta.
+                productos: cart // Agregamos el array 'cart' que contiene los productos del carrito.
+            };
+
+            // Realizamos la solicitud POST utilizando Axios.
+            axios.post('/guardar-venta', data)
+                .then(response => {
+                    // Si la solicitud es exitosa, limpiamos el carrito y actualizamos la interfaz.
+                    cart = [];
+                    updateCartUI();
+                    alert('¡Compra completada!');
+                })
+                .catch(error => {
+                    // Si ocurre algún error, puedes manejarlo aquí.
+                    console.error(error);
+                });
+        });
+
+
     });
-
-    // Función para actualizar el total del carrito
-    function updateTotal() {
-        const subtotals = document.getElementsByClassName("subtotal");
-        let total = 0;
-        for (const subtotal of subtotals) {
-            total += parseFloat(subtotal.innerText.replace("$", ""));
-        }
-
-        const totalCell = document.createElement("tr");
-        totalCell.innerHTML = `
-            <td class="px-4 py-2" colspan="3"><strong>Total</strong></td>
-            <td class="px-4 py-2">$${total.toFixed(2)}</td>
-        `;
-
-        const existingTotal = document.getElementById("total");
-        if (existingTotal) {
-            carritoBody.removeChild(existingTotal);
-        }
-        totalCell.id = "total";
-        carritoBody.appendChild(totalCell);
-
-        // Hide the cart if it's empty
-        if (total === 0) {
-            carritoContainer.style.display = "none";
-        }
-    }
-
-    // Hide the cart if it's empty when the page is loaded
-    updateTotal();
-});
-
 </script>
-@endpush
 
+@endpush

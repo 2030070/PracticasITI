@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Marca;
+use App\Models\Producto;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,12 +55,20 @@ class MarcaController extends Controller{
 
     // Método para eliminar una marca existente de la base de datos
     public function destroy(Marca $marca){
+        // Encuentra todos los productos que tienen una referencia a esta marca
+        $productos = Producto::where('marca_id', $marca->id)->get();
+    
+        // Recorre cada producto y elimina el producto
+        foreach ($productos as $producto) {
+            $producto->delete();
+        }
+    
         // Eliminar la imagen asociada a la marca
         Storage::disk('public')->delete('uploads/' . $marca->imagen);
-
+    
         // Eliminar la marca de la base de datos
         $marca->delete();
-
+    
         // Redireccionar a la vista de mostrar marcas con un mensaje de éxito
         return redirect()->route('marcas.show')->with('success', 'Marca eliminada correctamente.');
     }

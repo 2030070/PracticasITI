@@ -21,60 +21,64 @@
 
                 <form action="{{ route('usuarios.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-
                     <div class="mb-5">
                         <input name="imagen" type="hidden" value="{{ old('imagen') }}" />
                         @error('imagen')
                             <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
                         @enderror
                     </div>
+
+                    <div class="mb-4 flex">
+                        <div class="w-1/2 mr-2">
+                            <label for="nombre" class="block mb-2 font-semibold">Nombre:</label>
+                            <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del cliente" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" value="{{ old('nombre') }}">
+                            @error('nombre')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="w-1/2 ml-2">
+                            <label for="apellidos" class="block mb-2 font-semibold">Apellidos:</label>
+                            <input type="text" name="apellidos" id="apellidos" placeholder="Ingrese los apellidos" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" value="{{ old('apellidos') }}">
+                            @error('apellidos')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
                     
-                    <div class="mb-4">
-                        <label for="nombre" class="block mb-2 font-semibold">Nombre:</label>
-                        <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del cliente" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" value="{{ old('nombre') }}">
-                        @error('nombre')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                  
-                    <div class="mb-4">
-                        <label for="apellidos" class="block mb-2 font-semibold">Apellidos:</label>
-                        <input type="text" name="apellidos" id="apellidos" placeholder="Ingrese los apellidos" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" value="{{ old('apellidos') }}">
-                        @error('apellidos')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="usuario" class="block mb-2 font-semibold">Nombre de usuario:</label>
-                        <input type="text" name="usuario" id="usuario" placeholder="Ingrese el nombre de usuario" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" value="{{ old('usuario') }}">
-                        @error('usuario')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
+                    <div class="mb-4 flex">
+                        <div class="w-1/2 mr-2">
+                            <label for="usuario" class="block mb-2 font-semibold">Nombre de usuario:</label>
+                            <input type="text" name="usuario" id="usuario" placeholder="Ingrese el nombre de usuario" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" value="{{ old('usuario') }}">
+                            @error('usuario')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="w-1/2 ml-2">
+                            <label for="password" class="block mb-2 font-semibold">Password:</label>
+                            <input type="password" name="password" id="password" placeholder="Ingrese el password" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" value="{{ old('password') }}">
+                            @error('password')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
 
-                    <div class="mb-4">
-                        <label for="password" class="block mb-2 font-semibold">Password:</label>
-                        <input type="password" name="password" id="password" placeholder="Ingrese el password" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" value="{{ old('password') }}">
-                        @error('password')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="telefono" class="block mb-2 font-semibold">Teléfono:</label>
-                        <input type="text" name="telefono" id="telefono" placeholder="Ingrese el número de teléfono" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" value="{{ old('telefono') }}">
-                        @error('telefono')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="email" class="block mb-2 font-semibold">Correo:</label>
-                        <input type="email" name="email" id="email" placeholder="Ingrese el correo electrónico" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" value="{{ old('email') }}">
-                        @error('email')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
+                    <div class="mb-4 flex">
+                        <div class="w-1/2 mr-2">
+                            <label for="telefono" class="block mb-2 font-semibold">Teléfono:</label>
+                            <input type="text" name="telefono" id="telefono" placeholder="Ingrese el número de teléfono" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" value="{{ old('telefono') }}">
+                            @error('telefono')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="w-1/2 ml-2">
+                            <label for="email" class="block mb-2 font-semibold">Correo:</label>
+                            <input type="email" name="email" id="email" placeholder="Ingrese el correo electrónico" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" value="{{ old('email') }}">
+                            @error('email')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
 
                     <label for="rol" class="block mb-2 font-semibold">Rol:</label>

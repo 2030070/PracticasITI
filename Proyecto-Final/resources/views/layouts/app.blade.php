@@ -44,133 +44,120 @@
                 @auth
                 <!-- sidenav -->
                     <aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto antialiased transition-transform duration-200 -translate-x-full bg-blue-50 border-0 shadow-xl dark:shadow-none dark:bg-slate-850 max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0" aria-expanded="false">
-                        
-                        {{-- <div class="h-8 py-14"> --}}
-                            <ul class="flex flex-col pl-0 mb-0">
-                                <li class="mt-0.5 w-full">
-                                    <a class="py-2  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('post_index') }}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-columns"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Dashboard</span>
-                                    </a>
-                                </li>
-                                {{-- <li class="mt-0.5 w-full">
-                                    <a class="py-2  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('punto_de_venta.index') }}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-cart-plus"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Punto de Venta</span>
-                                    </a>
-                                </li> --}}
-                                <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
-                            </ul>
-                            <i class=" h-6 absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-white text-slate-400 xl:hidden" sidenav-close></i>
-                            
-                        {{-- </div> --}}
-                        
-                       {{-- <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full"> --}}
-                            <ul class="flex flex-col pl-0 mb-0">
-                                
-                                <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('productos.create') }}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-box-open"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Productos</span>
-                                    </a>
-                                </li>
 
-                                <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('categorias.create') }}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-folder-open"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Categorías</span>
-                                    </a>
-                                </li>
-                                <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('subcategorias.create') }}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-folder"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Subcategorias</span>
-                                    </a>
-                                </li>
-                                <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('marcas.create') }}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-tags"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Marcas</span>
-                                    </a>
-                                </li>
-                                <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('clientes.create')}}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-user-friends"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Clientes</span>
-                                    </a>
-                                </li>
-                                <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('proveedores.create')}}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-truck"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Provedores</span>
-                                    </a>
-                                </li>
-                                <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('usuarios.create')}}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-user"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Usuarios</span>
-                                    </a>
-                                </li>
-                                <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('cotizaciones.create')}}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-file-invoice"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Cotizaciónes</span>
-                                    </a>
-                                </li>
-                                <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('compras.create')}}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-cart-arrow-down"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Compras</span>
-                                    </a>
-                                </li>
-                                <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('ventas.create')}}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-chart-line"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Punto de Venta</span>
-                                    </a>
-                                </li>
-                                <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('ventas.show')}}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-chart-line"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Ventas Realizadas</span>
-                                    </a>
-                                </li>
-                                <li class="mt-0.5 w-full">
-                                    <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('devoluciones.create') }}">
-                                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                                            <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-undo"></i>
-                                        </div>
-                                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Devoluciones</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        {{-- </div> --}}
+                        <ul class="flex flex-col pl-0 mb-0">
+                            <li class="mt-0.5 w-full">
+                                <a class="py-2  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('post_index') }}">
+                                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                        <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-columns"></i>
+                                    </div>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Dashboard</span>
+                                </a>
+                            </li>
+                            <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
+                        </ul>
+                        <i class=" h-6 absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-white text-slate-400 xl:hidden" sidenav-close></i>
+                    
+                        <ul class="flex flex-col pl-0 mb-0">
+                            
+                            <li class="mt-0.5 w-full">
+                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('productos.create') }}">
+                                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                        <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-box-open"></i>
+                                    </div>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Productos</span>
+                                </a>
+                            </li>
+
+                            <li class="mt-0.5 w-full">
+                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('categorias.create') }}">
+                                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                        <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-folder-open"></i>
+                                    </div>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Categorías</span>
+                                </a>
+                            </li>
+                            <li class="mt-0.5 w-full">
+                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('subcategorias.create') }}">
+                                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                        <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-folder"></i>
+                                    </div>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Subcategorias</span>
+                                </a>
+                            </li>
+                            <li class="mt-0.5 w-full">
+                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('marcas.create') }}">
+                                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                        <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-tags"></i>
+                                    </div>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Marcas</span>
+                                </a>
+                            </li>
+                            <li class="mt-0.5 w-full">
+                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('clientes.create')}}">
+                                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                        <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-user-friends"></i>
+                                    </div>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Clientes</span>
+                                </a>
+                            </li>
+                            <li class="mt-0.5 w-full">
+                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('proveedores.create')}}">
+                                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                        <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-truck"></i>
+                                    </div>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Provedores</span>
+                                </a>
+                            </li>
+                            <li class="mt-0.5 w-full">
+                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('usuarios.create')}}">
+                                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                        <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-user"></i>
+                                    </div>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Usuarios</span>
+                                </a>
+                            </li>
+                            <li class="mt-0.5 w-full">
+                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('cotizaciones.create')}}">
+                                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                        <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-file-invoice"></i>
+                                    </div>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Cotizaciónes</span>
+                                </a>
+                            </li>
+                            <li class="mt-0.5 w-full">
+                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('compras.create')}}">
+                                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                        <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-cart-arrow-down"></i>
+                                    </div>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Compras</span>
+                                </a>
+                            </li>
+                            <li class="mt-0.5 w-full">
+                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('ventas.create')}}">
+                                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                        <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-chart-line"></i>
+                                    </div>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Punto de Venta</span>
+                                </a>
+                            </li>
+                            <li class="mt-0.5 w-full">
+                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('ventas.show')}}">
+                                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                        <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-chart-line"></i>
+                                    </div>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Ventas Realizadas</span>
+                                </a>
+                            </li>
+                            <li class="mt-0.5 w-full">
+                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{ route('devoluciones.create') }}">
+                                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                        <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-undo"></i>
+                                    </div>
+                                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Devoluciones</span>
+                                </a>
+                            </li>
+                        </ul>
 
                         <ul class="flex flex-col pl-0 mb-0">
                             <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
@@ -179,7 +166,7 @@
                                 <form method="POST" action="{{route('logout')}}">
                                     @csrf
                                     <button type="submit">
-                                        <a class="py-2.7 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors">
+                                        <a class="py-2 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors">
                                             <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                                 <i class="relative top-0 text-sm leading-normal text-blue-500  fas fa-sign-out-alt "></i>
                                             </div>

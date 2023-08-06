@@ -29,44 +29,52 @@
                         @enderror
                     </div>
 
-                    <div class="mb-4">
-                        <label for="nombre" class="block mb-2 font-semibold">Nombre:</label>
-                        <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del cliente" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
-                    </div>
-                  
-                    <div class="mb-4">
-                        <label for="empresa" class="block mb-2 font-semibold">Empresa:</label>
-                        <input type="text" name="empresa" id="empresa" placeholder="Ingrese el nombre de la empresa" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                    <div class="mb-4 flex">
+                        <div class="w-1/2 mr-2">
+                            <label for="nombre" class="block mb-2 font-semibold">Nombre:</label>
+                            <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del cliente" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                        </div>
+                    
+                        <div class="w-1/2 ml-2">
+                            <label for="empresa" class="block mb-2 font-semibold">Empresa:</label>
+                            <input type="text" name="empresa" id="empresa" placeholder="Ingrese el nombre de la empresa" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                        </div>
                     </div>
                     
-                    <div class="mb-4">
-                        <label for="codigo" class="block mb-2 font-semibold">Código:</label>
-                        <input type="text" name="codigo" id="codigo" placeholder="Ingrese el código" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                    <div class="mb-4 flex">
+                        <div class="w-1/2 mr-2">
+                            <label for="codigo" class="block mb-2 font-semibold">Código:</label>
+                            <input type="text" name="codigo" id="codigo" placeholder="Ingrese el código" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                        </div>
+
+                        <div class="w-1/2 ml-2">
+                            <label for="telefono" class="block mb-2 font-semibold">Teléfono:</label>
+                            <input type="text" name="telefono" id="telefono" placeholder="Ingrese el número de teléfono" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                        </div>
                     </div>
 
-                    <div class="mb-4">
-                        <label for="telefono" class="block mb-2 font-semibold">Teléfono:</label>
-                        <input type="text" name="telefono" id="telefono" placeholder="Ingrese el número de teléfono" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                    <div class="mb-4 flex">
+                        <div class="w-1/2 mr-2">
+                            <label for="correo" class="block mb-2 font-semibold">Correo:</label>
+                            <input type="email" name="correo" id="correo" placeholder="Ingrese el correo electrónico" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                        </div>
+
+                        <div class="w-1/2 ml-2">
+                            <label for="pais" class="block mb-2 font-semibold">País:</label>
+                            <input type="text" name="pais" id="pais" placeholder="Ingrese el país" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                        </div>
                     </div>
 
-                    <div class="mb-4">
-                        <label for="correo" class="block mb-2 font-semibold">Correo:</label>
-                        <input type="email" name="correo" id="correo" placeholder="Ingrese el correo electrónico" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
-                    </div>
+                    <div class="mb-4 flex">
+                        <div class="w-1/2 mr-2">
+                            <label for="estado" class="block mb-2 font-semibold">Estado:</label>
+                            <input type="text" name="estado" id="estado" placeholder="Ingrese el estado" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                        </div>
 
-                    <div class="mb-4">
-                        <label for="pais" class="block mb-2 font-semibold">País:</label>
-                        <input type="text" name="pais" id="pais" placeholder="Ingrese el país" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="estado" class="block mb-2 font-semibold">Estado:</label>
-                        <input type="text" name="estado" id="estado" placeholder="Ingrese el estado" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="ciudad" class="block mb-2 font-semibold">Ciudad:</label>
-                        <input type="text" name="ciudad" id="ciudad" placeholder="Ingrese la ciudad" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                        <div class="w-1/2 ml-2">
+                            <label for="ciudad" class="block mb-2 font-semibold">Ciudad:</label>
+                            <input type="text" name="ciudad" id="ciudad" placeholder="Ingrese la ciudad" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                        </div>
                     </div>
 
                     <div>

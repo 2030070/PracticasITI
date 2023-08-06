@@ -83,7 +83,7 @@
                             <th class="py-2 px-4 border-b text-left">Pago Parcial</th>
                             <th class="py-2 px-4 border-b text-left">Pago Pendiente</th>
                             <th class="py-2 px-4 border-b text-left">Creado por</th>
-                            <th class="py-2 px-4 border-b text-left">Acciones</th>
+                            {{-- <th class="py-2 px-4 border-b text-left">Acciones</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -98,7 +98,7 @@
                             <td class="py-2 px-4 border-b">{{ $venta->pago_parcial }}</td>
                             <td class="py-2 px-4 border-b">{{ $venta->pago_pendiente }}</td>
                             <td class="py-2 px-4 border-b">{{ $venta->creado_por }}</td>
-                            <td class="py-2 px-4 border-b">
+                            {{-- <td class="py-2 px-4 border-b">
                                 <form action="{{ route('ventas.destroy', $venta->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -114,7 +114,7 @@
                                         <path d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31l83.67-83.66,3.48,13.9-36.8,36.79a8,8,0,0,0,11.31,11.32l40-40a8,8,0,0,0,2.11-7.6l-6.9-27.61L227.32,96A16,16,0,0,0,227.32,73.37ZM48,179.31,76.69,208H48Zm48,25.38L51.31,160,136,75.31,180.69,120Zm96-96L147.32,64l24-24L216,84.69Z"></path>
                                     </svg>
                                 </a>
-                            </td>
+                            </td> --}}
                         </tr>
                         @endforeach
                     </tbody>
