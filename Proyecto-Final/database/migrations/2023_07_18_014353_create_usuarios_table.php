@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('rol');
             $table->string('creado_por');
             $table->string('imagen');
+            $table->string('pais');   
+            $table->string('estado'); 
+            $table->string('ciudad'); 
             $table->timestamps();
         });
     }

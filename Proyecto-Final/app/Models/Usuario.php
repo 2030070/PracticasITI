@@ -21,5 +21,8 @@ class Usuario extends Model
         'rol',
         'creado_por',
         'imagen',
+        'pais', 
+        'estado',
+        'ciudad', 
     ];
 }

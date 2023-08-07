@@ -26,7 +26,8 @@ class ProveedorController extends Controller
             'email' => 'required|email|unique:proveedores', // Campo email requerido y debe ser una dirección de correo válida y única en la tabla proveedores
             'pais' => 'required',
             'estado' => 'required',
-            'ciudad' => 'required'
+            'ciudad' => 'required',
+            'descripcion' => 'required',
         ]);
 
         // Crear un nuevo proveedor en la base de datos con los datos proporcionados
@@ -38,6 +39,7 @@ class ProveedorController extends Controller
             'pais' => $request->pais,
             'estado' => $request->estado,
             'ciudad' => $request->ciudad,
+            'descripcion' => $request->descripcion,
         ]);
 
         // Redireccionar a la vista de mostrar proveedores con un mensaje de éxito
@@ -66,6 +68,7 @@ class ProveedorController extends Controller
             'pais' => 'required',
             'estado' => 'required',
             'ciudad' => 'required',
+            'descripcion' => 'required',
         ]);
 
         // Actualizar los datos del proveedor con los datos proporcionados
@@ -76,6 +79,7 @@ class ProveedorController extends Controller
         $proveedor->pais = $request->pais;
         $proveedor->estado = $request->estado;
         $proveedor->ciudad = $request->ciudad;
+        $proveedor->descripcion = $request->descripcion;
         $proveedor->save();
 
         // Redireccionar a la vista de mostrar proveedores con un mensaje de éxito

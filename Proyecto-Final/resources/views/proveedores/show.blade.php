@@ -81,6 +81,7 @@
                             <th class="py-2 px-4 border-b text-left">País</th>
                             <th class="py-2 px-4 border-b text-left">Estado</th>
                             <th class="py-2 px-4 border-b text-left">Ciudad</th>
+                            <th class="py-2 px-4 border-b text-left">Descripcion</th>
                             <th class="py-2 px-4 border-b text-left">Acciones</th>
                         </tr>
                     </thead>
@@ -94,6 +95,7 @@
                             <td class="py-2 px-4 border-b text-left">{{ $proveedor->pais }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $proveedor->estado }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $proveedor->ciudad }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $proveedor->descripcion }}</td>
                             <td class="py-2 px-4 border-b text-left">
                                 <form action="{{ route('proveedores.destroy', $proveedor->id) }}" method="POST">
                                     @csrf

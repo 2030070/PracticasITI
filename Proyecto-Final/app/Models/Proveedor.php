@@ -19,5 +19,6 @@ class Proveedor extends Model
         'pais',   
         'estado', 
         'ciudad', 
+        'descripcion',
     ];
 }

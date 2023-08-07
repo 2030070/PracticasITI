@@ -79,7 +79,10 @@
                             <th class="py-2 px-4 border-b text-left">Usuario</th>
                             <th class="py-2 px-4 border-b text-left">Teléfono</th>
                             <th class="py-2 px-4 border-b text-left">Correo</th>
-                            <th class="py-2 px-4 border-b text-left">Status</th>
+                            <th class="py-2 px-4 border-b text-left">Pais</th>
+                            <th class="py-2 px-4 border-b text-left">Estado</th>
+                            <th class="py-2 px-4 border-b text-left">Ciudad</th>
+                            <th class="py-2 px-4 border-b text-left">Rol</th>
                             <th class="py-2 px-4 border-b text-left">Acciones</th>
                         </tr>
                     </thead>
@@ -92,7 +95,10 @@
                             <td class="py-2 px-4 border-b text-left">{{ $usuario->usuario }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $usuario->telefono }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $usuario->email }}</td>
-                            <td class="py-2 px-4 border-b text-left">Pendiente</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $usuario->pais }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $usuario->estado }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $usuario->ciudad }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $usuario->rol }}</td>
                             <td class="py-2 px-4 border-b text-left">
                                 <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST">
                                     @csrf

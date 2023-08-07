@@ -30,6 +30,9 @@ class UsuariosController extends Controller
             'email' => 'required|email', // Campo email requerido y debe ser una dirección de correo válida y única en la tabla proveedores
             'rol' => 'required',
             'creado_por' => 'required',
+            'pais' => 'required',
+            'estado' => 'required',
+            'ciudad' => 'required',
             'imagen' => 'required',
         ]);
 
@@ -43,6 +46,9 @@ class UsuariosController extends Controller
             'email' => $request->email,
             'rol' => $request->rol,
             'creado_por' => Auth::user()->name,
+            'pais' => $request->pais,
+            'estado' => $request->estado,
+            'ciudad' => $request->ciudad,
             'imagen' => $request->imagen,
 
         ]);
@@ -77,6 +83,9 @@ class UsuariosController extends Controller
             'email' => 'required|email|unique:usuarios,email,' . $usuario->id,
             'rol' => 'required',
             'creado_por' => 'required',
+            'pais' => 'required',
+            'estado' => 'required',
+            'ciudad' => 'required',
             'imagen' => 'required',
         ]);
 
@@ -89,6 +98,9 @@ class UsuariosController extends Controller
         $usuario->email = $request->email;
         $usuario->rol = $request->rol;
         $usuario->creado_por = Auth::user()->name;
+        $usuario->pais = $request->pais;
+        $usuario->estado = $request->estado;
+        $usuario->ciudad = $request->ciudad;
         $usuario->imagen = $request->imagen;
         $usuario->save();
 
