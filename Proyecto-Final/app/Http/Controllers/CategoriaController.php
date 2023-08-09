@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use App\Models\Subcategoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class CategoriaController extends Controller
 {   
@@ -30,6 +32,7 @@ class CategoriaController extends Controller
 
         // Validación de los datos de la categoría
         $this->validate($request, [
+            'imagen' => 'required', // Imagen requerida
             'codigo' => 'required|unique:categorias,codigo',
             'nombre' => 'required',
             'descripcion' => 'required',
@@ -38,6 +41,7 @@ class CategoriaController extends Controller
 
         // Crear la nueva categoría utilizando el modelo
         Categoria::create([
+            'imagen' => $request->imagen,
             'codigo' => $request->codigo,
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
@@ -76,10 +80,16 @@ class CategoriaController extends Controller
             $producto->delete();
         }
     
+        // Eliminar la imagen asociada a la categoria
+        Storage::disk('public')->delete('uploads/' . $categoria->imagen);
+    
+
         // Ahora puedes eliminar la categoría
         $categoria->delete();
         return redirect()->route('categorias.show')->with('success', 'Categoria eliminada correctamente.');
     }
+    
+
 
     // Actualiza la categoría en la base de datos
     public function update(Request $request, $id){
@@ -88,9 +98,11 @@ class CategoriaController extends Controller
             'codigo' => 'required',
             'descripcion' => 'required',
             'creado_por' => 'required',
+            'imagen' => 'required',
         ]);
 
         $categoria = Categoria::findOrFail($id);
+        $categoria->imagen = $request->imagen;
         $categoria->nombre = $request->nombre;
         $categoria->codigo = $request->codigo;
         $categoria->descripcion = $request->descripcion;
@@ -98,6 +110,32 @@ class CategoriaController extends Controller
         $categoria->save();
 
         return redirect()->route('categorias.show')->with('actualizada', 'Categoría actualizada correctamente.');
+    }
+
+    // Método para actualizar la imagen de una categoria existente
+    public function updateImagen(Request $request, Categoria $categoria){
+        $request->validate([
+            'imagen' => 'required|image|max:2048', // Imagen requerida y tamaño máximo de 2MB
+        ]);
+
+        if ($request->hasFile('imagen')) {
+            // Eliminar la imagen anterior
+            Storage::disk('public')->delete('uploads/' . $categoria->imagen);
+
+            // Procesar y almacenar la nueva imagen
+            $imagenPath = $request->file('imagen')->store('uploads', 'public');
+            $imagen = Image::make(public_path("storage/{$imagenPath}"))->fit(500, 500);
+            $imagen->save();
+
+            $categoria->imagen = $imagenPath;
+            $categoria->save();
+
+            // Redireccionar a la vista de mostrar categoria con un mensaje de éxito
+            return redirect()->route('categorias.show')->with('success', 'Imagen de categoria actualizada exitosamente.');
+        }
+
+        // Redireccionar a la vista de mostrar categorias con un mensaje de error
+        return redirect()->route('categorias.show')->with('error', 'Error al actualizar la imagen de categoria.');
     }
 
 }

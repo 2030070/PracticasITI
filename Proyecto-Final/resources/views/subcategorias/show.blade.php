@@ -73,6 +73,7 @@
                 <table  id="subcategorias-table" class="min-w-full border-2 border-blue-500 rounded-lg">
                     <thead>
                         <tr>
+                            <th class="py-2 px-4 border-b text-left">Imagen</th>
                             <th class="py-2 px-4 border-b text-left">Código</th>
                             <th class="py-2 px-4 border-b text-left">Nombre</th>
                             <th class="py-2 px-4 border-b text-left">Descripción</th>
@@ -83,6 +84,9 @@
                     <tbody>
                         @foreach ($subcategorias as $subcategoria)
                         <tr>
+                            <td class="py-2 px-4 border-b text-left">
+                                <img src="{{ asset('uploads/' . $subcategoria->imagen) }}" alt="Imagen de la subcategoria" class="w-20 h-20 object-cover">
+                            </td>
                             <td class="py-2 px-4 border-b text-right">{{ $subcategoria->codigo }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $subcategoria->nombre }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $subcategoria->descripcion }}</td>

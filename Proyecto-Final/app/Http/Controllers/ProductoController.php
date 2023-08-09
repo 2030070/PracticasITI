@@ -141,4 +141,11 @@ class ProductoController extends Controller
         // Redireccionar a la vista de mostrar marcas con un mensaje de error
         return redirect()->route('productos.show')->with('error', 'Error al actualizar la imagen de productos.');
     }
+
+
+    public function showDetails($id) {
+        $producto = Producto::findOrFail($id);
+        return view('productos.detalle', compact('producto'));
+    }
+    
 }

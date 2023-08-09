@@ -11,6 +11,7 @@ class Subcategoria extends Model
 
     protected $table = 'subcategorias';
     protected $fillable = [
+        'imagen', 
         'categoria_id', 
         'codigo', 
         'nombre', 
@@ -22,9 +23,5 @@ class Subcategoria extends Model
     public function categoria()
     {
         return $this->belongsTo(Categoria::class, 'categoria_id');
-    }
-    public function productos()
-    {
-        return $this->hasMany(Producto::class);
     }
 }

@@ -49,8 +49,11 @@
               <select name="subcategoria_id" id="subcategoria_id" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" placeholder="Seleccione una subcategoría">
                 <option value="">Seleccione una subcategoría</option>
                 @foreach ($subcategorias as $subcategoria)
-                    <option value="{{ $subcategoria->id }}" @if($subcategoria->id == $producto->subcategoria_id) selected @endif>{{ $subcategoria->nombre }}</option>
+                    <option value="{{ $subcategoria->id }}" @if($subcategoria->categoria_id == $subcategoria->nombre) selected @endif>{{ $subcategoria->nombre }}</option>
                 @endforeach
+                {{-- @foreach ($subcategorias as $subcategoria)
+                  <option value="{{ $subcategoria->id }}" data-categoria="{{ $subcategoria->categoria_id }}">{{ $subcategoria->nombre }}</option>
+                @endforeach --}}
             </select>
             </div>
           </div>
@@ -153,5 +156,20 @@ const dropzone = new Dropzone('#dropzone', {
     console.log(message);
   }
 });
+
+document.getElementById('categoria_id').addEventListener('change', function() {
+        var categoriaId = this.value;
+        var subcategoriaSelect = document.getElementById('subcategoria_id');
+        var subcategorias = subcategoriaSelect.getElementsByTagName('option');
+        
+        for (var i = 0; i < subcategorias.length; i++) {
+            var subcategoria = subcategorias[i];
+            if (subcategoria.dataset.categoria == categoriaId) {
+                subcategoria.style.display = '';
+            } else {
+                subcategoria.style.display = 'none';
+            }
+        }
+    });
 </script>
 @endpush

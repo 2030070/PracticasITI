@@ -31,10 +31,6 @@ use App\Http\Controllers\PuntoDeVentaController;
 // Ruta para vista página principal
 Route::get('/',[DashboardController::class,'inicio']);
 //Ruta para Login
-// Route::get('/login',[LoginController::class,'index'])->name('login');
-// //Ruta de validacion del login
-// Route::post('/login',[LoginController::class,'store']);
-// Ruta de inicio de sesión
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'store']);
@@ -59,6 +55,11 @@ Route::delete('/categorias/{id}', [CategoriaController::class, 'destroy'])->name
 Route::get('/categorias/{categoria}/edit', [CategoriaController::class, 'edit'])->name('categorias.edit');
 // Actualizar la categoría
 Route::put('/categorias/{id}/edit', [CategoriaController::class, 'update'])->name('categorias.update');
+//Guardar imagen el registro de la categoría
+Route::post('/categorias/images', [ImagenController::class, 'store'])->name('imagenes.store');
+// editar imagen
+Route::put('/categorias/{id}/update-imagen', [ImagenController::class, 'update'])->name('categorias.update_imagen');
+
 
 //Redireccionar para hacer el registro de los productos
 Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
@@ -74,6 +75,7 @@ Route::post('/productos/images', [ImagenController::class, 'store'])->name('prod
 // Actualizar la productos
 Route::put('/productos/{id}/edit', [ProductoController::class, 'update'])->name('productos.update');
 Route::put('/productos/{producto}/update-imagen', [ImagenController::class, 'update'])->name('productos.update_imagen');
+Route::get('/productos/{id}/detalle', [ProductoController::class, 'showDetails'])->name('productos.detalle');
 
 
 // Ruta para mostrar el formulario de creación de una marca
@@ -103,6 +105,10 @@ Route::delete('/subcategorias/{id}', [SubcategoriaController::class, 'destroy'])
 Route::get('/subcategorias/{subcategoria}/edit', [SubcategoriaController::class, 'edit'])->name('subcategorias.edit');
 // Actualizar la subcategoría
 Route::put('/subcategorias/{id}/edit', [SubcategoriaController::class, 'update'])->name('subcategorias.update');
+//Guardar imagen el registro de la categoría
+Route::post('/subcategorias/images', [ImagenController::class, 'store'])->name('imagenes.store');
+// editar imagen
+Route::put('/subcategorias/{id}/update-imagen', [ImagenController::class, 'update'])->name('subcategorias.update_imagen');
 
 Route::post('/imagenes', [ImagenController::class, 'store'])->name('imagenes.store');
 
