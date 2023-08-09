@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\State;
 use App\Models\Cliente;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -14,10 +17,13 @@ class ClienteController extends Controller
         // Esto asegura que solo usuarios autenticados puedan acceder a las rutas de este controlador.
         $this->middleware('auth');
     }
+    
+    public function create(){ 
+        $countries = Country::all();
+        $states = State::all();
+        $cities = City::all();
 
-    // Mostrar el formulario de creación de cliente
-    public function create(){
-        return view('clientes.create');
+        return view('clientes.create', ['countries' => $countries,'states' => $states, 'cities' => $cities]);
     }
 
     // Almacenar un nuevo cliente en la base de datos

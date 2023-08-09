@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\State;
+use App\Models\Country;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
 
@@ -12,10 +15,14 @@ class ProveedorController extends Controller
         $this->middleware('auth'); // Middleware para autenticación
     }
 
-    // Método para mostrar el formulario de creación de proveedor
-    public function create(){
-        return view('proveedores.create');
+    public function create(){ 
+        $countries = Country::all();
+        $states = State::all();
+        $cities = City::all();
+
+        return view('proveedores.create', ['countries' => $countries,'states' => $states, 'cities' => $cities]);
     }
+
 
     // Método para almacenar un nuevo proveedor en la base de datos
     public function store(Request $request){

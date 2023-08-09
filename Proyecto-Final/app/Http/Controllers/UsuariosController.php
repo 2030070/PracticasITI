@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\State;
+use App\Models\Country;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,9 +16,12 @@ class UsuariosController extends Controller
         $this->middleware('auth'); // Middleware para autenticación
     }
 
-    // Método para mostrar el formulario de creación de proveedor
-    public function create(){
-        return view('usuarios.create');
+    public function create(){ 
+        $countries = Country::all();
+        $states = State::all();
+        $cities = City::all();
+
+        return view('usuarios.create', ['countries' => $countries,'states' => $states, 'cities' => $cities]);
     }
 
     // Método para almacenar un nuevo proveedor en la base de datos

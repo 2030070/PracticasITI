@@ -15,7 +15,8 @@
                     <!-- Columna izquierda: Imagen y Nombre -->
                     <div class="col-span-1 p-4 flex flex-col items-center justify-center rounded-xl bg-blue-100">
                         <h2 class="text-xl font-semibold mb-4">{{ $producto->nombre }}</h2>
-                        <img src="{{ asset('uploads/' . $producto->imagen) }}" alt="Imagen del producto" class="w-full h-auto object-cover rounded-lg">
+                        <img src="{{ asset('uploads/' . $producto->imagen) }}" alt="Imagen del producto" class="w-full h-auto object-cover rounded-lg mb-0">
+                        <img src="{{ asset('img/codbarras.png') }}" class="w-32 h-32 mt-4">
                     </div>
         
                     <!-- Columna derecha: Resto de los detalles -->
