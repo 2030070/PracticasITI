@@ -42,7 +42,7 @@ Ventas
                                 <select class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-500/13" name="marca_id">
                                     <option value="">Marca</option>
                                     @foreach($marcas as $marca)
-                                    <option value="{{ $marca->id }}">{{ $marca->descripcion }}</option>
+                                    <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -67,7 +67,7 @@ Ventas
                                 <button data-producto-id="{{ $producto->id }}" style="width: 30%; margin: 7px;" class="btn-agregar">
                                     <div class="flex flex-col items-center shadow rounded bg-gray-300 hover:bg-blue-100 transition-transform duration-200 product-card cursor-pointer transform hover:scale-105">
                                         <img style="width: 80%; margin-top: 10px;" class="h-26 object-cover rounded border border-white" src="{{ asset('uploads/'.$producto->imagen) }}" alt="{{ $producto->nombre }}">
-                                        <h2 class="text-lg font-semibold text-gray-700">{{ $producto->nombre }}</h2>
+                                        <h2 class="text-lg font-semibold text-gray-700 uppercase">{{ $producto->nombre }}</h2>
                                         <p class=" text-gray-600">{{ $producto->unidades_disponibles }}</p>
                                         <p class=" text-gray-600">${{ $producto->precio_venta }}</p>
                                     </div>
@@ -203,7 +203,7 @@ Ventas
                 var productoDiv = '<button data-producto-id="' + producto.id + '" style="width: 30%; margin: 10px" class ="btn-agregar">' +
                     '<div class="flex flex-col items-center shadow rounded bg-gray-300 hover:bg-blue-100 transition-transform duration-200 product-card cursor-pointer transform hover:scale-105">' +
                         '<img  style="width: 80%; margin-top: 10px;" class="h-26 object-cover rounded" src="' + '{{ asset('uploads') }}' + '/' + producto.imagen + '" alt="' + producto.nombre + '">' +
-                        '<h2 class=" text-xl font-semibold text-gray-700">' + producto.nombre + '</h2>' +
+                        '<h2 class=" text-xl font-semibold text-gray-700 uppercase">' + producto.nombre + '</h2>' +
                         '<p class=" text-gray-600">' + producto.unidades_disponibles + '</p>' +
                         '<p class=" text-gray-600">$' + producto.precio_venta + '</p>' +
                     '</div>' +
