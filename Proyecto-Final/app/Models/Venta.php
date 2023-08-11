@@ -10,23 +10,20 @@ class Venta extends Model
     use HasFactory;
     protected $table = 'ventas';
 
-    protected $fillable = [
-        'fecha',
-        'nombre_cliente',
-        'referencia',
-        'estatus',
-        'pago',
-        'total',
-        'pago_parcial',
-        'pago_pendiente',
-        'creado_por',
-    ];
+    protected $fillable = ['fecha_venta', 'cliente_id', 'estatus', 'pago', 'subtotal', 'descuento', 'impuestos', 'total', 'pago_monto', 'vendedor_id'];
 
-    public function cliente(){
+    public function cliente()
+    {
         return $this->belongsTo(Cliente::class);
     }
 
-    public function producto(){
-        return $this->belongsTo(Producto::class);
+    public function vendedor()
+    {
+        return $this->belongsTo(User::class, 'vendedor_id');
+    }
+
+    public function productos()
+    {
+        return $this->belongsToMany(Producto::class)->withPivot('cantidad');
     }
 }

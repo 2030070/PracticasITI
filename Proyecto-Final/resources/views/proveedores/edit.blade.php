@@ -58,20 +58,22 @@
                         <div class="mb-4 flex">
                             <div class="w-1/2 mr-2">
                                 <label for="pais" class="block mb-2 font-semibold">País:</label>
-                                <input type="text" name="pais" id="pais" value="{{ $proveedor->pais }}" required
-                                    class="focus:shadow-primary-outline dark:text-white/80 
-                                            text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white 
-                                            bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 
-                                            focus:border-fuchsia-300 focus:outline-none">
+                                <select name="pais" id="pais" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white  bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                                    <option value="">-- Seleccione un país --</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{ $country->id }}" @if ($country->id == $proveedor->pais) selected @endif>{{ $country->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="w-1/2 ml-2">
                                 <label for="estado" class="block mb-2 font-semibold">Estado:</label>
-                                <input type="text" name="estado" id="estado" value="{{ $proveedor->estado }}" required
-                                    class="focus:shadow-primary-outline dark:text-white/80 
-                                            text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white 
-                                            bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 
-                                            focus:border-fuchsia-300 focus:outline-none">
+                                <select name="estado" id="estado" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                                    <option value="">Seleccione un estado</option>
+                                    @foreach($states as $state)
+                                      <option value="{{ $state->id }}" @if ($state->state_id == $proveedor->estado) selected @endif>{{ $state->state_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 

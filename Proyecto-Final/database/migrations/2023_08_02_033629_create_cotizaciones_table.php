@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('cotizaciones', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('producto_id')->constrainted('productos')->onDelete('cascade');
-            $table->string('referencia');
+            $table->timestamp('fecha_cotizacion');
             $table->foreignId('cliente_id')->constrainted('clientes')->onDelete('cascade');
-            $table->string('estatus');
-            $table->decimal('total_producto', 10, 2);
+            $table->string('referencia');
+            $table->string('status');
+            $table->string('descripcion');
+            $table->decimal('impuestos', 10, 2);
+            $table->decimal('subtotal', 10, 2);
+            $table->decimal('total', 10, 2);
             $table->timestamps();
         });
     }

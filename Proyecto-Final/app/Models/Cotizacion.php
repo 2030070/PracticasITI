@@ -12,15 +12,19 @@ class Cotizacion extends Model
     protected $table = 'cotizaciones';
 
     protected $fillable = [
-        'producto_id',
-        'referencia',
+        'fecha_cotizacion',
         'cliente_id',
-        'estatus',
-        'total_producto',
+        'referencia',
+        'status',
+        'descripcion',
+        'impuestos',
+        'subtotal',
+        'total',
     ];
 
-    public function producto(){
-        return $this->belongsTo(Producto::class);
+    public function productos(){
+        return $this->belongsToMany(Producto::class, 'cotizacion_productos', 'cotizacion_id', 'producto_id')
+            ->withPivot('cantidad', 'precio_unitario', 'subtotal');
     }
 
     

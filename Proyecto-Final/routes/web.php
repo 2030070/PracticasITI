@@ -15,8 +15,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\CotizacionController;
 use App\Http\Controllers\DevolucionController;
+use App\Http\Controllers\PuntoVentaController;
 use App\Http\Controllers\SubcategoriaController;
-use App\Http\Controllers\PuntoDeVentaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -127,10 +127,18 @@ Route::get('/devoluciones/{devolucion}/edit', [DevolucionController::class, 'edi
 Route::put('/devoluciones/{id}/edit', [DevolucionController::class, 'update'])->name('devoluciones.update');
 
 
-Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas.create');
-// Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
-Route::get('/ventas', [VentaController::class, 'show'])->name('ventas.show');
-Route::post('/guardar-venta', 'VentaController@store')->name('venta.store');
+
+
+Route::get('/ventas', [VentaController::class, 'index'])->name('ventas.index');
+Route::get('/ventas/create', [VentaController::class, 'form'])->name('ventas.create');
+Route::post('/ventas/agregar', [VentaController::class, 'agregar'])->name('ventas.agregar');
+Route::post('/ventas/eliminar', [VentaController::class, 'eliminar'])->name('ventas.eliminar');
+Route::get('/ventas/cart', [VentaController::class, 'cart'])->name('ventas.cart');
+Route::post('/ventas/store', [VentaController::class, 'store'])->name('ventas.store');
+Route::get('/ventas/filtro', [VentaController::class, 'filtro'])->name('ventas.filtro');
+Route::get('/ventas/{ventaId}', [VentaController::class, 'show'])->name('ventas.show');
+Route::delete('/ventas/{venta}', [VentaController::class, 'destroy'])->name('ventas.destroy');
+
 
 Route::get('/clientes', [ClienteController::class, 'show'])->name('clientes.show');
 Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
@@ -172,15 +180,21 @@ Route::put('/compras/{compra}', [CompraController::class, 'update'])->name('comp
 Route::delete('/compras/{compra}', [CompraController::class, 'destroy'])->name('compras.destroy');
 
 
-// Ruta para mostrar el formulario de creación de una nueva cotizacion
-Route::get('/cotizacion/create', [CotizacionController::class, 'create'])->name('cotizaciones.create');
-// Ruta para almacenar una nueva cotizacion en la base de datos
-Route::post('/cotizacion', [CotizacionController::class, 'store'])->name('cotizaciones.store');
-// Ruta para mostrar los detalles de una cotizacion específica
-Route::get('/cotizacion', [CotizacionController::class, 'show'])->name('cotizaciones.show');
-// Ruta para mostrar el formulario de edición de una cotizacion específica
-Route::get('/cotizacion/{cotizacion}/edit', [CotizacionController::class, 'edit'])->name('cotizaciones.edit');
-// Ruta para actualizar una cotizacion específica en la base de datos
-Route::put('/cotizacion/{cotizacion}', [CotizacionController::class, 'update'])->name('cotizaciones.update');
-// Ruta para eliminar una cotizacion específica de la base de datos
-Route::delete('/cotizacion/{cotizacion}', [CotizacionController::class, 'destroy'])->name('cotizaciones.destroy');
+
+
+// Ruta para mostrar la tabla de cotizaciones
+Route::get('/mostrar-cotizaciones', [CotizacionController::class, 'mostrarCotizaciones'])->name('mostrar-cotizaciones');
+// Ruta para mostrar el formulario de cotización
+Route::get('/registrar-cotizacion', [CotizacionController::class, 'crearCotizacion'])->name('registrar-cotizacion-form');
+// Ruta para filtrar productos por categoria de la cotización
+Route::get('/filtrar-productos-cotizacion/{categoriaId}', [CotizacionController::class, 'filtrarProductosCotizacion'])->name('filtrar-productos-cotizacion');
+// Ruta para generar una cotización
+Route::post('/generar-cotizacion', [CotizacionController::class, 'registrarCotizacion'])->name('registrar-cotizacion-store');
+// Ruta para agregar productos a la cotización
+Route::post('/agregar-a-cotizacion', [CotizacionController::class, 'agregarProductoCotizacion'])->name('agregar-cotizacion');
+// Ruta para eliminar productos de la cotización
+Route::delete('/eliminar-de-cotizacion', [CotizacionController::class, 'eliminarProductoCotizacion'])->name('eliminar-cotizacion');
+// Ruta para guardar la cotización
+Route::post('/almacenar-cotizacion', [CotizacionController::class, 'almacenarCotizacion'])->name('cotizacion-store');
+// Ruta para actualizar el estado de la cotización
+Route::put('/actualizar-estado-cotizacion/{id}', [CotizacionController::class, 'actualizarEstadoCotizacion'])->name('actualizar-estado-cotizacion');

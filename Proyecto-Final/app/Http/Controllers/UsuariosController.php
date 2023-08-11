@@ -75,7 +75,10 @@ class UsuariosController extends Controller
 
     // Método para mostrar el formulario de edición de un proveedor existente
     public function edit(Usuario $usuario){
-        return view('usuarios.edit', compact('usuario'));
+        $countries = Country::all();
+        $states = State::all();
+        $cities = City::all();
+        return view('usuarios.edit', compact('usuario','countries','states'));
     }
 
     // Método para actualizar los datos de un proveedor existente en la base de datos

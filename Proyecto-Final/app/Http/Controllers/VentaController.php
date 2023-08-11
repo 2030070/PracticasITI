@@ -2,99 +2,214 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Venta;
+use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Categoria;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use App\Models\Cliente; // Asegúrate de importar el modelo Cliente
+use App\Models\Subcategoria;
+use App\Models\Marca;
+use App\Models\Cliente;
+use App\Models\Venta;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class VentaController extends Controller
 {
-    public function __construct(){
-        // Proteger las rutas del controlador con autenticación
-        $this->middleware('auth');
+
+    public function index(){
+        $ventas = Venta::all();
+        return view('ventas.index',compact('ventas'));
     }
-    // Redirecciona a la vista para registrar una venta
-    public function create(Request $request) {
-        $clientes = Cliente::all();
+
+    public function form(Request $request)
+    {
+
         $categorias = Categoria::all();
+        $subcategorias = Subcategoria::all();
+        $marcas = Marca::all();
         $productos = Producto::query();
-    
-        // Filtrar por categoría si se selecciona una en el formulario
-        if ($request->has('categoria_id')) {
-            $categoriaId = $request->input('categoria_id');
-            $productos->where('categoria_id', $categoriaId);
-        }
-    
         $productos = $productos->get();
 
-        if ($request->has('product')) {
-            $producto = json_decode($request->input('product'), true);
-            $precio = $request->input('price');
-            $imagen = $request->input('imagen');
-            $venta = [
-                'producto_id' => $producto['id'],
-                'nombre_producto' => $producto['nombre'],
-                'precio' => $precio,
-                'cantidad' => 1, // Puedes cambiar la cantidad inicial según tus necesidades
-                'subtotal' => $precio,
-                'imagen' => $imagen,
-            ];
-
-            Session::push('carrito', $venta);
-        }
-        
-    
-        return view('ventas.create', compact('clientes', 'categorias', 'productos'));
+        return view('ventas.create', compact('productos', 'categorias', 'subcategorias', 'marcas'));
     }
-    
+
+    public function agregar(Request $request)
+{
+    $producto_id = $request->get('producto_id');
+    $producto = Producto::find($producto_id);
+
+    if(!$producto) {
+        return response()->json(['message' => 'Producto no encontrado.'], 404);
+    }
+
+    $carrito = session()->get('carrito', []);
+    $key = array_search($producto_id, array_column($carrito, 'producto_id'));
+    if($key !== false) {
+        $carrito[$key]['cantidad']++;
+    } else {
+        $carrito[] = [
+            'producto_id' => $producto_id,
+            'nombre' => $producto->nombre,
+            'precio' => $producto->precio_venta,
+            'imagen' => $producto->imagen,
+            'cantidad' => 1,
+        ];
+    }
+
+    session()->put('carrito', $carrito);
+
+    return response()->json(['cart' => $carrito]);
+}
+
+public function eliminar(Request $request)
+{
+    $producto_id = $request->get('producto_id');
+    $carrito = session()->get('carrito', []);
+
+    $key = array_search($producto_id, array_column($carrito, 'producto_id'));
+    if($key === false) {
+        return response()->json(['message' => 'Producto no encontrado en el carrito.'], 404);
+    }
+
+    unset($carrito[$key]);
+
+    // Re-indexar el array después de eliminar un elemento
+    $carrito = array_values($carrito);
+
+    session()->put('carrito', $carrito);
+
+    return response()->json(['cart' => $carrito]);
+}
+
+public function cart()
+{
+    $carrito = session()->get('carrito', []);
+
+    return response()->json(['cart' => $carrito]);
+}
+
     public function store(Request $request)
     {
-        // Validar los datos recibidos desde el cliente si es necesario
-        $request->validate([
-            'fecha' => 'required|date',
-            'nombre_cliente' => 'required|string|max:255',
-            'referencia' => 'required|string|max:255',
-            'estatus' => 'required|string|max:255',
-            'pago' => 'required|numeric',
-            'total' => 'required|numeric',
-            'pago_parcial' => 'required|numeric',
-            'pago_pendiente' => 'required|numeric',
-            'creado_por' => 'required|string|max:255',
-            'productos' => 'required|array', // Asegúrate de que 'productos' sea un array
-        ]);
+        // Iniciar una transacción
+        DB::beginTransaction();
+        try {
+            // Obtener el cliente a partir del correo
+            $cliente = Cliente::where('correo', $request->correo_cliente)->first();
 
-        // Crear una nueva instancia del modelo Venta y asignar los datos recibidos del cliente.
-        $venta = new Venta();
-        $venta->fecha = $request->fecha;
-        $venta->nombre_cliente = $request->nombre_cliente;
-        $venta->referencia = $request->referencia;
-        $venta->estatus = $request->estatus;
-        $venta->pago = $request->pago;
-        $venta->total = $request->total;
-        $venta->pago_parcial = $request->pago_parcial;
-        $venta->pago_pendiente = $request->pago_pendiente;
-        $venta->creado_por = $request->creado_por;
+            if (!$cliente) {
+                return back()->with('error', 'No se encontró un cliente con ese correo.');
+            }
 
-        // Guardar la venta en la base de datos
-        $venta->save();
+            $venta = new Venta();
 
-        // Ahora, para guardar los productos de la venta, podemos iterar a través de los productos recibidos del cliente y asociarlos a la venta recién creada.
-        foreach ($request->productos as $producto) {
-            $venta->productos()->attach($producto['id'], ['cantidad' => $producto['quantity']]);
+            // Asignar la fecha actual a fecha_venta
+            $venta->fecha_venta = Carbon::now();
+            $venta->cliente_id = $cliente->id;
+            $venta->estatus = "terminada"; // Valor predeterminado
+            $venta->pago = "hecho";
+            $venta->subtotal = $request->subtotal;
+            $venta->descuento = 0; // Valor predeterminado
+            $venta->impuestos = $request->impuestos;
+            $venta->total = $request->total;
+            $venta->pago_monto = $request->pago;
+            $venta->vendedor_id = auth()->user()->id;
+
+            // Verificar que el pago sea suficiente
+            if ($venta->pago_monto < $venta->total) {
+                $venta->estatus = "pendiente"; // Valor predeterminado
+                $venta->pago = "pendiente";
+            }
+
+            // Debemos guardar la venta antes de asociarle productos
+            $venta->save();
+
+            // Obtenemos los productos del carrito de la sesión
+            $carrito = session()->get('carrito', []);
+
+            // Recorremos cada producto y lo asociamos a la venta
+            foreach ($carrito as $producto) {
+                $producto_id = $producto['producto_id'];
+                $productoEnInventario = Producto::find($producto_id);
+                if(!$productoEnInventario) {
+                    throw new \Exception('El producto con ID '.$producto_id.' no se encontró en el inventario.');
+                }
+                if($producto['cantidad'] > $productoEnInventario->unidades_disponibles) {
+                    throw new \Exception('El producto '.$productoEnInventario->nombre.' solo tiene '.$productoEnInventario->unidades_disponibles.' unidades disponibles.');
+                }
+                $venta->products()->attach($producto_id, ['cantidad' => $producto['cantidad']]);
+                $productoEnInventario->unidades_disponibles -= $producto['cantidad'];
+                $productoEnInventario->save();
+            }
+
+            // Limpiamos el carrito de la sesión después de guardar la venta
+            session()->forget('carrito');
+
+            // Todo salió bien, podemos hacer commit a la transacción
+            DB::commit();
+
+            return redirect()->route('ventas.index')->with('success','Venta registrada exitosamente');
+        } catch (\Exception $e) {
+            // Algo salió mal, debemos hacer rollBack a la transacción
+            DB::rollBack();
+            // Imprimir o registrar el mensaje de error para depuración
+            error_log($e->getMessage());
+            return back()->with('error',$e->getMessage());
         }
 
-        // Si todo es exitoso, podemos enviar una respuesta JSON al cliente.
-        return response()->json(['message' => 'Venta guardada con éxito'], 200);
     }
 
-    // Muestra los datos de la tabla ventas en la vista show ventas, paginando el contenido de 10 en 10
-    public function show(){
-        // Cargar el nombre del cliente asociado con cada venta
-        $ventas = Venta::all();
-        return view('ventas.show', compact('ventas'));
+    public function filtro(Request $request)
+    {
+        $filtros = $request->all();
+
+        $productos = Producto::query();
+
+        if(isset($filtros['categoria_id'])) {
+            $productos->where('categoria_id', $filtros['categoria_id']);
+        }
+
+        if(isset($filtros['subcategoria_id'])) {
+            $productos->where('subcategoria_id', $filtros['subcategoria_id']);
+        }
+
+        if(isset($filtros['marca_id'])) {
+            $productos->where('marca_id', $filtros['marca_id']);
+        }
+
+        if(isset($filtros['nombre'])) {
+            $productos->where('nombre', 'LIKE', '%'.$filtros['nombre'].'%');
+        }
+
+        $productos = $productos->get();
+
+        if ($productos->isEmpty()) {
+            return response()->json(['error' => 'No se encontraron productos con los filtros proporcionados.']);
+        }
+
+        return response()->json(['productos' => $productos]);
+    }
+
+
+    public function show($ventaId)
+    {
+        $venta = Venta::find($ventaId);
+
+        if (!$venta) {
+            abort(404); // Mostrar página de error 404 si no se encuentra la venta.
+        }
+
+        return view('ventas.show', ['venta' => $venta]);
+    }
+
+    public function destroy(Venta $venta)
+{
+    try {
+        $venta->delete();
+
+        return redirect()->route('ventas.index')->with('success', 'Venta eliminada exitosamente.');
+    } catch (\Exception $e) {
+        return redirect()->route('ventas.index')->with('error', 'Ocurrió un error al eliminar la venta.');
     }
 }
+
+}
+

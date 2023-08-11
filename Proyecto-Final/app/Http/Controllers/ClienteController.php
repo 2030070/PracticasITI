@@ -84,9 +84,13 @@ class ClienteController extends Controller
 
     // Mostrar el formulario de edición de cliente
     public function edit(Cliente $cliente){
+        $countries = Country::all();
+        $states = State::all();
+        $cities = City::all();
+
         // Utilizamos el objeto $cliente pasado como parámetro para acceder a los datos del cliente que se desea editar.
         // Luego, enviamos estos datos a la vista 'clientes.edit' para que puedan ser mostrados en el formulario de edición.
-        return view('clientes.edit', compact('cliente'));
+        return view('clientes.edit', compact('cliente','countries','states'));
     }
 
     // Actualizar un cliente en la base de datos

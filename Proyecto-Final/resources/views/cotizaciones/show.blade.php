@@ -85,7 +85,7 @@
                     <tbody>
                         @foreach ($cotizaciones as $cotizacion)
                         <tr>
-                            <td class="py-2 px-4 border-b">{{ $cotizacion->producto->nombre }}</td>
+                            <td class="py-2 px-4 border-b">{{ $cotizacion->producto->nombre  }}</td>
                             <td class="py-2 px-4 border-b">{{ $cotizacion->referencia }}</td>
                             <td class="py-2 px-4 border-b">{{ $cotizacion->cliente->nombre }}</td>
                             <td class="py-2 px-4 border-b">{{ $cotizacion->estatus }}</td>

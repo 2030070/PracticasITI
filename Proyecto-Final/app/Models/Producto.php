@@ -35,4 +35,12 @@ class Producto extends Model
         return $this->belongsTo(Marca::class); // Agrega la relación con el modelo "Marca"
     }
 
+    // app/Models/Producto.php
+
+    public function cotizaciones(){
+        return $this->belongsToMany(Cotizacion::class, 'cotizacion_productos', 'producto_id', 'cotizacion_id')
+            ->withPivot('cantidad', 'precio_unitario', 'subtotal');
+    }
+
+
 }

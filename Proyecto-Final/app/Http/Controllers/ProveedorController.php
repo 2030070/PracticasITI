@@ -62,7 +62,11 @@ class ProveedorController extends Controller
 
     // Método para mostrar el formulario de edición de un proveedor existente
     public function edit(Proveedor $proveedor){
-        return view('proveedores.edit', compact('proveedor'));
+        $countries = Country::all();
+        $states = State::all();
+        $cities = City::all();
+
+        return view('proveedores.edit', compact('proveedor','countries','states'));
     }
 
     // Método para actualizar los datos de un proveedor existente en la base de datos
