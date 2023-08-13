@@ -50,8 +50,8 @@
             <div class="sticky top-0 h-screen p-4 rounded-lg">
                 <div class="flex flex-col items-center gap-2 bg-blue-500/13 rounded-lg p-2">
                     <a href="{{route('productos.show')}}">
-                        <img src="{{ asset('img/productos.png') }}" alt="Imagen" class="w-28 h-28 rounded-sm">
-                        <h3 class="text-center text-blue-700 text-sm">Ver Productos</h3>
+                        <img src="{{ asset('img/productos.png') }}" alt="Imagen" class="w-36 h-36 rounded-sm">
+                        <h3 class="text-center text-blue-700 text-lg">Ver Productos</h3>
                     </a> 
                 </div>
             </div>

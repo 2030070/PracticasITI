@@ -6,8 +6,12 @@ use App\Models\Cliente;
 use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Cotizacion;
+use App\Models\Marca;
+use App\Models\Subcategoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class CotizacionController extends Controller
 {
@@ -21,155 +25,119 @@ class CotizacionController extends Controller
     public function crearCotizacion(){
         // pasamos todas las categorias a la vista
         $categorias = Categoria::all();
+        $marcas = Marca::all();
+        $subcategorias = Subcategoria::all();
         // Obtenemos todos los productos
         $todosLosProductos = Producto::all();
         // Pasamos todos los clientes a la vista
         $clientes = Cliente::all();
-        return view('cotizaciones.create', compact('clientes', 'categorias', 'todosLosProductos'));
-    }
-    // Metodo para hacer el filtrado de productos por categoria
-    public function filtrarProductosCotizacion($categoriaId){
-        // Obtener todas las categorias
-        $categorias = Categoria::all();
-        // Obtener los productos de la categoría seleccionada
-        $productosfiltrados = Producto::where('id_categoria_producto', $categoriaId)->get();
-        // Pasar los productosfiltrados filtrados a la vista
-        return view('cotizaciones.create', compact('productosfiltrados', 'categorias'));
+        return view('cotizaciones.create', compact('marcas','subcategorias','clientes', 'categorias', 'todosLosProductos'));
     }
 
-    // Metodo para agregar un producto a la tabla // Recibe solo el id del producto y la accion (agregar o quitar)de cotizacion
-    public function agregarProductoCotizacion(Request $request){
-        $tabla = session()->get('tabla', []);
+        public function cart(){
+            $carrito = session()->get('carrito', []);
+            return response()->json(['cart' => $carrito]);
+        }
+
+    public function agregar(Request $request){   
         $producto_id = $request->get('producto_id');
-        $accion = $request->get('agregar');
-        $cantidadVenta = (int)$request->get('cantidad_venta'); // Obtener el valor ingresado en el input como entero
+        $producto = Producto::find($producto_id);
 
-        // Validamos si se recibe un add
-        // Si se recibe un add, se agrega un producto al carrito
-        if ($accion === 'add') {
-            if (isset($tabla[$producto_id])) { // Si el producto ya existe en la tabla
-                $producto = Producto::findOrFail($producto_id);
-
-                // Validamos que si la cantidad ingresada es = a 0, regrese un mensaje de error
-                if ($cantidadVenta === 0) {
-                    return back()->with('mensaje', 'La cantidad ingresada no puede ser 0');
-                }
-
-                // Validamos que la cantidad ingresada no sea mayor a la cantidad en stock
-                if ($cantidadVenta > $tabla[$producto_id]['cantidad']) {
-                    return back()->with('mensaje', 'La cantidad ingresada no puede ser mayor a la cantidad en stock');
-                }
-
-                // Validamos que la suma de la cantidad ingresada y la cantidad en la tabla no sea mayor a la cantidad en stock
-                if ($cantidadVenta + $tabla[$producto_id]['cantidad'] > $producto->unidades_disponibles) {
-                    return back()->with('mensaje', 'La cantidad ingresada no puede ser mayor a la cantidad en stock');
-                }
-
-                $tabla[$producto_id]['cantidad'] += $cantidadVenta; // Aumentar la cantidad en la cantidad ingresada
-            } else { // Si el producto no existe en la tabla
-                $producto = Producto::findOrFail($producto_id);
-
-                // Validamos que si la cantidad ingresada es = a 0, regrese un mensaje de error
-                if ($cantidadVenta === 0) {
-                    return back()->with('mensaje', 'La cantidad ingresada no puede ser 0');
-                }
-
-                // Validamos que la cantidad ingresada no sea mayor a la cantidad en stock
-                if ($cantidadVenta > $producto->unidades_disponibles) {
-                    return back()->with('mensaje', 'La cantidad ingresada no puede ser mayor a la cantidad en stock');
-                }
-
-                // Validamos que la cantidad ingresada no sea menor a 0
-                if ($cantidadVenta < 0) {
-                    return back()->with('mensaje', 'La cantidad ingresada no puede ser menor a 0');
-                }
-
-                // Agregar el producto a la tabla con la cantidad ingresada
-                $tabla[$producto_id] = [
-                    'nombre' => $producto->nombre,
-                    'precio' => $producto->precio_venta,
-                    'cantidad' => $cantidadVenta,
-                    'imagen' => $producto->imagen,
-                ];
-            }
-
-            session()->put('tabla', $tabla);
-            return back();
+        if(!$producto) {
+            return response()->json(['message' => 'Producto no encontrado.'], 404);
         }
-        // Si se recibe un less, se elimina un producto de la tabla de cotizacion
-        elseif ($accion === 'less') {
 
-            // Validar que la cantidad ingresada no sea menor a 1
-            if ($cantidadVenta >= 1) {
-                if (isset($tabla[$producto_id])) {
-                    $tabla[$producto_id]['cantidad'] = $cantidadVenta; // Establecer la cantidad ingresada
-                    session()->put('tabla', $tabla);
-                    return back();
-                }
-            }
+        $carrito = session()->get('carrito', []);
+        $key = array_search($producto_id, array_column($carrito, 'producto_id'));
+        if($key !== false) {
+            $carrito[$key]['cantidad']++;
+        } else {
+            $carrito[] = [
+                'producto_id' => $producto_id,
+                'nombre' => $producto->nombre,
+                'precio' => $producto->precio_venta,
+                'imagen' => $producto->imagen,
+                'cantidad' => 1,
+            ];
         }
+
+        session()->put('carrito', $carrito);
+        return response()->json(['cart' => $carrito]);
     }
 
-
-    // Metodo para eliminar el producto de la tabla
-    public function eliminarProductoCotizacion(Request $request){
-        // dd($producto_id);
-        $tabla = session()->get('tabla', []);
+    public function eliminar(Request $request){
         $producto_id = $request->get('producto_id');
-
-        if (isset($tabla[$producto_id])) {
-            unset($tabla[$producto_id]);
-            session()->put('tabla', $tabla);
-            return back();
+        $carrito = session()->get('carrito', []);
+        $key = array_search($producto_id, array_column($carrito, 'producto_id'));
+        if($key === false) {
+            return response()->json(['message' => 'Producto no encontrado en el carrito.'], 404);
         }
+        unset($carrito[$key]);
+        // Re-indexar el array después de eliminar un elemento
+        $carrito = array_values($carrito);
+        session()->put('carrito', $carrito);
+        return response()->json(['cart' => $carrito]);
     }
 
-    // Metodo para almacenar la cotizacion en la base de datos
     public function almacenarCotizacion(Request $request){
-        // Validar los datos del formulario
-        $request->validate([
-            'fecha' => 'required|date',
-            'cliente_id' => 'required',
-            'codigo_referencia' => 'nullable|string|max:255',
-            'descripcion_cotizacion' => 'nullable|string', // Añadir esta regla de validación
-            'subtotal' => 'required|numeric',
-            'totalImpuestos' => 'required|numeric',
-            'total' => 'required|numeric',
-            'status_cotizacion' => 'required',
-        ]);
+        // Iniciar una transacción
+        DB::beginTransaction();
+        try {
+            // Obtener el cliente a partir del correo
+            $cliente = Cliente::where('correo', $request->correo_cliente)->first();
+            $cotizacion = new Cotizacion();
+            // Asignar la fecha actual a fecha_cotizacion
+            $cotizacion->fecha_cotizacion = Carbon::now();
+            $cotizacion->cliente_id = $cliente->id;
+            $cotizacion->total = $request->total;
+            $cotizacion->referencia = $request->referencia;
+            $cotizacion->status = 'terminado';
+            $cotizacion->descripcion = 'Cotización realizada';
+            $cotizacion->impuestos = $request->impuestos;
+            $cotizacion->subtotal = $request->subtotal;
+            // Debemos guardar la cotizacion antes de asociarle productos
+            $cotizacion->save();
+            $cotizacionId = $cotizacion->id;
 
-        // Crear una nueva instancia de Cotizacion y asignar los valores del formulario
-        $cotizacion = new Cotizacion();
-        $cotizacion->fecha_cotizacion = $request->fecha;
-        $cotizacion->cliente_id = $request->cliente_id;
-        $cotizacion->referencia = $request->codigo_referencia;
-        $cotizacion->descripcion = $request->descripcion_cotizacion;
-        $cotizacion->subtotal = $request->subtotal;
-        $cotizacion->impuestos = $request->totalImpuestos;
-        $cotizacion->total = $request->total;
-        $cotizacion->status = $request->status_cotizacion;
+            // Obtenemos los productos del carrito de la sesión
+            $carrito = session()->get('carrito', []);
 
-        // Guardar la cotización en la base de datos
-        $cotizacion->save();
-
-        // Obtener los productos seleccionados de la sesión
-        $productosSeleccionados = session()->get('tabla', []);
-        // Recorremos los productos seleccionados y los asociamos a la cotización en la tabla intermedia
-        foreach ($productosSeleccionados as $producto_id => $producto) {
-            // Buscamos el producto en la base de datos
-            $productoModel = Producto::find($producto_id);
-            // Asociamos el producto a la cotización en la tabla intermedia
-            $cotizacion->productos()->attach($productoModel, [
-                'cantidad' => $producto['cantidad'],
-                'precio_unitario' => $producto['precio'],
-                'subtotal' => $producto['cantidad'] * $producto['precio'],
-            ]);
+            // Recorremos cada producto y lo asociamos a la cotizacion
+            foreach ($carrito as $producto) {
+                $producto_id = $producto['producto_id'];
+                $productoEnInventario = Producto::find($producto_id);
+                $cotizacion->productos()->attach($producto_id,['cantidad' => $producto['cantidad'],'precio_unitario'=>$productoEnInventario['precio_venta'],'subtotal'=>$productoEnInventario['precio_venta']*$producto['cantidad']]);
+                $productoEnInventario->save();
+            }
+            // Limpiamos el carrito de la sesión después de guardar la cotizacion
+            session()->forget('carrito');
+            // Todo salió bien, podemos hacer commit a la transacción
+            DB::commit();
+            return redirect()->route('cotizaciones.show')->with('success', 'Cotizacion registrada exitosamente');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            error_log($e->getMessage());
+            return back()->with('error',$e->getMessage());
         }
+    }
 
-        // Eliminamos los productos seleccionados de la sesión después de guardarlos en la tabla intermedia
-        session()->forget('tabla');
-        // Redireccionamos a la vista de cotizaciones
-        return redirect()->route('mostrar-cotizaciones')->with('mensaje', 'Cotización creada correctamente');
+    public function filtro(Request $request){
+        $filtros = $request->all();
+        $productos = Producto::query();
+        if(isset($filtros['categoria_id'])) {
+            $productos->where('categoria_id', $filtros['categoria_id']);
+        }
+        if(isset($filtros['subcategoria_id'])) {
+            $productos->where('subcategoria_id', $filtros['subcategoria_id']);
+        }
+        if(isset($filtros['marca_id'])) {
+            $productos->where('marca_id', $filtros['marca_id']);
+        }
+        if(isset($filtros['nombre'])) {
+            $productos->where('nombre', 'LIKE', '%'.$filtros['nombre'].'%');
+        }
+        $productos = $productos->get();
+        return response()->json(['productos' => $productos]);
     }
 
     // Metodo para actualizar el status de la cotizacion

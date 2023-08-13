@@ -78,9 +78,9 @@
                             <th class="py-2 px-4 border-b text-left">Categoría</th>
                             <th class="py-2 px-4 border-b text-left">Subcategoría</th>
                             <th class="py-2 px-4 border-b text-left">Nombre</th>
-                            <th class="py-2 px-4 border-b text-left">Precio de Compra</th>
-                            <th class="py-2 px-4 border-b text-left">Precio de Venta</th>
-                            <th class="py-2 px-4 border-b text-left">Unidades Disponibles</th>
+                            <th class="py-2 px-4 border-b text-left">Precio Compra</th>
+                            <th class="py-2 px-4 border-b text-left">Precio Venta</th>
+                            <th class="py-2 px-4 border-b text-left">Stock</th>
                             <th class="py-2 px-4 border-b text-left">Marca</th>
                             <th class="py-2 px-4 border-b text-left">Creado por</th>
                             <th class="py-2 px-4 border-b text-left">Acciones</th>
@@ -90,7 +90,7 @@
                         @foreach ($productos as $producto)
                         <tr>
                             <td class="py-2 px-4 border-b text-left">
-                                <img src="{{ asset('uploads/' . $producto->imagen) }}" alt="Imagen del producto" class="w-20 h-20 object-cover">
+                                <img src="{{ asset('uploads/' . $producto->imagen) }}" alt="Imagen del producto" class="w-20 h-20 object-cover rounded-lg">
                             </td>
                             <td class="py-2 px-4 border-b">{{ $producto->categoria->nombre }}</td>
                             <td class="py-2 px-4 border-b">

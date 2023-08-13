@@ -56,7 +56,7 @@ Route::get('/categorias/{categoria}/edit', [CategoriaController::class, 'edit'])
 // Actualizar la categoría
 Route::put('/categorias/{id}/edit', [CategoriaController::class, 'update'])->name('categorias.update');
 //Guardar imagen el registro de la categoría
-Route::post('/categorias/images', [ImagenController::class, 'store'])->name('imagenes.store');
+Route::post('/categorias/images', [ImagenController::class, 'store'])->name('categorias_imagenes.store');
 // editar imagen
 Route::put('/categorias/{id}/update-imagen', [ImagenController::class, 'update'])->name('categorias.update_imagen');
 
@@ -106,7 +106,7 @@ Route::get('/subcategorias/{subcategoria}/edit', [SubcategoriaController::class,
 // Actualizar la subcategoría
 Route::put('/subcategorias/{id}/edit', [SubcategoriaController::class, 'update'])->name('subcategorias.update');
 //Guardar imagen el registro de la categoría
-Route::post('/subcategorias/images', [ImagenController::class, 'store'])->name('imagenes.store');
+Route::post('/subcategorias/images', [ImagenController::class, 'store'])->name('subcategoria_imagenes.store');
 // editar imagen
 Route::put('/subcategorias/{id}/update-imagen', [ImagenController::class, 'update'])->name('subcategorias.update_imagen');
 
@@ -127,18 +127,18 @@ Route::get('/devoluciones/{devolucion}/edit', [DevolucionController::class, 'edi
 Route::put('/devoluciones/{id}/edit', [DevolucionController::class, 'update'])->name('devoluciones.update');
 
 
-
-
-Route::get('/ventas', [VentaController::class, 'index'])->name('ventas.index');
-Route::get('/ventas/create', [VentaController::class, 'form'])->name('ventas.create');
-Route::post('/ventas/agregar', [VentaController::class, 'agregar'])->name('ventas.agregar');
-Route::post('/ventas/eliminar', [VentaController::class, 'eliminar'])->name('ventas.eliminar');
-Route::get('/ventas/cart', [VentaController::class, 'cart'])->name('ventas.cart');
-Route::post('/ventas/store', [VentaController::class, 'store'])->name('ventas.store');
-Route::get('/ventas/filtro', [VentaController::class, 'filtro'])->name('ventas.filtro');
-Route::get('/ventas/{ventaId}', [VentaController::class, 'show'])->name('ventas.show');
-Route::delete('/ventas/{venta}', [VentaController::class, 'destroy'])->name('ventas.destroy');
-
+Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas.create');
+// Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
+Route::get('/ventas', [VentaController::class, 'show'])->name('ventas.show');
+// Route::post('/guardar-venta', 'VentaController@store')->name('venta.store');
+Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
+Route::get('/ventas/punto-venta', [PuntoVentaController::class, 'index'])->name('puntoVenta.index');
+Route::post('/ventas/guardar-compra', [PuntoVentaController::class, 'guardarCompra'])->name('guardar.compra');
+Route::delete('/ventas/eliminar-venta/{id}', [PuntoVentaController::class, 'destroy'])->name('eliminar.venta');
+Route::get('/ventas/detalle-venta/{id}', [PuntoVentaController::class, 'showDetalleVenta'])->name('ventas.detalle');
+Route::get('/ventas/filtrar-productos', [PuntoVentaController::class, 'filtrarProductos'])->name('filtrar.productos');
+Route::get('/ventas/lista-ventas', [VentaController::class, 'index'])->name('ventas.index');
+Route::get('/ventas/pdf/{id}', [VentaController::class, 'exportarPDF'])->name('venta.pdf');
 
 Route::get('/clientes', [ClienteController::class, 'show'])->name('clientes.show');
 Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
@@ -166,9 +166,9 @@ Route::post('/usuarios/images', [ImagenController::class, 'store'])->name('usuar
 Route::put('/usuarios/{usuario}/update-imagen', [ImagenController::class, 'update'])->name('usuarios.update_imagen');
 
 // Ruta para mostrar el listado de compras
-// Ruta para mostrar el formulario de creación de una nueva compra
 Route::get('/compras/create', [CompraController::class, 'create'])->name('compras.create');
 // Ruta para almacenar una nueva compra en la base de datos
+Route::get('/compras/formulario/{producto}', [CompraController::class, 'formulario'])->name('compras.formulario');
 Route::post('/compras', [CompraController::class, 'store'])->name('compras.store');
 // Ruta para mostrar los detalles de una compra específica
 Route::get('/compras', [CompraController::class, 'show'])->name('compras.show');
@@ -183,9 +183,9 @@ Route::delete('/compras/{compra}', [CompraController::class, 'destroy'])->name('
 
 
 // Ruta para mostrar la tabla de cotizaciones
-Route::get('/mostrar-cotizaciones', [CotizacionController::class, 'mostrarCotizaciones'])->name('mostrar-cotizaciones');
+Route::get('/cotizaciones/show', [CotizacionController::class, 'mostrarCotizaciones'])->name('cotizaciones.show');
 // Ruta para mostrar el formulario de cotización
-Route::get('/registrar-cotizacion', [CotizacionController::class, 'crearCotizacion'])->name('registrar-cotizacion-form');
+Route::get('/cotizaciones/create', [CotizacionController::class, 'crearCotizacion'])->name('registrar-cotizacion-form');
 // Ruta para filtrar productos por categoria de la cotización
 Route::get('/filtrar-productos-cotizacion/{categoriaId}', [CotizacionController::class, 'filtrarProductosCotizacion'])->name('filtrar-productos-cotizacion');
 // Ruta para generar una cotización
@@ -198,3 +198,9 @@ Route::delete('/eliminar-de-cotizacion', [CotizacionController::class, 'eliminar
 Route::post('/almacenar-cotizacion', [CotizacionController::class, 'almacenarCotizacion'])->name('cotizacion-store');
 // Ruta para actualizar el estado de la cotización
 Route::put('/actualizar-estado-cotizacion/{id}', [CotizacionController::class, 'actualizarEstadoCotizacion'])->name('actualizar-estado-cotizacion');
+
+Route::post('/cotizaciones/agregar', [CotizacionController::class, 'agregar'])->name('cotizaciones.agregar');
+Route::post('/cotizaciones/eliminar', [CotizacionController::class, 'eliminar'])->name('cotizaciones.eliminar');
+Route::get('/cotizaciones/cart', [CotizacionController::class, 'cart'])->name('cotizaciones.cart');
+Route::get('/cotizaciones/filtro', [CotizacionController::class, 'filtro'])->name('cotizaciones.filtro');
+Route::get('/ventas/filtro', [VentaController::class, 'filtro'])->name('ventas.filtro');

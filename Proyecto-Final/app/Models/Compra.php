@@ -12,15 +12,12 @@ class Compra extends Model
     protected $table = 'compras';
 
     protected $fillable = [
-        'nombre_producto',
-        'nombre_proveedor',
+        'producto_id',
+        'proveedor_id',
         'referencia',
         'fecha',
-        'estatus',
+        'cantidad',
         'total',
-        'pagado',
-        'pendiente_de_pago',
-        'estatus_de_pago',
         'creado_por',
     ];
 
@@ -28,8 +25,14 @@ class Compra extends Model
         return $this->belongsTo(Producto::class);
     }
 
-    
     public function proveedor(){
         return $this->belongsTo(Proveedor::class);
     }
+
+    public function creador()
+    {
+        return $this->belongsTo(User::class, 'creado_por');
+    }
+
+
 }

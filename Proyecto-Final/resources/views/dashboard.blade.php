@@ -208,10 +208,9 @@
                   </div>
                   <div class="px-3 text-right basis-1/3">
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
-                      
-                      {{-- <a href="{{ route('ventas.show') }}" >
+                      <a href="{{ route('ventas.show') }}" >
                         <i class="relative top-0 text-xl text-purple-300 fas fa-chart-line"></i>
-                      </a> --}}
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -255,10 +254,10 @@
                   </div>
                   <div class="px-3 text-right basis-1/3">
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
-{{--                       
+                      
                       <a href="{{ route('cotizaciones.show') }}" >
                         <i class="relative top-0 text-xl text-purple-300 fas fa-file-invoice"></i>
-                      </a> --}}
+                      </a>
 
                     </div>
                   </div>

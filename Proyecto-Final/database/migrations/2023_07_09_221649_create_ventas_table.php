@@ -13,21 +13,16 @@ return new class extends Migration
     {
         Schema::create('ventas', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('fecha_venta');
-            $table->unsignedBigInteger('cliente_id');
+            $table->date('fecha');
+            $table->string('nombre_cliente');
+            $table->string('referencia');
             $table->string('estatus');
-            $table->string('pago');
-            $table->decimal('subtotal', 10, 2);
-            $table->decimal('descuento', 10, 2);
-            $table->decimal('impuestos', 10, 2);
+            $table->string('pago')->default('pendiente');
             $table->decimal('total', 10, 2);
-            $table->decimal('pago_monto', 10, 2);
-            $table->unsignedBigInteger('vendedor_id');
+            $table->decimal('pago_parcial', 10, 2)->nullable();
+            $table->decimal('pago_pendiente', 10, 2)->nullable();
+            $table->string('creado_por');
             $table->timestamps();
-
-            $table->foreign('cliente_id')->references('id')->on('clientes');
-            $table->foreign('vendedor_id')->references('id')->on('users');
-        
         });
     }
 

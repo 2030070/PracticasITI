@@ -4,16 +4,26 @@
    Crear Cotizacion
 @endsection
 
+@push('styles')
+<style>
+    .product-tag {
+        transition: transform 0.2s, background-color 0.2s;
+    }
+    .product-tag:hover {
+        transform: scale(1.05);
+        background-color: #BFDBFE; /* Cambia el color a blue-300 */
+    }
+</style>
+   
+@endpush
 
 @section('contenido')
 <div class="container mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <div class="col-span-1 md:col-span-1"></div> <!-- Espacio en blanco para el menú lateral -->
-      <div class="col-span-1 md:col-span-2">
-        <div class="container-fluid py-4">
-            <div class="card mb-4">
+        <div class="col-span-1 md:col-span-1"></div> <!-- Espacio en blanco para el menú lateral -->
+        <div class="col-span-2 md:col-span-3 md:flex-wrap">
                 {{-- Mensaje --}}
-                @if (session('mensaje'))
+                @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>{{ session('mensaje') }}</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -23,345 +33,308 @@
                         <strong>{{ session('error') }}</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                @elseif(session('warning'))
+                @elseif(session('mensaje'))
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <strong>{{ session('warning') }}</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
 
-                <div class="card-body px-4 pt-2 pb-2">
-                    <div class="container mx-auto">
-                        <div class="flex">
-                            <div class="container">
-                                <div class="col flex justify-start">
-                                    <a href="{{ route('registrar-cotizacion-form') }}"
-                                       class="btn bg-gradient-primary mt-4 mx-2 align-content-center flex-wrap"
-                                       type="submit">
-                                        Mostrar todos los productos
-                                    </a>
-                                </div>
+                <form id="filtroForm" method="GET" class="flex flex-wrap justify-between px-4">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="flex-grow my-2">
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 bg-blue-500/13 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="nombre" placeholder="Nombre del producto">
+                        </div>
+                        <div class="flex-grow my-2">
+                            <select class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-500/13" name="categoria_id">
+                                <option value="">Categoría</option>
+                                @foreach($categorias as $categoria)
+                                <option value="{{ $categoria->id }}">{{ $categoria->descripcion }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="flex-grow my-2">
+                            <select class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-500/13" name="subcategoria_id">
+                                <option value="">Subcategoría</option>
+                                @foreach($subcategorias as $subcategoria)
+                                <option value="{{ $subcategoria->id }}">{{ $subcategoria->descripcion }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="flex-grow my-2">
+                            <select class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-500/13" name="marca_id">
+                                <option value="">Marca</option>
+                                @foreach($marcas as $marca)
+                                <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="flex-grow my-2">
+                            <div class="flex-grow my-2">
+                                <button class="btn-custom w-full py-2 px-4 rounded text-gray-100 focus:outline-none bg-blue-500" type="submit">Filtrar</button>
                             </div>
                         </div>
-                
-                        <div id="categoriaCarousel" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                @foreach ($categorias->chunk(3) as $chunk)
-                                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                        <div class="grid grid-cols-3">
-                                            @foreach ($chunk as $categoria)
-                                                <div class="col">
-                                                    <div class="card">
-                                                        <div class="card-header p-0 mx-3 mt-3 relative z-10">
-                                                            <a href="{{ route('filtrar-productos-cotizacion', $categoria->id) }}"
-                                                               class="d-block flex justify-center">
-                                                                <img src="{{ asset('uploads/' . $categoria->imagen) }}"
-                                                                     alt="Imagen del producto" class="w-full h-auto object-cover rounded-lg mb-0">
-                                                            </a>
-                                                        </div>
-                                                        <div class="card-body pt-4 flex justify-center">
-                                                            <span class="text-gradient text-primary uppercase font-bold my-2">
-                                                                {{ $categoria->nombre }}
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endforeach
+                    </div>
+                </form>
+                <div id="productosContainer" class="grid grid-cols-1 md:grid-cols-4 gap-5">
+                    @foreach ($todosLosProductos as $producto)
+                        <div class="bg-blue-500/13 text-white font-bold py-2 px-8 rounded-lg product-tag product-item flex flex-col items-center">
+                            <img src="{{ asset('uploads/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="w-full h-40 object-cover rounded-md mb-4">
+                            <h3 class="text-xl font-semibold uppercase">{{ $producto->nombre }}</h3>
+                            <p class="text-gray-600"><span class="font-bold">Precio:</span> ${{ $producto->precio_venta }}</p>
+                            <p class="text-gray-600"><span class="font-bold">Stock:</span> {{ $producto->unidades_disponibles }}</p>
+                            <button data-producto-id="{{ $producto->id }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg btn-agregar">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="container mx-auto px-4 mt-4 bg-blue-500/13 rounded-lg shadow-lg " id="carrito-container" >
+                    <h2 class="text-lg font-semibold mb-2 items-center text-center ">Carrito de Compras</h2>
+                    <table class="w-full table-auto">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-2">Producto</th>
+                                <th class="px-4 py-2">Precio del producto</th>
+                                <th class="px-4 py-2">Cantidad de productos</th>
+                                <th class="px-4 py-2">Subtotal por producto</th>
+                                <th class="px-4 py-2"></th> <!-- Add the Actions column -->
+                            </tr>
+                        </thead>
+                        <tbody id="carritoContainer" >
+
+                        </tbody>
+                    </table>
+                    <!-- Cálculo de total final, IVA y pago neto -->
+                    <div class="font-bold text-center">Resumen de la compra</div>
+                    <div class="flex justify-center px-4 py-2">
+                        <div id="totalDiv" class="text-gray-600">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center px-4 py-2">
+                        <form method="POST" action="{{ route('cotizacion-store') }}">
+                            @csrf
+                            <!-- Campo para el correo del cliente -->
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div class="mb-4">
+                                    <label for="correo_cliente" class="font-semibold">Cliente</label>
+                                    <select id="correo_cliente" name="correo_cliente" class="focus:shadow-primary-outline  dark:placeholder:text-white/80  text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-bñue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                                        @foreach($clientes as $cliente)
+                                            <option value="{{$cliente->correo}}">{{$cliente->correo}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('subcategoria_id')
+                                    <small class="text-red-500">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="mb-4">
+                                    <label for="correo_referencia" class="font-semibold">Referencia</label>
+                                    <input class="focus:shadow-primary-outline  dark:placeholder:text-white/80  text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-bñue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" type="text" name="referencia" placeholder="Referencia">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div>
+                                    <input type="hidden" name="subtotal" value="0">
+                                </div>
+                                <div>
+                                    <input type="hidden" name="impuestos" value="0">
+                                </div>
+                                <div>
+                                    <input type="hidden" name="total" value="0">
+                                </div>
+
+                                <div class="mb-4">
+                                    
+                                    <button id="realizar-venta-btn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">
+                                        Cotizar Productos
+                                    </button>
+                                </div>
+
                             </div>
                             
-                            <!-- Previous and Next buttons -->
-                            <button class="carousel-control-prev" type="button" data-bs-target="#categoriaCarousel"
-                                    data-bs-slide="prev">
-                                <span class="flex justify-start" aria-hidden="true">
-                                    <img src="{{ asset('images/icons/icon-arrowright.svg') }}" alt="arrow right" class="w-30">
-                                </span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#categoriaCarousel"
-                                    data-bs-slide="next">
-                                <span class="flex justify-end" aria-hidden="true">
-                                    <img src="{{ asset('images/icons/icon-arrowleft.svg') }}" alt="arrow right" class="w-30">
-                                </span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                
-                        <div class="container mx-auto mt-5">
-                            @if (isset($productosfiltrados))
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                    @foreach ($productosfiltrados as $producto)
-                                        <div class="col mb-4">
-                                            <div class="card">
-                                                <div class="card">
-                                                    <form action="{{ route('agregar-cotizacion') }}" method="POST" novalidate>
-                                                        @csrf
-                
-                                                        <input type="hidden" name="producto_id" value="{{ $producto->id }}">
-                
-                                                        <a class="flex justify-center">
-                                                            <img src="{{ asset('uploads/' . $producto->imagen) }}"
-                                                                 alt="Imagen del producto" class="w-full h-auto object-cover rounded-lg mb-0">
-                                                        </a>
-                
-                                                        <div class="card-body">
-                                                            <span class="text-gradient text-primary uppercase font-bold my-2">
-                                                                {{ $producto->categoria->nombre }}
-                                                            </span>
-                                                            <br>
-                                                            <span class="text-gradient text-info uppercase font-bold my-2">
-                                                                {{ $producto->marca->nombre }}
-                                                            </span>
-                                                            <h5 class="card-title">{{ $producto->nombre }}</h5>
-                                                            <p class="card-text">Precio de venta: ${{ $producto->precio_venta }}</p>
-                                                            <p class="card-text">Unidades disponibles: {{ $producto->unidades_disponibles }}</p>
-                                                            <div class="flex justify-start pb-2">
-                                                                <div class="flex items-center">
-                                                                    <p class="card-text">Cantidad:</p>
-                                                                </div>
-                                                                <div class="input-group input-group-sm ms-2 me-6">
-                                                                    <input class="form-control" type="number" name="cantidad_venta"
-                                                                           id="cantidad_venta" min="1"
-                                                                           max="{{ $producto->unidades_disponibles }}" value="cantidad_venta"
-                                                                           placeholder="1">
-                                                                </div>
-                                                            </div>
-                                                            <button class="btn bg-gradient-primary" name="agregar" value="add">Añadir</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @else
-                                <!-- Show all products without filtering -->
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                    @foreach ($todosLosProductos as $producto)
-                                        <div class="col mb-4">
-                                            <div class="card">
-                                                <div class="card">
-                                                    <form action="{{ route('agregar-cotizacion') }}" method="POST" novalidate>
-                                                        @csrf
-                
-                                                        <input type="hidden" name="producto_id" value="{{ $producto->id }}">
-                
-                                                        <a class="flex justify-center">
-                                                            <img src="{{ asset('uploads/' . $producto->imagen) }}"
-                                                                 alt="Imagen del producto" class="w-full h-auto object-cover rounded-lg mb-0">
-                                                        </a>
-                
-                                                        <div class="card-body">
-                                                            <span class="text-gradient text-primary uppercase font-bold my-2">
-                                                                {{ $producto->categoria->nombre }}
-                                                            </span>
-                                                            <br>
-                                                            <span class="text-gradient text-info uppercase font-bold my-2">
-                                                                {{ $producto->marca->nombre }}
-                                                            </span>
-                                                            <h5 class="card-title">{{ $producto->nombre }}</h5>
-                                                            <p class="card-text">Precio de venta: ${{ $producto->precio_venta }}</p>
-                                                            <p class="card-text">Unidades disponibles: {{ $producto->unidades_disponibles }}</p>
-                                                            <div class="flex justify-start pb-2">
-                                                                <div class="flex items-center">
-                                                                    <p class="card-text">Cantidad:</p>
-                                                                </div>
-                                                                <div class="input-group input-group-sm ms-2 me-6">
-                                                                    <input class="form-control" type="number" name="cantidad_venta"
-                                                                           id="cantidad_venta" min="1"
-                                                                           max="{{ $producto->unidades_disponibles }}" value="cantidad_venta"
-                                                                           placeholder="1">
-                                                                </div>
-                                                            </div>
-                                                            <button class="btn bg-gradient-primary" name="agregar" value="add">Añadir</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                
-                    <div class="container mx-auto">
-                        <div class="flex">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-header pb-2">
-                                        <div class="flex justify-between items-center mx-4">
-                                            <h6 class="mb-0">Productos agregados</h6>
-                                        </div>
-                                    </div>
-                
-                                    @php
-                                        $tabla = session()->get('tabla', []);
-                                        $subtotal = 0;
-                                        $impuestos = 0;
-                                        $total = 0;
-                                    @endphp
-                
-                                    <div class="card-body px-4 pt-2 pb-2">
-                                        <div class="table-responsive p-0">
-                                            <table class="table items-center mb-0 text-center">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col text-uppercase text-secondary text-xxs font-bold opacity-70">
-                                                        Producto
-                                                    </th>
-                                                    <th scope="col text-uppercase text-secondary text-xxs font-bold opacity-70">
-                                                        Precio
-                                                    </th>
-                                                    <th scope="col text-uppercase text-secondary text-xxs font-bold opacity-70">
-                                                        Cantidad
-                                                    </th>
-                                                    <th scope="col text-uppercase text-secondary text-xxs font-bold opacity-70">
-                                                        Subtotal
-                                                    </th>
-                                                    <th scope="col text-uppercase text-secondary text-xxs font-bold opacity-70">
-                                                        Impuestos
-                                                    </th>
-                                                    <th scope="col text-uppercase text-secondary text-xxs font-bold opacity-70">
-                                                        Acciones
-                                                    </th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <!-- Initialize these fields -->
-                                                @php
-                                                    $totalImpuestos = 0;
-                                                    $cantidadProductos = 0;
-                                                    $subtotal = 0;
-                                                @endphp
-                                                @foreach ($tabla as $producto_id => $producto)
-                                                    @php
-                                                        $cantidadProductos += $producto['cantidad'];
-                                                        $subtotal += $producto['precio'] * $producto['cantidad'];
-                                                        $totalImpuestos += $producto['precio'] * $producto['cantidad'] * 0.16;
-                                                    @endphp
-                                                    <tr>
-                                                        <td>
-                                                            <div class="flex px-2 py-1">
-                                                                <div>
-                                                                    <img src="{{ asset('uploads/' . $producto['imagen']) }}"
-                                                                         alt="Imagen del producto"
-                                                                         class="w-full h-auto object-cover rounded-lg mb-0"
-                                                                    >
-                                                                </div>
-                                                                <div class="mx-3 flex justify-center items-center">
-                                                                    <h6 class="mb-0 text-sm">{{ $producto['nombre'] }}</h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>${{ number_format($producto['precio'], 2) }}</td>
-                                                        <td>{{ $producto['cantidad'] }}</td>
-                                                        <td>${{ number_format($producto['precio'] * $producto['cantidad'], 2) }}</td>
-                                                        <td>${{ number_format($producto['precio'] * $producto['cantidad'] * 0.16, 2) }}</td>
-                                                        <td>
-                                                            <div class="flex justify-center items-center">
-                                                                <form action="{{ route('eliminar-cotizacion') }}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <input type="hidden" name="producto_id" value="{{ $producto_id }}">
-                                                                    <button class="btn bg-gradient-danger mt-3" name="eliminar"
-                                                                            value="delete">
-                                                                        Eliminar
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                <tr>
-                                                    <td colspan="4"></td>
-                                                    <td class="text-right font-bold">Impuestos total:</td>
-                                                    <td>${{ number_format($totalImpuestos, 2) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4"></td>
-                                                    <td class="text-right font-bold">Subtotal:</td>
-                                                    <td>${{ number_format($subtotal, 2) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4"></td>
-                                                    <td class="text-right font-bold">Cotización total:</td>
-                                                    <td>${{ number_format($subtotal + $totalImpuestos, 2) }}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="flex justify-start">
-                                            <form action="{{ route('cotizacion-store') }}" method="POST" novalidate>
-                                                @csrf
-                
-                                                <div class="grid grid-cols-4 gap-4">
-                                                    <div class="col">
-                                                        <div class="input-group input-group-sm ms-2 me-10">
-                                                            <input class="form-control" type="date" name="fecha" id="fecha"
-                                                                   value="{{ old('fecha') }}" placeholder="Fecha">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="input-group input-group-sm ms-2 me-10">
-                                                            <select class="form-control" name="cliente_id" id="cliente_id">
-                                                                <option value="" selected disabled>Selecciona un cliente</option>
-                                                                @foreach ($clientes as $cliente)
-                                                                    <option value="{{ $cliente->id }}">{{ $cliente->nombre_cliente }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="input-group input-group-sm ms-2 me-10">
-                                                            <input class="form-control" type="text" name="codigo_referencia"
-                                                                   id="codigo_referencia" value="{{ old('codigo_referencia') }}"
-                                                                   placeholder="Codigo de referencia">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="input-group input-group-sm ms-2 me-10">
-                                                            <input class="form-control" name="descripcion_cotizacion"
-                                                                   id="descripcion_cotizacion" placeholder="Descripcion de la cotizacion">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                
-                                                <input type="hidden" name="subtotal" value="{{ $subtotal }}">
-                                                <input type="hidden" name="totalImpuestos" value="{{ $totalImpuestos }}">
-                                                <input type="hidden" name="total" value="{{ $subtotal + $totalImpuestos }}">
-                                                <input type="hidden" name="status_cotizacion" value="iniciada" id="status_cotizacion">
-                
-                                                <div class="flex justify-end">
-                                                    <button class="btn bg-gradient-primary mt-4 mx-2" name="guardar" value="save">
-                                                        Guardar cotización
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
+                        </form>
 
+
+                    </div>
         </div>
-      </div>
-      <div class="col-span-1 md:col-span-1">
-        <div class="sticky top-0 h-screen p-4 rounded-lg">
-          <div class="flex flex-col items-center gap-4 bg-blue-500/13 rounded-lg p-4">
-            {{-- <a href="{{route('cotizaciones.show')}}"> --}}
-              <img src="{{ asset('img/cotizacion.png') }}" alt="Imagen" class="w-48 h-48 rounded-sm">
-              <h3 class="text-blue-700">Ver Cotizaciones</h3>
-            </a> 
-          </div>
-        </div>
-      </div>
+        <div class="col-span-1 md:col-span-1"></div>
     </div>
-  </div>
+</div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    var imagesBasePath = '{{ asset('uploads') }}';
+    $(document).ready(function() {
+        $.ajax({
+            url: '{{ route('cotizaciones.cart') }}',
+            type: 'GET',
+            success: function(response) {
+                updateCart(response.cart);
+            },
+            error: function() {
+                // Manejar errores
+            }
+        });
+
+        $('#filtroForm').on('submit', function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '{{ route('cotizaciones.filtro') }}',
+                type: 'GET',
+                data: $(this).serialize(),
+                success: function(response) {
+                    // Actualiza los productos en la vista
+                    updateProducts(response.productos);
+                },
+                error: function() {
+                   console.log('muchos errores');
+                }
+            });
+        });
+
+        $('.btn-agregar').on('click', function() {
+            var productoId = $(this).data('producto-id');
+            $.ajax({
+                url: '{{ route('cotizaciones.agregar') }}',
+                type: 'POST',
+                data: {
+                    producto_id: productoId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Actualizar la vista del carrito
+                    updateCart(response.cart);
+                },
+                error: function() {
+                    // Manejar errores
+                }
+            });
+        });
+
+        $(document).on('click', '.btn-eliminar', function() {
+            var productoId = $(this).data('producto-id');
+            $.ajax({
+                url: '{{ route('cotizaciones.eliminar') }}',
+                type: 'POST',
+                data: {
+                    producto_id: productoId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Actualizar la vista del carrito
+                    updateCart(response.cart);
+                },
+                error: function() {
+                    // Manejar errores
+                }
+            });
+        });
+    });
+
+    function updateProducts(productos) {
+        console.log(productos);
+        // Contenedor para los productos
+        var productosContainer = $('#productosContainer');
+        productosContainer.empty();
+        // Agrega un nuevo div para cada producto
+        productos.forEach(function(producto) {
+            var productoDiv = `
+            <div class="bg-blue-500/13 text-white font-bold py-2 px-8 rounded-lg product-tag product-item flex flex-col items-center">
+                                ` + '<img src="' + '{{ asset('uploads') }}' + '/' + producto.imagen + `" alt="`+ producto.nombre+ `" class="w-full h-40 object-cover rounded-md mb-4">
+                                <h3 class="text-xl font-semibold uppercase">`+ producto.nombre+ `</h3>
+                                <p class="text-gray-600"><span class="font-bold">Precio:</span> $`+ producto.precio_venta+ `</p>
+                                <p class="text-gray-600"><span class="font-bold">Stock:</span> `+ producto.unidades_disponibles+ `</p>
+                                <button data-producto-id="`+ producto.producto_id+ `" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg btn-agregar">
+                                    <i class="fas fa-cart-plus"></i>
+                                </button>
+                            </div>
+            `;
+            productosContainer.append(productoDiv);
+        });
+
+        // Reasignar el evento click a los botones de agregar luego de haber actualizado los productos
+        $('.btn-agregar').on('click', function() {
+            var productoId = $(this).data('producto-id');
+
+            $.ajax({
+                url: '{{ route('cotizaciones.agregar') }}',
+                type: 'POST',
+                data: {
+                    producto_id: productoId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Actualizar la vista del carrito
+                    updateCart(response.cart);
+                },
+                error: function() {
+                    // Manejar errores
+                }
+            });
+        });
+    }
+
+    function updateCart(cart) {
+        // Contenedor para los productos en el carrito
+        var carritoContainer = $('#carritoContainer');
+        carritoContainer.empty();
+        var subtotal = 0;
+
+        if (!Array.isArray(cart)) {
+            cart = Object.values(cart);
+        }
+
+        // Agrega un nuevo div para cada producto en el carrito
+        cart.forEach(function(producto) {
+            var productoTotal = producto.precio * producto.cantidad;
+            var productoDiv = '<tr>'
+                + '<td class="flex items-center">' 
+                        + '<img src="{{ asset('uploads') }}/' + producto.imagen + '" alt="' + producto.nombre + '" class="w-16 h-16 object-cover rounded-md mr-2">'
+                        + '<span class="uppercase">' + producto.nombre + '</span>'
+                    + ' </td>'
+                + '<td>' + producto.precio  + ' </td>'
+                + '<td>' + producto.cantidad  + ' </td>'
+                + '<td>' + productoTotal + ' </td>'
+                + '<td> <button data-producto-id="' + producto.producto_id + '" class="btn-eliminar bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg" ><i class="fas fa-trash-alt"> </i></button>' + ' </td>'
+            + '</tr>';
+
+            carritoContainer.append(productoDiv);
+            subtotal += productoTotal;
+        });
+
+        // Calcular impuestos y total
+        var impuestos = subtotal * 0.16;
+        var total = subtotal;
+        subtotal = subtotal - impuestos;
+
+        // Actualizar subtotal, impuestos y total en el div correspondiente
+        var totalesDiv = $('#totalDiv');
+        totalesDiv.empty();
+
+        totalesDiv.append(`<div class="grid grid-cols-3 gap-4">         <div>
+            <p class="font-bold">Pago Neto:</p>
+            <p><span id="pago-neto">$` + subtotal +`</span></p>
+        </div>
+        <div>
+            <p class="font-bold">IVA:</p>
+            <p><span id="iva">$` + impuestos +`</span></p>
+        </div>
+        <div>
+            <p class="font-bold">Total:</p>
+            <p><span id="total">$` + total +`</span></p>
+        </div>
+    </div>`)
+        // Actualizar subtotal, impuestos y total en los campos ocultos
+        $('input[name="subtotal"]').val(subtotal.toFixed(2));
+        $('input[name="impuestos"]').val(impuestos.toFixed(2));
+        $('input[name="total"]').val(total.toFixed(2));
+    }
+</script>
 @endsection

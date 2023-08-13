@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Compra;
 use App\Models\Producto;
 use App\Models\Proveedor;
+use App\Models\Categoria;
+use App\Models\Subcategoria;
+use App\Models\Marca;
+use App\Models\Cliente;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,10 +21,26 @@ class CompraController extends Controller
     }
 
     // Redirecciona a la vista para registrar una compra
+    // Muestra el form para crear una nueva cotización
     public function create(){
+        // pasamos todas las categorias a la vista
+        $categorias = Categoria::all();
+        $marcas = Marca::all();
+        $subcategorias = Subcategoria::all();
+        // Obtenemos todos los productos
+        $todosLosProductos = Producto::all();
+
+        $fechaActual = date('Y-m-d');
+
+        return view('compras.create', compact('fechaActual','marcas','subcategorias', 'categorias', 'todosLosProductos'));
+    }
+
+    public function formulario(Producto $producto){
+
+        $fechaActual = date('Y-m-d');
         $proveedores = Proveedor::all();
-        $productos = Producto::all();
-        return view('compras.create', compact('proveedores', 'productos'));
+
+        return view('compras.formulario', compact('fechaActual','producto','proveedores'));
     }
 
     public function edit(Compra $compra){
@@ -36,35 +56,28 @@ class CompraController extends Controller
 
         // Validación de los datos de la compra
         $this->validate($request, [
-            'nombre_producto' => 'required',
-            'nombre_proveedor' => 'required',
+            'producto_id' => 'required',
+            'proveedor_id' => 'required',
             'referencia' => 'required|unique:compras,referencia',
             'fecha' => 'required',
-            'estatus' => 'required',
-            'total' => 'required|numeric',
-            'pagado' => 'nullable|numeric',
-            'pendiente_de_pago' => 'nullable|numeric',
-            'estatus_de_pago' => 'required',
-            'creado_por' => 'required',
+            'total' => 'required',
+            'cantidad' => 'required|numeric',
         ]);
 
         // Crear la nueva compra utilizando el modelo
         Compra::create([
-            'nombre_producto' => $request->nombre_producto,
-            'nombre_proveedor' => $request->nombre_proveedor,
+            'producto_id' => $request->producto_id,
+            'proveedor_id' => $request->proveedor_id,
             'referencia' => $request->referencia,
             'fecha' => $request->fecha,
-            'estatus' => $request->estatus,
             'total' => $request->total,
-            'pagado' => $request->pagado,
-            'pendiente_de_pago' => $request->pendiente_de_pago,
-            'estatus_de_pago' => $request->estatus_de_pago,
-            'creado_por' => Auth::user()->name,
+            'creado_por' => Auth::user()->id,
+            'cantidad' => $request->cantidad,
         ]);
 
         // Actualizar el stock del producto
-        $producto = Producto::where('nombre', $request->nombre_producto)->first();
-        $producto->unidades_disponibles += $request->total;
+        $producto = Producto::where('id', $request->producto_id)->first();
+        $producto->unidades_disponibles += $request->cantidad;
         $producto->save();
 
         // Redirigir a la vista de mostrar compras

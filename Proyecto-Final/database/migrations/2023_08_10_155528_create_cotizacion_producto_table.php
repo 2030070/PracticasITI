@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('producto_venta', function (Blueprint $table) {
+        Schema::create('cotizacion_producto', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('producto_id');
-            $table->unsignedBigInteger('venta_id');
+            $table->foreignId('cotizacion_id')->constrained('cotizaciones');
+            $table->foreignId('producto_id')->constrained('productos');
             $table->integer('cantidad');
+            $table->decimal('precio_unitario',10,2);
+            $table->decimal('subtotal',10,2);
             $table->timestamps();
-
-            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
-            $table->foreign('venta_id')->references('id')->on('ventas')->onDelete('cascade');
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('producto_venta');
+        Schema::dropIfExists('cotizacion_productos');
     }
 };

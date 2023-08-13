@@ -56,7 +56,7 @@
         <div class="col-span-1/2 md:col-span-1/2"></div> <!-- Espacio en blanco para el menú lateral -->
         <div class="col-span-2 md:col-span-5">
             <div class="flex justify-end"> <!-- Alineación a la derecha -->
-                <a href="{{ route('cotizaciones.create') }}" class="inline-block ml-auto px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-purple-400">
+                <a href="{{ route('registrar-cotizacion-form') }}" class="inline-block ml-auto px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-purple-400">
                     <i class="fas fa-plus mr-2"></i> Registrar Cotizacion
                 </a>
             </div>
@@ -74,7 +74,6 @@
                 <table id="productos-table" class="min-w-full border-2 border-blue-500 rounded-lg">
                     <thead>
                         <tr>
-                            <th class="py-2 px-4 border-b text-left">Producto</th>
                             <th class="py-2 px-4 border-b text-left">Referencia</th>
                             <th class="py-2 px-4 border-b text-left">Cliente</th>
                             <th class="py-2 px-4 border-b text-left">Estatus</th>
@@ -85,13 +84,12 @@
                     <tbody>
                         @foreach ($cotizaciones as $cotizacion)
                         <tr>
-                            <td class="py-2 px-4 border-b">{{ $cotizacion->producto->nombre  }}</td>
                             <td class="py-2 px-4 border-b">{{ $cotizacion->referencia }}</td>
                             <td class="py-2 px-4 border-b">{{ $cotizacion->cliente->nombre }}</td>
                             <td class="py-2 px-4 border-b">{{ $cotizacion->estatus }}</td>
-                            <td class="py-2 px-4 border-b">{{ $cotizacion->producto->precio_compra }}</td>
+                            <td class="py-2 px-4 border-b">{{ $cotizacion->total }}</td>
                             <td class="py-2 px-4 border-b">
-                                <form action="{{ route('cotizaciones.destroy', $cotizacion->id) }}" method="POST">
+                                <form action="{{ route('eliminar-cotizacion', $cotizacion->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600">
@@ -101,11 +99,11 @@
                                         </svg>
                                     </button>
                                 </form>
-                                <a href="{{ route('cotizaciones.edit', $cotizacion->id) }}" >
+                                {{-- <a href="{{ route('actualizar-estado-cotizacion', $cotizacion->id) }}" >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#3B82F6" viewBox="0 0 256 256">
                                         <path d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31l83.67-83.66,3.48,13.9-36.8,36.79a8,8,0,0,0,11.31,11.32l40-40a8,8,0,0,0,2.11-7.6l-6.9-27.61L227.32,96A16,16,0,0,0,227.32,73.37ZM48,179.31,76.69,208H48Zm48,25.38L51.31,160,136,75.31,180.69,120Zm96-96L147.32,64l24-24L216,84.69Z"></path>
                                     </svg>
-                                </a>
+                                </a> --}}
                             </td>
                         </tr>
                         @endforeach
