@@ -122,30 +122,42 @@
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                                 <div class="mb-4">
                                     <label for="correo_cliente" class="font-semibold">Cliente</label>
-                                    <select id="correo_cliente" name="correo_cliente" class="focus:shadow-primary-outline  dark:placeholder:text-white/80  text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-bñue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                                    <select id="correo_cliente" required  name="correo_cliente" value="{{ old('correo_cliente') }}" class="focus:shadow-primary-outline  dark:placeholder:text-white/80  text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-bñue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
                                         @foreach($clientes as $cliente)
                                             <option value="{{$cliente->correo}}">{{$cliente->correo}}</option>
                                         @endforeach
                                     </select>
-                                    @error('subcategoria_id')
-                                    <small class="text-red-500">{{ $message }}</small>
+                                    @error('correo_cliente')
+                                        <small class="text-red-500">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-4">
-                                    <label for="correo_referencia" class="font-semibold">Referencia</label>
-                                    <input class="focus:shadow-primary-outline  dark:placeholder:text-white/80  text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-bñue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" type="text" name="referencia" placeholder="Referencia">
+                                    <label for="correo_referencia" required class="font-semibold">Referencia</label>
+                                    <input  value="{{ old('correo_referencia') }}" class="focus:shadow-primary-outline  dark:placeholder:text-white/80  text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-bñue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" type="text" name="referencia" placeholder="Referencia">
+                                    @error('correo_referencia')
+                                        <small class="text-red-500">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                                 <div>
-                                    <input type="hidden" name="subtotal" value="0">
+                                    <input type="hidden" required name="subtotal" value="0" value="{{ old('subtotal') }}">
+                                    @error('subtotal')
+                                        <small class="text-red-500">{{ $message }}</small>
+                                    @enderror
                                 </div>
                                 <div>
-                                    <input type="hidden" name="impuestos" value="0">
+                                    <input type="hidden" required name="impuestos" value="0" value="{{ old('impuestos') }}">
+                                    @error('impuestos')
+                                        <small class="text-red-500">{{ $message }}</small>
+                                    @enderror
                                 </div>
                                 <div>
-                                    <input type="hidden" name="total" value="0">
+                                    <input type="hidden" required name="total" value="0" value="{{ old('correo_referencia') }}">
+                                    @error('total')
+                                        <small class="text-red-500">{{ $message }}</small>
+                                    @enderror
                                 </div>
 
                                 <div class="mb-4">

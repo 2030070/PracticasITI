@@ -204,3 +204,7 @@ Route::post('/cotizaciones/eliminar', [CotizacionController::class, 'eliminar'])
 Route::get('/cotizaciones/cart', [CotizacionController::class, 'cart'])->name('cotizaciones.cart');
 Route::get('/cotizaciones/filtro', [CotizacionController::class, 'filtro'])->name('cotizaciones.filtro');
 Route::get('/ventas/filtro', [VentaController::class, 'filtro'])->name('ventas.filtro');
+
+
+
+Route::get('/download/{filename}', [DownloadController::class, 'downloadFile'])->name('download');

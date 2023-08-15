@@ -87,7 +87,7 @@
                             <td class="py-2 px-4 border-b">{{ $cotizacion->referencia }}</td>
                             <td class="py-2 px-4 border-b">{{ $cotizacion->cliente->nombre }}</td>
                             <td class="py-2 px-4 border-b">{{ $cotizacion->estatus }}</td>
-                            <td class="py-2 px-4 border-b">{{ $cotizacion->total }}</td>
+                            <td class="py-2 px-4 border-b">${{ $cotizacion->total }}</td>
                             <td class="py-2 px-4 border-b">
                                 <form action="{{ route('eliminar-cotizacion', $cotizacion->id) }}" method="POST">
                                     @csrf

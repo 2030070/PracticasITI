@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo')
-   Dashboard
-@endsection
-
-
-@section('contenido')
+@push('styles')
 <style>
   .containerCard {
     display: flex;
@@ -14,16 +9,24 @@
   }
   
   .card {
-    width: calc(33.33% - 40px);
+    width: calc(28% - 40px);
     margin-bottom: 40px;
-    font-size: 24px;
+    font-size: 20px;
     transition: transform 0.5s;
   }
   
   .card:hover {
-    transform: scale(1.15);
+    transform: scale(1.13);
   }
 </style>
+@endpush
+
+@section('titulo')
+   Dashboard
+@endsection
+
+
+@section('contenido')
 
 <div class="container mx-auto">
   <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -42,10 +45,8 @@
                   </div>
                   <div class="px-3 text-right basis-1/3">
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
-                      
-                      {{-- <a href="{{route('productos.show')}}"></a> --}}
                       <a href="{{ route('productos.show') }}" >
-                        <i class="relative top-0 text-xl text-purple-300 fas fa-box-open"></i>
+                        <i class="relative top-2 text-xl text-purple-300 fas fa-box-open"></i>
                       </a>
                     </div>
                   </div>
@@ -68,7 +69,7 @@
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
                       
                       <a href="{{ route('categorias.show') }}" >
-                        <i class="relative top-0 text-xl text-purple-300 fas fa-folder-open"></i>
+                        <i class="relative top-2 text-xl text-purple-300 fas fa-folder-open"></i>
                       </a>
                     </div>
                   </div>
@@ -91,7 +92,7 @@
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
                       
                       <a href="{{ route('subcategorias.show') }}" >
-                        <i class="relative top-0 text-xl text-purple-300 fas fa-folder"></i>
+                        <i class="relative top-2 text-xl text-purple-300 fas fa-folder"></i>
                       </a>
                     </div>
                   </div>
@@ -114,7 +115,7 @@
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
                       
                       <a href="{{ route('marcas.show') }}" >
-                        <i class="relative top-0 text-xl text-purple-300 fas fa-tags"></i>
+                        <i class="relative top-2 text-xl text-purple-300 fas fa-tags"></i>
                       </a>
 
                     </div>
@@ -138,7 +139,7 @@
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
                       
                       <a href="{{ route('proveedores.show') }}" >
-                        <i class="relative top-0 text-xl text-purple-300 fas fa-truck"></i>
+                        <i class="relative top-2 text-xl text-purple-300 fas fa-truck"></i>
                       </a>
 
                     </div>
@@ -162,7 +163,7 @@
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
                       
                       <a href="{{ route('clientes.show') }}" >
-                        <i class="relative top-0 text-xl text-purple-300 fas fa-user"></i>
+                        <i class="relative top-2 text-xl text-purple-300 fas fa-user"></i>
                       </a>
 
                     </div>
@@ -186,7 +187,7 @@
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
                       
                       <a href="{{ route('usuarios.show') }}" >
-                        <i class="relative top-0 text-xl text-purple-300 fas fa-user"></i>
+                        <i class="relative top-2 text-xl text-purple-300 fas fa-user"></i>
                       </a>
 
                     </div>
@@ -209,7 +210,7 @@
                   <div class="px-3 text-right basis-1/3">
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
                       <a href="{{ route('ventas.show') }}" >
-                        <i class="relative top-0 text-xl text-purple-300 fas fa-chart-line"></i>
+                        <i class="relative top-2 text-xl text-purple-300 fas fa-chart-line"></i>
                       </a>
                     </div>
                   </div>
@@ -232,7 +233,7 @@
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
                       
                       <a href="{{ route('devoluciones.show') }}" >
-                        <i class="relative top-0 text-xl text-purple-300 fas fa-undo"></i>
+                        <i class="relative top-2 text-xl text-purple-300 fas fa-undo"></i>
                       </a>
 
                     </div>
@@ -256,7 +257,7 @@
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
                       
                       <a href="{{ route('cotizaciones.show') }}" >
-                        <i class="relative top-0 text-xl text-purple-300 fas fa-file-invoice"></i>
+                        <i class="relative top-2 text-xl text-purple-300 fas fa-file-invoice"></i>
                       </a>
 
                     </div>
@@ -280,7 +281,7 @@
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-100 to-teal-50">
                       
                       <a href="{{ route('compras.show') }}" >
-                        <i class="relative top-0 text-xl text-purple-300 fas fa-cart-arrow-down"></i>
+                        <i class="relative top-2 text-xl text-purple-300 fas fa-cart-arrow-down"></i>
                       </a>
 
                     </div>
@@ -293,6 +294,18 @@
 
         </div>
       </div>
+      <div class="card">
+        <div class="p-4">
+            <canvas id="modeloMovimientosChart" width="400" height="200"></canvas>
+        </div>
+    </div>
   </div>
 </div>
 @endsection
+
+
+@push('scripts')
+<script>
+
+<script>
+@endpush

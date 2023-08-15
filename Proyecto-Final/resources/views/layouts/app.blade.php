@@ -23,6 +23,11 @@
         <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
 
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        
+
         @vite('resources/css/nucleo-icons.css')
         @vite('resources/css/nucleo-svg.css')
         @vite('resources/css/argon-dashboard-tailwind.css')
@@ -182,7 +187,7 @@
                 @endauth
             @endunless
 
-            @unless(request()->is('dashboard') || request()->is('/') || request()->is('login'))
+            @unless( request()->is('/') || request()->is('login'))
                 <div class="bg-blue-500 rounded-b-lg text-center py-16">
                     <h1 class="text-4xl text-white">@yield('titulo')</h1>
                 </div>
@@ -205,6 +210,10 @@
         </footer>
     </body>
 
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.js" integrity="sha512-sk0cNQsixYVuaLJRG0a/KRJo9KBkwTDqr+/V94YrifZ6qi8+OO3iJEoHi0LvcTVv1HaBbbIvpx+MCjOuLVnwKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script>
         // Obtener todas las opciones del menú
         const menuOptions = document.querySelectorAll('aside ul li');
@@ -232,5 +241,52 @@
                 option.classList.add('rounded-lg');
             }
         });
+
+        function exportToPDF(tipo) {
+            var maintable = document.getElementById('maintable');
+            var pdfout = document.getElementById('pdfout');
+            var doc = new jsPDF('p', 'pt', 'letter');
+            var margin = 20;
+            var scale = (doc.internal.pageSize.width - margin * 2) / document.body.clientWidth;
+            var scale_mobile = (doc.internal.pageSize.width - margin * 2) / document.body.getBoundingClientRect();
+
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                doc.html(maintable, {
+                    x: margin,
+                    y: margin,
+                    html2canvas: {
+                        scale: scale,
+                        ignoreElements: function (element) {
+                            return element.classList.contains('exclude-column');
+                        }
+                    },
+                    callback: function (doc) {
+                        doc.save(tipo + '.pdf');
+                    }
+                });
+            } else {
+                doc.html(maintable, {
+                    x: margin,
+                    y: margin,
+                    html2canvas: {
+                        scale: scale,
+                        ignoreElements: function (element) {
+                            return element.classList.contains('exclude-column');
+                        }
+                    },
+                    callback: function (doc) {
+                        doc.save(tipo + '.pdf');
+                    }
+                });
+            }
+        }
+
+        function exportToExcel(tipo) {
+            const table = document.querySelector('.table-auto');
+            const ws = XLSX.utils.table_to_sheet(table);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'reporte');
+            XLSX.writeFile(wb, tipo + '.xlsx');
+        }
     </script>
 </html>

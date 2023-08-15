@@ -1,12 +1,5 @@
 sail artisan tinker
-
-
 $usuario = User::Find(8);
-
-
 App\Models\Post::factory()
-
-
 prueba para 200 registros
-
 App\Models\Post::factory()->times(200)->create();

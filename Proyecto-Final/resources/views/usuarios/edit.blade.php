@@ -68,10 +68,12 @@
                       <div class="w-1/2 mr-2">
                           <label for="pais" class="block mb-2 font-semibold">País:</label>
                           <select name="pais" id="pais" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white  bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
-                            <option value="">-- Seleccione un país --</option>
+                            <option value="">Seleccione un país</option>
                             @foreach($countries as $country)
-                                <option value="{{ $country->id }}" @if ($country->id == $usuario->pais) selected @endif>{{ $country->name }}</option>
+                              <option value="{{ $country->name }}" @if ($country->name == $usuario->pais) selected @endif>{{ $country->name }}</option>
                             @endforeach
+
+                            
                           </select>
                       </div>
 
@@ -80,7 +82,7 @@
                           <select name="estado" id="estado" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
                             <option value="">Seleccione un estado</option>
                             @foreach($states as $state)
-                              <option value="{{ $state->id }}" @if ($state->state_id == $usuario->estado) selected @endif>{{ $state->state_name }}</option>
+                              <option value="{{ $state->state_name }}" @if ($state->state_name == $usuario->estado) selected @endif>{{ $state->state_name }}</option>
                             @endforeach
                           </select>
                       </div>

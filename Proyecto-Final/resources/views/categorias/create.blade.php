@@ -32,19 +32,25 @@
                         <div class="mb-4 flex">
                             <div class="w-1/3 mr-2">
                                 <label for="codigo" class="block mb-2 font-semibold">Código:</label>
-                                <input type="text" name="codigo" id="codigo" placeholder="Ingrese el código" required
+                                <input type="text" name="codigo" id="codigo" value="{{ old('codigo') }}" placeholder="Ingrese el código" required
                                     class="focus:shadow-primary-outline dark:text-white/80 
                                             text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white 
                                             bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 
                                             focus:border-fuchsia-300 focus:outline-none">
+                                @error('codigo')
+                                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="w-2/3 ml-2">
                               <label for="nombre" class="block mb-2 font-semibold">Nombre:</label>
-                              <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre de la categoria" required
+                              <input type="text" name="nombre" id="nombre" value="{{ old('nombre') }}" placeholder="Ingrese el nombre de la categoria" required
                                   class="focus:shadow-primary-outline dark:text-white/80 
                                             text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white 
                                             bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 
                                             focus:border-fuchsia-300 focus:outline-none">
+                                @error('nombre')
+                                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                                @enderror
                             </div>
                           
                         </div>

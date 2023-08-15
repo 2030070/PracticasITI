@@ -32,12 +32,15 @@
                     
                     <div class="mb-4">
                         <label for="nombre" class="block mb-2 font-semibold">Nombre:</label>
-                        <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre de la marca" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                        <input type="text" name="nombre" id="nombre" value="{{ old('nombre') }}" placeholder="Ingrese el nombre de la marca" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                        @error('nombre')
+                            <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                        @enderror
                     </div>
                   
                     <div class="mb-4">
                         <label for="descripcion" class="block mb-2 font-semibold">Descripción:</label>
-                        <textarea name="descripcion" id="descripcion" placeholder="Ingrese la descripción" required
+                        <textarea name="descripcion" id="descripcion" value="{{ old('descripcion') }}" placeholder="Ingrese la descripción" required
                             class="focus:shadow-primary-outline dark:text-white/80 
                             text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white 
                             bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 

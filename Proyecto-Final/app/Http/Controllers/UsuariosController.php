@@ -63,7 +63,7 @@ class UsuariosController extends Controller
         $nombreUsuario = Auth::user()->name;
 
         // Redireccionar a la vista de mostrar proveedores con un mensaje de éxito
-        return redirect()->route('usuarios.show',['nombreUsuario' => $nombreUsuario])->with('success', 'Proveedor creado exitosamente.');
+        return redirect()->route('usuarios.show',['nombreUsuario' => $nombreUsuario])->with('success', 'Usuario creado exitosamente.');
     }
 
     // Método para mostrar todos los proveedores

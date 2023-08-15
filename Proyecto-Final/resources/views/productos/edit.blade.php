@@ -51,9 +51,6 @@
                 @foreach ($subcategorias as $subcategoria)
                     <option value="{{ $subcategoria->id }}" @if($subcategoria->categoria_id == $subcategoria->nombre) selected @endif>{{ $subcategoria->nombre }}</option>
                 @endforeach
-                {{-- @foreach ($subcategorias as $subcategoria)
-                  <option value="{{ $subcategoria->id }}" data-categoria="{{ $subcategoria->categoria_id }}">{{ $subcategoria->nombre }}</option>
-                @endforeach --}}
             </select>
             </div>
           </div>

@@ -95,9 +95,9 @@
                             <td class="py-2 px-4 border-b">{{ $devolucion->fecha_devolucion }}</td>
                             <td class="py-2 px-4 border-b">{{ $devolucion->cliente }}</td>
                             <td class="py-2 px-4 border-b">{{ $devolucion->estatus }}</td>
-                            <td class="py-2 px-4 border-b">{{ $devolucion->precio_total }}</td>
-                            <td class="py-2 px-4 border-b">{{ $devolucion->pagado }}</td>
-                            <td class="py-2 px-4 border-b">{{ $devolucion->adeudo }}</td>
+                            <td class="py-2 px-4 border-b">${{ $devolucion->precio_total }}</td>
+                            <td class="py-2 px-4 border-b">${{ $devolucion->pagado }}</td>
+                            <td class="py-2 px-4 border-b">${{ $devolucion->adeudo }}</td>
                             <td class="py-2 px-4 border-b">{{ $devolucion->estatus_pago }}</td>
 
                             <td class="py-2 px-4 border-b">{{ $devolucion->creado_por }}</td>

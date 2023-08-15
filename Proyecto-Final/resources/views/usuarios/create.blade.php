@@ -84,45 +84,48 @@
                     <div class="mb-4 flex">
                         <div class="w-1/2 mr-2">
                             <label for="estado" class="block mb-2 font-semibold">Pais:</label>
-                            <select name="pais" id="pais" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white  bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
-                                <option value="">-- Seleccione un país --</option>
+                            <select name="pais" id="pais"  value="{{ old('pais') }}" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white  bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                                <option value="">Seleccione un país</option>
                                 @foreach($countries as $country)
-                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    <option value="{{ $country->name }}">{{ $country->name }}</option>
                                 @endforeach
-                            </select>     
+                            </select>    
+                            @error('pais')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror 
                         </div>
                         
                         <div class="w-1/2 ml-2">
                             <label for="estado" class="block mb-2 font-semibold">Estado:</label>
-                            <select name="estado" id="estado" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                            <select name="estado" id="estado"  value="{{ old('estado') }}" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
                                 <option value="">Seleccione un estado</option>
                                 @foreach($states as $state)
-                                    <option value="{{ $state->state_id }}" data-country="{{ $state->countryid }}">{{ $state->state_name }}</option>
+                                    <option value="{{ $state->state_name }}" data-country="{{ $state->countryid }}">{{ $state->state_name }}</option>
                                 @endforeach
-                            </select>    
+                            </select>   
+                            @error('estado')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror 
                         </div>
                     </div>
                     
                     <div class="mb-4 flex">
                         <div class="w-1/2 mr-2">
                             <label for="ciudad" class="block mb-2 font-semibold">Ciudad:</label>
-                            <input type="text" name="ciudad" id="ciudad" placeholder="Ingrese la ciudad" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
-                            {{-- <select name="ciudad" id="city" class="focus:shadow-primary-outline dark:text-white/80 
-                            text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white 
-                            bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 
-                            focus:border-fuchsia-300 focus:outline-none">
-                                <option value="">Seleccione una ciudad</option>
-                                @foreach($cities as $city)
-                                    <option value="{{ $city->city_id }}" data-state="{{ $city->state_id }}">{{ $city->name }}</option>
-                                @endforeach
-                            </select> --}}     
+                            <input type="text" name="ciudad" id="ciudad"  value="{{ old('ciudad') }}" placeholder="Ingrese la ciudad" required class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                            @error('ciudad')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="w-1/2 ml-2">
                             <label for="rol" class="block mb-2 font-semibold">Rol:</label>
-                            <select id="rol" name="rol" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" placeholder="Seleccione una rol">
+                            <select id="rol" name="rol"  value="{{ old('rol') }}" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" placeholder="Seleccione una rol">
                                 <option value="select" selected>Select</option>
                                 <option value="owner" {{ old('rol') === 'owner' ? 'selected' : '' }}>Owner</option>
                             </select>
+                            @error('rol')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                       

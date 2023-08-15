@@ -49,7 +49,7 @@
                             <select class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-500/13" name="categoria_id">
                                 <option value="">Categoría</option>
                                 @foreach($categorias as $categoria)
-                                <option value="{{ $categoria->id }}">{{ $categoria->descripcion }}</option>
+                                <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -57,7 +57,7 @@
                             <select class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-500/13" name="subcategoria_id">
                                 <option value="">Subcategoría</option>
                                 @foreach($subcategorias as $subcategoria)
-                                <option value="{{ $subcategoria->id }}">{{ $subcategoria->descripcion }}</option>
+                                <option value="{{ $subcategoria->id }}">{{ $subcategoria->nombre }}</option>
                                 @endforeach
                             </select>
                         </div>
