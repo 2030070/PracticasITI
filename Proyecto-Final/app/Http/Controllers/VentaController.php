@@ -126,4 +126,10 @@ class VentaController extends Controller{
         $ventas = Venta::all();
         return view('ventas.show', compact('ventas'));
     }
+
+    // Elimina una compra de la base de datos utilizando su ID
+    public function destroy($id){
+        Venta::findOrFail($id)->delete();
+        return redirect()->route('ventas.show')->with('success', 'Venta eliminada correctamente');
+    }
 }

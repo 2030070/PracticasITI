@@ -123,7 +123,7 @@
                                 </a>
                             </li>
                             <li class="mt-0.5 w-full">
-                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('registrar-cotizacion-form')}}">
+                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('cotizaciones.show')}}">
                                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                         <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-file-invoice"></i>
                                     </div>
@@ -131,7 +131,7 @@
                                 </a>
                             </li>
                             <li class="mt-0.5 w-full">
-                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('compras.create')}}">
+                                <a class="py-2.7  dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="{{route('compras.show')}}">
                                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                         <i class="relative top-0 text-sm leading-normal text-blue-500 fas fa-cart-arrow-down"></i>
                                     </div>
@@ -285,7 +285,7 @@
             const table = document.querySelector('.table-auto');
             const ws = XLSX.utils.table_to_sheet(table);
             const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'reporte');
+            XLSX.utils.book_append_sheet(wb, ws, 'Reporte');
             XLSX.writeFile(wb, tipo + '.xlsx');
         }
     </script>

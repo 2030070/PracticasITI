@@ -137,6 +137,8 @@ Route::delete('/ventas/eliminar-venta/{id}', [PuntoVentaController::class, 'dest
 Route::get('/ventas/detalle-venta/{id}', [PuntoVentaController::class, 'showDetalleVenta'])->name('ventas.detalle');
 Route::get('/ventas/filtrar-productos', [PuntoVentaController::class, 'filtrarProductos'])->name('filtrar.productos');
 Route::get('/ventas/lista-ventas', [VentaController::class, 'index'])->name('ventas.index');
+// Eliminar la venta
+Route::delete('/ventas/{id}', [VentaController::class, 'destroy'])->name('ventas.destroy');
 
 Route::get('/clientes', [ClienteController::class, 'show'])->name('clientes.show');
 Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');

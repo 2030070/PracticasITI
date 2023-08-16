@@ -92,7 +92,7 @@
                 </div>
             @endif
             <div class="overflow-x-auto">
-                <table id="compras-table" class="min-w-full border-2 border-blue-500 rounded-lg">
+                <table id="maintable" class="table-auto min-w-full border-2 border-blue-500 rounded-lg">
                     <thead>
                         <tr>
                             <th class="py-2 px-4 border-b text-left">Fecha</th>
@@ -146,7 +146,7 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-        $('#compras-table').DataTable({
+        $('#maintable').DataTable({
             "paging": true,
             "ordering": true,
             "info": true,

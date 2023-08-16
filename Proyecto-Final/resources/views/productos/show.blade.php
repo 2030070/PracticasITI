@@ -56,12 +56,7 @@
         <div class="col-span-1/2 md:col-span-1/2"></div> <!-- Espacio en blanco para el menú lateral -->
         <div class="col-span-2 md:col-span-5">
             <div class="my-4 flex justify-end space-x-2">
-                <form action="{{ route('producto.importar') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <label for="archivo_csv">Selecciona un archivo CSV:</label>
-                    <input type="file" name="archivo_csv" accept=".csv">
-                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" type="submit">Importar</button>
-                  </form>
+                
                 @auth
                 <button onclick="exportToPDF('reporte')" class="inline-block px-2 py-1 rounded-lg font-bold text-sm text-white bg-blue-500 hover:bg-blue-500/13 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#ffffff" viewBox="0 0 256 256">
@@ -94,8 +89,20 @@
                     {{ session('actualizada') }}
                 </div>
             @endif
+            <div class="flex justify-center items-center ">
+                <div class="w-96 p-8 rounded-lg shadow-lg bg-white">
+                    <form action="{{ route('producto.importar') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-5">
+                        @csrf
+                        <label for="archivo_csv" class="font-bold">Selecciona un archivo CSV:</label>
+                        <input type="file" name="archivo_csv" accept=".csv" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-100 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none ml-2">
+                        <button class="ml-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" type="submit">Importar</button>
+                    </form>
+                </div>
+            </div>
+            
+            
             <div class="overflow-x-auto">
-                <table id="productos-table" class="min-w-full border-2 border-blue-500 rounded-lg">
+                <table id="maintable" class="table-auto min-w-full border-2 border-blue-500 rounded-lg">
                     <thead>
                         <tr>
                             <th class="py-2 px-4 border-b text-left">Imagen</th>
@@ -178,7 +185,7 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-        $('#productos-table').DataTable({
+        $('#maintable').DataTable({
             "paging": true,
             "ordering": true,
             "info": true,
