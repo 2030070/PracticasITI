@@ -56,6 +56,12 @@
         <div class="col-span-1/2 md:col-span-1/2"></div> <!-- Espacio en blanco para el menú lateral -->
         <div class="col-span-2 md:col-span-5">
             <div class="my-4 flex justify-end space-x-2">
+                <form action="{{ route('producto.importar') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <label for="archivo_csv">Selecciona un archivo CSV:</label>
+                    <input type="file" name="archivo_csv" accept=".csv">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" type="submit">Importar</button>
+                  </form>
                 @auth
                 <button onclick="exportToPDF('reporte')" class="inline-block px-2 py-1 rounded-lg font-bold text-sm text-white bg-blue-500 hover:bg-blue-500/13 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#ffffff" viewBox="0 0 256 256">

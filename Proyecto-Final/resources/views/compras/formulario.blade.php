@@ -24,7 +24,7 @@
                         <div class="w-1/2 mr-2">
                             <label for="proveedor_id" class="block mb-2 font-semibold">Proveedor:</label>
                             <select name="proveedor_id" id="proveedor_id" class="focus:shadow-primary-outline dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border-2 border-blue-500 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
-                                <option value="">-- Seleccione un proveedor --</option>
+                                <option value="">Seleccione un proveedor</option>
                                 @foreach($proveedores as $proveedor)
                                     <option value="{{ $proveedor->id }}">{{ $proveedor->nombre }}</option>
                                 @endforeach

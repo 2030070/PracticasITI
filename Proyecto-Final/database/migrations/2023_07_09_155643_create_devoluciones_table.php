@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('devoluciones', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_producto');
             $table->date('fecha_devolucion');
+            $table->string('nombre_producto');
             $table->string('cliente');
             $table->string('estatus');
             $table->decimal('precio_total', 8, 2);

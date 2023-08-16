@@ -76,7 +76,7 @@ Route::post('/productos/images', [ImagenController::class, 'store'])->name('prod
 Route::put('/productos/{id}/edit', [ProductoController::class, 'update'])->name('productos.update');
 Route::put('/productos/{producto}/update-imagen', [ImagenController::class, 'update'])->name('productos.update_imagen');
 Route::get('/productos/{id}/detalle', [ProductoController::class, 'showDetails'])->name('productos.detalle');
-
+Route::post('/importarProductos', [ProductoController::class, 'importarProductos'])->name('producto.importar');
 
 // Ruta para mostrar el formulario de creación de una marca
 Route::get('/marcas/create', [MarcaController::class, 'create'])->name('marcas.create');
@@ -114,7 +114,7 @@ Route::post('/imagenes', [ImagenController::class, 'store'])->name('imagenes.sto
 
 
 // Redirecciona a las devolucciones ventas
-Route::get('/devoluciones/create', [DevolucionController::class, 'create'])->name('devoluciones.create');
+Route::get('/devoluciones/create/{productoId}/{ventaId}', [DevolucionController::class, 'create'])->name('devoluciones.create');
 // Redirecciona a crear el registro devolucciones ventas
 Route::post('/devoluciones/devolucion-store', [DevolucionController::class, 'store'])->name('devoluciones.store');
 // Redirecciona a para mostrar las devolucciones ventas
@@ -125,6 +125,7 @@ Route::delete('/devoluciones/{id}', [DevolucionController::class, 'destroy'])->n
 Route::get('/devoluciones/{devolucion}/edit', [DevolucionController::class, 'edit'])->name('devoluciones.edit');
 // Actualizar la categoría
 Route::put('/devoluciones/{id}/edit', [DevolucionController::class, 'update'])->name('devoluciones.update');
+
 
 
 Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas.create');

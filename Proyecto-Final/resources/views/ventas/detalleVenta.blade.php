@@ -53,24 +53,28 @@
                     <h3 class="mt-4">Productos Vendidos:</h3>
                     <thead class="bg-blue-500/13">
                         <tr>
-                            <th class="py-2 px-4 border-b">Imagen</th>
-                            <th class="py-2 px-4 border-b">Producto</th>
-                            <th class="py-2 px-4 border-b">Cantidad</th>
-                            <th class="py-2 px-4 border-b">Precio Ind. Producto</th>
-                            <th class="py-2 px-4 border-b">Total</th>
-
+                            <th class="py-2 px-4">Imagen</th>
+                            <th class="py-2 px-4">Producto</th>
+                            <th class="py-2 px-4">Cantidad</th>
+                            <th class="py-2 px-4">Precio Producto</th>
+                            <th class="py-2 px-4">Total</th>
+                            <th class="py-2 px-4">Devolver</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($producto as $productos)
+                        @foreach ($ventas->productos as $producto)
                             <tr>
-                                <td class="py-2 px-4 border-lg">
-                                    <img src="{{ asset('uploads') . '/' . $productos->imagen_producto }}" class="rounded-lg " alt="Imagen del producto" width="100">
+                                <td class="py-2 px-4">
+                                    <img src="{{ asset('uploads') . '/' . $producto->imagen }}" class="border-lg" alt="Imagen del producto" width="100">
                                 </td>
-                                <td class="py-2 px-4 border-b">{{ $productos->nombre_producto }}</td>
-                                <td class="py-2 px-4 border-b">{{ $productos->cantidad_vendida }}</td>
-                                <td class="py-2 px-4 border-b">${{ $productos->precio_producto }}</td>
-                                <td class="py-2 px-4 border-b">${{ $productos->precio_producto * $productos->cantidad_vendida }}</td>
+                                <td class="py-2 px-4">{{ $producto->nombre }}</td>
+                                <td class="py-2 px-4">{{ $producto->pivot->cantidad }}</td>
+                                <td class="py-2 px-4">${{ $producto->precio_venta }}</td>
+                                <td class="py-2 px-4">${{ $producto->pivot->cantidad * $producto->precio_venta }}</td>
+                                <td class="py-2 px-4">
+                                    <a class="inline-block bg-green-300 rounded-lg px-4 py-2 border border-green-300 hover:bg-green-400 hover:border-green-400 hover:text-white transition" href="{{ route('devoluciones.create', ['productoId' => $producto->id, 'ventaId' => $ventas->id]) }}">Crear devolución</a>
+                                </td>
+                                
                             </tr>
                         @endforeach
                     </tbody>

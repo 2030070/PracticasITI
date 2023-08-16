@@ -9,21 +9,22 @@ class Devolucion extends Model
 {
     use HasFactory;
     protected $table = 'devoluciones';
+
     protected $fillable = [
-        'nombre_producto',
-        'fecha_devolucion',
-        'cliente',
-        'estatus',
-        'precio_total',
-        'pagado',
-        'adeudo',
-        'estatus_pago',
+        'producto_id',
+        'cantidad',
+        'descripcion',
         'creado_por',
+        'fecha_devolucion',
+        'venta_id',
+        'referencia'
     ];
-    public function cliente(){
-        return $this->belongsTo(Cliente::class);
-    }
+
     public function producto(){
         return $this->belongsTo(Producto::class);
+    }
+
+    public function venta(){
+        return $this->belongsTo(Venta::class);
     }
 }

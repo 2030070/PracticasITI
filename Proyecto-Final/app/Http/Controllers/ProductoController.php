@@ -7,9 +7,11 @@ use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Subcategoria;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ProductoController extends Controller
 {
@@ -30,7 +32,7 @@ class ProductoController extends Controller
     // Método para almacenar un nuevo producto en la base de datos
     public function store(Request $request){
         $request->validate([
-            'imagen' => 'required', // Imagen requerida
+            'imagen' => '', // Imagen requerida
             'categoria_id' => 'required', // Categoría requerida
             'subcategoria_id' => '', // Subcategoría opcional
             'marca_id' => '', // Validación opcional para la marca_id
@@ -87,7 +89,7 @@ class ProductoController extends Controller
     // Método para actualizar los datos de un producto existente en la base de datos
     public function update(Request $request, $id){
         $request->validate([
-            'imagen' => 'required',
+            'imagen' => '',
             'categoria_id' => 'required', // Categoría requerida
             'subcategoria_id' => '', // Subcategoría opcional
             'marca_id' => '', // Validación opcional para la marca_id
@@ -148,4 +150,101 @@ class ProductoController extends Controller
         return view('productos.detalle', compact('producto'));
     }
     
+
+    public function importarProductos(Request $request){
+        $archivoCsv = $request->file('archivo_csv');
+
+        // Validar si se seleccionó un archivo
+        if ($archivoCsv == null) {
+            return redirect()->route('productos.show')->with('error', 'Debe seleccionar un archivo CSV.');
+        }
+
+        // Leer el contenido del archivo CSV
+        $contenido = file_get_contents($archivoCsv);
+        $lineas = explode(PHP_EOL, $contenido);
+
+        // Recorrer las líneas del CSV, comenzando desde la segunda línea (índice 1)
+        for ($i = 1; $i < count($lineas); $i++) {
+            $datos = str_getcsv($lineas[$i]);
+
+            // Verificar que $datos tenga la cantidad de elementos esperada (al menos 7 elementos)
+            if (count($datos) < 7) {
+                continue; // Saltar esta línea si no tiene suficientes elementos
+            }
+
+            // Validar los campos requeridos en el CSV
+            $validator = Validator::make([
+                'nombre' => $datos[0],
+                'categoria_id' => $datos[1],
+                'precio_compra' => $datos[2],
+                'precio_venta' => $datos[3],
+                'unidades_disponibles' => $datos[4],
+                'marca_id' => $datos[5], // Agregamos el campo marca al Validator
+                'subcategoria_id' => $datos[6],
+            ], [
+                'nombre' => 'required|string',
+                'categoria_id' => 'required|string',
+                'precio_compra' => 'required|numeric',
+                'precio_venta' => 'required|numeric',
+                'unidades_disponibles' => 'required|integer',
+                'marca_id' => 'nullable|string', // La marca es obligatoria
+                'subcategoria_id' => 'nullable|string', // La subcategoría puede ser nula
+            ]);
+
+            if ($validator->fails()) {
+                continue; // Saltar esta línea si no cumple con las validaciones
+            }
+
+            // Obtener o crear la marca por nombre
+            $marca = Marca::where('nombre', $datos[5])->first();
+
+            // Si no se encontró la marca, omitir la creación del producto para esta línea
+            if (!$marca) {
+                continue;
+            }
+
+            // Crear un nuevo registro de Producto con los datos del CSV
+            $producto = new Producto();
+            $producto->nombre = $datos[0];
+            $producto->precio_compra = $datos[2];
+            $producto->precio_venta = $datos[3];
+            $producto->unidades_disponibles = $datos[4];
+            
+
+            // Obtener la categoría por código
+            $categoria = Categoria::where('codigo', $datos[1])->first();
+
+            // Si no se encontró la categoría, saltamos esta línea
+            if (!$categoria) {
+                continue;
+            }
+
+            // Asignar el usuario actual como creador del producto
+            $producto->creado_por = Auth::user()->name;
+
+            // Si se proporcionó el código de subcategoría en el CSV
+            if ($datos[6]) {
+                // Obtener la subcategoría por código y que pertenezca a la categoría encontrada
+                $subcategoria = Subcategoria::where('codigo', $datos[6])
+                    ->where('categoria_id', $categoria->id)
+                    ->first();
+
+                // Si no se encontró la subcategoría, saltamos esta línea
+                if (!$subcategoria) {
+                    continue;
+                }
+
+                // Asociar la subcategoría al producto
+                $producto->subcategoria_id = $subcategoria->id;
+            }
+            // Asociar la categoría al producto
+            $producto->categoria_id = $categoria->id;
+            // Asociar la marca al producto
+            $producto->marca_id = $marca->id;
+            $producto->save();
+        }
+
+        return redirect()->route('productos.show')->with('success', 'Productos importados exitosamente.');
+    }
+
 }
