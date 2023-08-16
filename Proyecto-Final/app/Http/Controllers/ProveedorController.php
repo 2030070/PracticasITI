@@ -8,13 +8,13 @@ use App\Models\Country;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
 
-class ProveedorController extends Controller
-{
+class ProveedorController extends Controller{
     //
     public function __construct(){
         $this->middleware('auth'); // Middleware para autenticación
     }
 
+    //funcion para la vista de registrar formulario
     public function create(){ 
         $countries = Country::all();
         $states = State::all();
@@ -29,7 +29,7 @@ class ProveedorController extends Controller
         $request->validate([
             'nombre' => 'required', // Campo nombre requerido
             'codigo' => 'required|unique:proveedores,codigo', // Campo código requerido y único en la tabla proveedores
-            'telefono' => 'required', // Campo teléfono requerido
+            'telefono' => 'required|min:7|max:12', // Campo teléfono requerido
             'email' => 'required|email|unique:proveedores', // Campo email requerido y debe ser una dirección de correo válida y única en la tabla proveedores
             'pais' => 'required',
             'estado' => 'required',
@@ -74,7 +74,7 @@ class ProveedorController extends Controller
         $request->validate([
             'nombre' => 'required', // Campo nombre requerido
             'codigo' => 'required', // Campo código requerido
-            'telefono' => 'required', // Campo teléfono requerido
+            'telefono' => 'required|min:7|max:12', // Campo teléfono requerido
             'email' => 'required|email', // Campo email requerido y debe ser una dirección de correo válida
             'pais' => 'required',
             'estado' => 'required',

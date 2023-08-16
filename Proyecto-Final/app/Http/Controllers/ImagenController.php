@@ -10,8 +10,7 @@ use Intervention\Image\Facades\Image;
 /* Controlador para las imágenes que contiene la función 'Store' */
 class ImagenController extends Controller{
     // Método para almacenar una imagen en el servidor
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $imagen = $request->file('file'); // Obtener la imagen del formulario
         $nombreImagen = Str::uuid() . "." . $imagen->extension(); // Generar un nombre único para la imagen
 
@@ -24,8 +23,7 @@ class ImagenController extends Controller{
         return response()->json(['imagen' => $nombreImagen]); // Devolver el nombre de la imagen como respuesta en formato JSON
     }
 
-    public function update(Request $request)
-    {
+    public function update(Request $request){
         // Obtener la imagen del formulario
         $imagen = $request->file('file');
         $nombreImagen = Str::uuid() . "." . $imagen->extension();
@@ -38,13 +36,4 @@ class ImagenController extends Controller{
 
         return response()->json(['imagen' => $nombreImagen]);
     }
-
-
-    // Método para mostrar una imagen en la vista de detalle de una marca
-    // public function index($id)
-    // {
-    //     $marca = Marca::find($id); // Obtener la marca según su ID
-    //     $creadoPor = User::where('id', $marca->creado_por)->value('name'); // Obtener el nombre del usuario que creó la marca
-    //     return view('marcas.show', ['marca' => $marca, 'creadoPor' => $creadoPor]); // Mostrar la vista de detalle de la marca con la información correspondiente
-    // }
 }

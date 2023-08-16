@@ -8,12 +8,10 @@ use App\Models\Venta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use DB; // Agregamos el uso de la clase DB para usar consultas personalizadas
+use DB;
 
-class PuntoVentaController extends Controller
-{
-    public function index()
-    {
+class PuntoVentaController extends Controller{
+    public function index(){
         $productos = Producto::all();
         $categorias = Categoria::all();
         $productosSeleccionados = [];
@@ -22,8 +20,7 @@ class PuntoVentaController extends Controller
         return view('ventas.puntoVenta', compact('productosSeleccionados', 'total', 'productos', 'categorias'));
     }
 
-    public function guardarCompra(Request $request)
-    {
+    public function guardarCompra(Request $request){
         // Obtener el ID del usuario autenticado
         $userId = Auth::user()->id;
 
@@ -84,6 +81,7 @@ class PuntoVentaController extends Controller
         return redirect()->route('puntoVenta.index')->with('success', 'Venta guardada correctamente');
     }
 
+    //Eliminar venta
     public function destroy($id){
         $venta = Venta::findOrFail($id);
         $venta->delete();
@@ -91,8 +89,8 @@ class PuntoVentaController extends Controller
         return redirect()->back()->with('success','Se borró la venta');
     }
 
-    public function showDetalleVenta($id)
-    {
+    //ver los detalles de la venta
+    public function showDetalleVenta($id){
         $ventas = Venta::findOrFail($id);
         // Obtener la venta por su ID junto con los detalles de los productos vendidos usando JOIN
         $producto = Venta::select('ventas.*', 'productos.nombre as nombre_producto', 'productos.imagen as imagen_producto', 'productos.precio_venta as precio_producto', 'producto_venta.cantidad as cantidad_vendida')

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('precio_venta', 8, 2);
             $table->integer('unidades_disponibles');
             $table->string('creado_por');
+            $table->softDeletes(); // Agrega la columna deleted_at
             $table->timestamps();
         });
     }

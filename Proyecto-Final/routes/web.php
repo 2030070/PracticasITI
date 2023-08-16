@@ -129,9 +129,7 @@ Route::put('/devoluciones/{id}/edit', [DevolucionController::class, 'update'])->
 
 
 Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas.create');
-// Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
 Route::get('/ventas', [VentaController::class, 'show'])->name('ventas.show');
-// Route::post('/guardar-venta', 'VentaController@store')->name('venta.store');
 Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
 Route::get('/ventas/punto-venta', [PuntoVentaController::class, 'index'])->name('puntoVenta.index');
 Route::post('/ventas/guardar-compra', [PuntoVentaController::class, 'guardarCompra'])->name('guardar.compra');
@@ -139,7 +137,6 @@ Route::delete('/ventas/eliminar-venta/{id}', [PuntoVentaController::class, 'dest
 Route::get('/ventas/detalle-venta/{id}', [PuntoVentaController::class, 'showDetalleVenta'])->name('ventas.detalle');
 Route::get('/ventas/filtrar-productos', [PuntoVentaController::class, 'filtrarProductos'])->name('filtrar.productos');
 Route::get('/ventas/lista-ventas', [VentaController::class, 'index'])->name('ventas.index');
-Route::get('/ventas/pdf/{id}', [VentaController::class, 'exportarPDF'])->name('venta.pdf');
 
 Route::get('/clientes', [ClienteController::class, 'show'])->name('clientes.show');
 Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
@@ -184,7 +181,7 @@ Route::delete('/compras/{compra}', [CompraController::class, 'destroy'])->name('
 
 
 // Ruta para mostrar la tabla de cotizaciones
-Route::get('/cotizaciones/show', [CotizacionController::class, 'mostrarCotizaciones'])->name('cotizaciones.show');
+Route::get('/cotizaciones', [CotizacionController::class, 'mostrarCotizaciones'])->name('cotizaciones.show');
 // Ruta para mostrar el formulario de cotización
 Route::get('/cotizaciones/create', [CotizacionController::class, 'crearCotizacion'])->name('registrar-cotizacion-form');
 // Ruta para filtrar productos por categoria de la cotización

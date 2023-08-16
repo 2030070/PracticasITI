@@ -32,7 +32,7 @@ class UsuariosController extends Controller
             'apellidos' => 'required', //
             'usuario' => 'required', //
             'password' => 'required', //
-            'telefono' => 'required|max:10', // Campo teléfono requerido
+            'telefono' => 'required|min:7|max:12', // Campo teléfono requerido
             'email' => 'required|email', // Campo email requerido y debe ser una dirección de correo válida y única en la tabla proveedores
             'rol' => 'required',
             'creado_por' => 'required',
@@ -88,7 +88,7 @@ class UsuariosController extends Controller
             'apellidos' => 'required', //
             'usuario' => 'required', //
             'password' => 'required', //
-            'telefono' => 'required|max:10', // Campo teléfono requerido
+            'telefono' => 'required|min:7|max:12', // Campo teléfono requerido
             'email' => 'required|email|unique:usuarios,email,' . $usuario->id,
             'rol' => 'required',
             'creado_por' => 'required',

@@ -21,7 +21,7 @@ class DevolucionController extends Controller{
         // Obtener la cantidad de un producto específico en la venta
 
         $venta = Venta::where('id',$venta)->first();
-        $producto = Producto::where('id',$producto)->first();
+        $producto = Producto::withTrashed()->where('id',$producto)->first();
 
         $cantidadProductoEnVenta = $venta->productos()
         ->where('producto_id', $producto->id)
@@ -41,12 +41,11 @@ class DevolucionController extends Controller{
         if($cantidadMaxima == 0){
             return redirect()->back()->with('error', 'Ya se han devuelto todos los productos de este tipo');
         }
-
-        //dd($cantidadProductoEnVenta - $totalCantidad);
         //Obtener el nombre de los camposcantidadProductoEnVenta
         return view('devoluciones.create',compact('fechaActual','producto','venta','cantidadMaxima'));
     }
 
+    //metodo para editar el formulario
     public function edit(Devolucion $devolucion){
         $clientes = Cliente::all();
         $productos = Producto::all();
@@ -112,7 +111,7 @@ class DevolucionController extends Controller{
             'estatus_pago' => 'required',
             'creado_por' => 'required',
         ]);
-
+        //guardado de datos en el formulario
         $devolucion = Devolucion::findOrFail($id);
         $devolucion->nombre_producto = $request->nombre_producto;
         $devolucion->fecha_devolucion = $request->fecha_devolucion;

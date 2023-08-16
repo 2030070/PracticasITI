@@ -11,6 +11,7 @@ class LoginController extends Controller{
     public function index() {
         return view('auth.login');
     }
+    
     //validar formulario de login
     public function store(Request $request) {
         //reglas de validacion

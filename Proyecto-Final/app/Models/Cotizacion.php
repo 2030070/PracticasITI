@@ -24,7 +24,7 @@ class Cotizacion extends Model
 
     public function productos()
     {
-        return $this->belongsToMany(Producto::class)->using(CotizacionProducto::class)->withPivot('cantidad', 'precio_unitario', 'subtotal');
+        return $this->belongsToMany(Producto::class)->using(CotizacionProducto::class)->withPivot('cantidad', 'precio_unitario', 'subtotal')->withTrashed();
     }
 
     

@@ -27,7 +27,7 @@ class MarcaController extends Controller{
         $request->validate([
             'imagen' => 'required', // Imagen requerida
             'nombre' => 'required|max:255', // Nombre requerido y longitud máxima de 255 caracteres
-            'descripcion' => 'required', // Descripción requerida
+            'descripcion' => 'required|min:3', // Descripción requerida
             'creado_por' => 'required', // Creado por requerido
         ]);
 
@@ -82,7 +82,7 @@ class MarcaController extends Controller{
     public function update(Request $request, Marca $marca){
         $request->validate([
             'nombre' => 'required|max:255', // Nombre requerido y longitud máxima de 255 caracteres
-            'descripcion' => 'required', // Descripción requerida
+            'descripcion' => 'required|min:3', // Descripción requerida
             'creado_por' => 'required', // Creado por requerido
             'imagen' => 'required',
         ]);

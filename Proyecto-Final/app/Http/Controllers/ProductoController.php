@@ -13,8 +13,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class ProductoController extends Controller
-{
+class ProductoController extends Controller{
     // Middleware para autenticación en todos los métodos del controlador
     public function __construct(){
         $this->middleware('auth');
@@ -37,9 +36,9 @@ class ProductoController extends Controller
             'subcategoria_id' => '', // Subcategoría opcional
             'marca_id' => '', // Validación opcional para la marca_id
             'nombre' => 'required|min:3', // Nombre requerido y longitud mínima de 3 caracteres
-            'precio_compra' => 'required|numeric|min:0', // Precio de compra requerido, numérico y valor mínimo de 0
-            'precio_venta' => 'required|numeric|min:0', // Precio de venta requerido, numérico y valor mínimo de 0
-            'unidades_disponibles' => 'required|integer|min:0', // Unidades disponibles requeridas, enteras y valor mínimo de 0
+            'precio_compra' => 'required|numeric|min:1', // Precio de compra requerido, numérico y valor mínimo de 0
+            'precio_venta' => 'required|numeric|min:1', // Precio de venta requerido, numérico y valor mínimo de 0
+            'unidades_disponibles' => 'required|integer|min:1', // Unidades disponibles requeridas, enteras y valor mínimo de 0
             'creado_por' => 'required', // Creado por requerido
         ]);
 
@@ -94,9 +93,9 @@ class ProductoController extends Controller
             'subcategoria_id' => '', // Subcategoría opcional
             'marca_id' => '', // Validación opcional para la marca_id
             'nombre' => 'required', // Nombre requerido
-            'precio_compra' => 'required|numeric|min:0', // Precio de compra requerido, numérico y valor mínimo de 0
-            'precio_venta' => 'required|numeric|min:0', // Precio de venta requerido, numérico y valor mínimo de 0
-            'unidades_disponibles' => 'required|integer|min:0', // Unidades disponibles requeridas, enteras y valor mínimo de 0
+            'precio_compra' => 'required|numeric|min:1', // Precio de compra requerido, numérico y valor mínimo de 0
+            'precio_venta' => 'required|numeric|min:1', // Precio de venta requerido, numérico y valor mínimo de 0
+            'unidades_disponibles' => 'required|integer|min:1', // Unidades disponibles requeridas, enteras y valor mínimo de 0
             'creado_por' => 'required', // Creado por requerido
         ]);
 
@@ -144,13 +143,14 @@ class ProductoController extends Controller
         return redirect()->route('productos.show')->with('error', 'Error al actualizar la imagen de productos.');
     }
 
-
+    //mostrar los detalles de los productos
     public function showDetails($id) {
         $producto = Producto::findOrFail($id);
         return view('productos.detalle', compact('producto'));
     }
     
-
+    //metodo para importar productos desde un archivo CSV con las columnas establecidas para guardar los valores en las tablas 
+    //de los modelos de la base de datos en la base de datos
     public function importarProductos(Request $request){
         $archivoCsv = $request->file('archivo_csv');
 
@@ -209,11 +209,8 @@ class ProductoController extends Controller
             $producto->precio_compra = $datos[2];
             $producto->precio_venta = $datos[3];
             $producto->unidades_disponibles = $datos[4];
-            
-
             // Obtener la categoría por código
             $categoria = Categoria::where('codigo', $datos[1])->first();
-
             // Si no se encontró la categoría, saltamos esta línea
             if (!$categoria) {
                 continue;
@@ -221,7 +218,6 @@ class ProductoController extends Controller
 
             // Asignar el usuario actual como creador del producto
             $producto->creado_por = Auth::user()->name;
-
             // Si se proporcionó el código de subcategoría en el CSV
             if ($datos[6]) {
                 // Obtener la subcategoría por código y que pertenezca a la categoría encontrada

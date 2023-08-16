@@ -30,8 +30,8 @@ class SubcategoriaController extends Controller{
             'imagen' => 'required', // Imagen requerida
             'categoria_id' => 'required',
             'codigo' => 'required|unique:subcategorias,codigo',
-            'nombre' => 'required',
-            'descripcion' => 'required',
+            'nombre' => 'required|min:3',
+            'descripcion' => 'required|min:3',
             'creado_por' => 'required',
         ]);
 
@@ -70,8 +70,8 @@ class SubcategoriaController extends Controller{
             'imagen' => 'required',
             'categoria_id' => 'required',
             'codigo' => 'required',
-            'nombre' => 'required',
-            'descripcion' => 'required',
+            'nombre' => 'required|min:3',
+            'descripcion' => 'required|min:3',
             'creado_por' => 'required',
         ]);
 

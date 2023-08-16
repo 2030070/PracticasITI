@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class CotizacionController extends Controller
-{
+class CotizacionController extends Controller{
     // Muestra la tabla de Cotizaciones realizadas
     public function mostrarCotizaciones(){
         $cotizaciones = Cotizacion::all();
@@ -34,24 +33,29 @@ class CotizacionController extends Controller
         return view('cotizaciones.create', compact('marcas','subcategorias','clientes', 'categorias', 'todosLosProductos'));
     }
 
-        public function cart(){
-            $carrito = session()->get('carrito', []);
-            return response()->json(['cart' => $carrito]);
-        }
+    //Obtiene el contenido actual del carrito en formato JSON
+    public function cart(){
+        $carrito = session()->get('carrito', []);
+        return response()->json(['cart' => $carrito]);
+    }
 
+    // Agrega un prodducto al carrito de cotizaciones
     public function agregar(Request $request){   
+        //obtiene el ID del producto desde la solicitud
         $producto_id = $request->get('producto_id');
         $producto = Producto::find($producto_id);
 
+        //valida que el producto exista
         if(!$producto) {
             return response()->json(['message' => 'Producto no encontrado.'], 404);
         }
-
+        //manejo del carrito en sesion
         $carrito = session()->get('carrito', []);
         $key = array_search($producto_id, array_column($carrito, 'producto_id'));
         if($key !== false) {
             $carrito[$key]['cantidad']++;
         } else {
+            //agrega el producto al carrito de cotizaciones
             $carrito[] = [
                 'producto_id' => $producto_id,
                 'nombre' => $producto->nombre,
@@ -65,6 +69,7 @@ class CotizacionController extends Controller
         return response()->json(['cart' => $carrito]);
     }
 
+    //metodo para eliminar el producto del inventario del carrito de cotizaciones
     public function eliminar(Request $request){
         $producto_id = $request->get('producto_id');
         $carrito = session()->get('carrito', []);
@@ -79,6 +84,7 @@ class CotizacionController extends Controller
         return response()->json(['cart' => $carrito]);
     }
 
+    //Almacena una nueva cotizacion en la base de datos 
     public function almacenarCotizacion(Request $request){
         // Iniciar una transacción
         DB::beginTransaction();
@@ -121,6 +127,7 @@ class CotizacionController extends Controller
         }
     }
 
+    // Realiza un filtrado de productos basado en los filtros proporcionados
     public function filtro(Request $request){
         $filtros = $request->all();
         $productos = Producto::query();
@@ -137,6 +144,7 @@ class CotizacionController extends Controller
             $productos->where('nombre', 'LIKE', '%'.$filtros['nombre'].'%');
         }
         $productos = $productos->get();
+        //retorno de productos filtrados 
         return response()->json(['productos' => $productos]);
     }
 

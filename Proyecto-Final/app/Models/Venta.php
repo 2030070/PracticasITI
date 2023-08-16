@@ -21,7 +21,7 @@ class Venta extends Model
 
     public function productos()
     {
-        return $this->belongsToMany(Producto::class)->using(VentasProducto::class)->withPivot('cantidad');
+        return $this->belongsToMany(Producto::class)->using(VentasProducto::class)->withPivot('cantidad')->withTrashed();
     }
 
     public function cliente(){

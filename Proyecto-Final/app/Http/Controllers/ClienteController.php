@@ -18,6 +18,7 @@ class ClienteController extends Controller
         $this->middleware('auth');
     }
     
+    //Metodo para mostrar el formulario de registrar al cliente
     public function create(){ 
         $countries = Country::all();
         $states = State::all();
@@ -34,8 +35,8 @@ class ClienteController extends Controller
             'nombre' => 'required|max:255',
             'imagen' => 'required',
             'codigo' => 'required|unique:clientes,codigo',
-            'empresa' => 'required',
-            'telefono' => 'required',
+            'empresa' => 'required|min:3',
+            'telefono' => 'required|min:7|max:12',
             'correo' => 'required|email',
             'pais' => 'required',
             'estado' => 'required',
@@ -100,8 +101,8 @@ class ClienteController extends Controller
         $request->validate([
             'nombre' => 'required|max:255',
             'codigo' => 'required',
-            'empresa' => 'required',
-            'telefono' => 'required',
+            'empresa' => 'required|min:3',
+            'telefono' => 'required|min:7|max:12',
             'correo' => 'required|email',
             'imagen' => 'required',
             'pais' => 'required',

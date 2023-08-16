@@ -34,9 +34,7 @@ class VentaController extends Controller{
         $subcategorias = Subcategoria::all();
         $todosLosProductos = Producto::all();
         $clientes = Cliente::all();
-
         $fechaActual = date('Y-m-d');
-
         return view('ventas.create', compact('fechaActual','marcas','subcategorias','clientes', 'categorias', 'todosLosProductos'));
     }
 
@@ -79,12 +77,9 @@ class VentaController extends Controller{
                     $producto_id,
                     ['cantidad' => $cantidad]
                 );
-
                 $productoEnInventario->unidades_disponibles -= $cantidad;
                 $productoEnInventario->save();
             }
-
-
 
             // Limpiamos el carrito de la sesión después de guardar la venta
             session()->forget('carrito');
@@ -101,10 +96,8 @@ class VentaController extends Controller{
 
     }
 
-    public function filtro(Request $request)
-    {
+    public function filtro(Request $request){
         $filtros = $request->all();
-
         $productos = Producto::query();
 
         if(isset($filtros['categoria_id'])) {
@@ -124,7 +117,6 @@ class VentaController extends Controller{
         }
 
         $productos = $productos->get();
-
         return response()->json(['productos' => $productos]);
     }
 

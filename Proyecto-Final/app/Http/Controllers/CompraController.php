@@ -35,11 +35,10 @@ class CompraController extends Controller
         return view('compras.create', compact('fechaActual','marcas','subcategorias', 'categorias', 'todosLosProductos'));
     }
 
+    //Metodo para mostrar el formulario de la compra del producto 
     public function formulario(Producto $producto){
-
         $fechaActual = date('Y-m-d');
         $proveedores = Proveedor::all();
-
         return view('compras.formulario', compact('fechaActual','producto','proveedores'));
     }
 
